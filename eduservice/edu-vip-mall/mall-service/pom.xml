@@ -3,6 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <modules>
+        <module>mall-goods-service</module>
+    </modules>
     <parent>
         <artifactId>gupaoedu-vip-mall</artifactId>
         <groupId>com.gupaoedu</groupId>
@@ -13,6 +16,21 @@
     <packaging>pom</packaging>
     <artifactId>mall-service</artifactId>
     <description>所有微服务工程的父工程</description>
+
+    <dependencies>
+        <!--jar包依赖-->
+        <dependency>
+            <groupId>com.gupaoedu</groupId>
+            <artifactId>mall-service-dependency</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <!--工具包依赖-->
+        <dependency>
+            <groupId>com.gupaoedu</groupId>
+            <artifactId>mall-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 
 </project>

@@ -3,6 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <modules>
+        <module>mall-goods-api</module>
+    </modules>
 
     <!--父工程-->
     <parent>
@@ -15,6 +18,17 @@
     <packaging>pom</packaging>
     <artifactId>mall-api</artifactId>
     <description>所有数据库表对应的Bean和Feign</description>
+
+    <!--依赖包-->
+    <dependencies>
+        <!--MyBatis-Plus-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.3.2</version>
+            <scope>provided</scope> <!--编译打包的时候使用-->
+        </dependency>
+    </dependencies>
 
 
 </project>
