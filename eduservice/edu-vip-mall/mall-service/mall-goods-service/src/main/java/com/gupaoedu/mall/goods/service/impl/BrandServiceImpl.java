@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gupaoedu.mall.goods.mapper.BrandMapper;
 import com.gupaoedu.mall.goods.model.Brand;
 import com.gupaoedu.mall.goods.service.BrandService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,9 @@ import java.util.List;
 @Service
 public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand> implements BrandService {
 
+    @Autowired
+    private BrandMapper brandMapper;
+
     /**
      * 条件查询
      *
@@ -29,9 +33,25 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand> implements
      */
     @Override
     public List<Brand> queryList(Brand brand) {
-        this.list(Wrappers.<Brand>lambdaQuery()
+        return this.list(Wrappers.<Brand>lambdaQuery()
                 .eq(Brand::getName, brand.getName())
         );
-        return null;
+    }
+
+    /**
+     * 根据分类id查询品牌
+     *
+     * @param categoryId {@link Integer}
+     * @return {@link List< Brand>}
+     * @author Kang Yong
+     * @date 2022/2/10
+     */
+    @Override
+    public List<Brand> queryByCategoryId(Integer categoryId) {
+        // 根据分类id查询品牌
+        List<Integer> brandIds = this.brandMapper.queryBrandIds(categoryId);
+        // 根据品牌id查询品牌信息
+        List<Brand> brandList = this.baseMapper.selectBatchIds(brandIds);
+        return brandList;
     }
 }

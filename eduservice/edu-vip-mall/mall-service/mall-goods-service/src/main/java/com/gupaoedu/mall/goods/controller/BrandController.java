@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.spi.ResolveResult;
+import java.util.List;
+
 /**
  * 品牌 控制层
  *
@@ -61,5 +64,19 @@ public class BrandController {
     public RespResult delete(@PathVariable("id") Integer id) {
         brandService.removeById(id);
         return RespResult.ok();
+    }
+
+    /**
+     * 根据分类id查询品牌
+     *
+     * @param categoryId {@link Integer}
+     * @return {@link RespResult< List< Brand>>}
+     * @author Kang Yong
+     * @date 2022/2/10
+     */
+    @GetMapping("/category/{categoryId}")
+    public RespResult<List<Brand>> queryByCategoryId(@PathVariable("categoryId") Integer categoryId) {
+        List<Brand> brandList = this.brandService.queryByCategoryId(categoryId);
+        return RespResult.ok(brandList);
     }
 }

@@ -23,4 +23,14 @@ public interface BrandService extends IService<Brand> {
      * @date 2022/1/21
      */
     List<Brand> queryList(Brand brand);
+
+    /**
+     * 根据分类id查询品牌
+     *
+     * @param categoryId {@link Integer}
+     * @return {@link List< Brand>}
+     * @author Kang Yong
+     * @date 2022/2/10
+     */
+    List<Brand> queryByCategoryId(Integer categoryId);
 }

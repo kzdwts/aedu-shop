@@ -33,8 +33,8 @@ public class CategoryController {
      * @author Kang Yong
      * @date 2022/2/10
      */
-    @GetMapping("/parent/{id}")
-    public RespResult<List<Category>> findByParentId(@PathVariable("id") Integer pid) {
+    @GetMapping("/parent/{pid}")
+    public RespResult<List<Category>> findByParentId(@PathVariable("pid") Integer pid) {
         List<Category> categoryList = this.categoryService.findByParentId(pid);
         return RespResult.ok(categoryList);
     }
