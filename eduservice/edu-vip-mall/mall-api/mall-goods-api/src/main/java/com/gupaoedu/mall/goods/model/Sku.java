@@ -26,7 +26,7 @@ public class Sku implements Serializable {
     /**
      * 商品id
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.ASSIGN_ID)
     private Integer id;
 
     /**
@@ -95,7 +95,7 @@ public class Sku implements Serializable {
     private String skuAttribute;
 
     /**
-     * 删除
+     * 商品状态 1-正常，2-下架，3-删除
      */
     private Integer status;
 }

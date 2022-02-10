@@ -51,7 +51,10 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand> implements
         // 根据分类id查询品牌
         List<Integer> brandIds = this.brandMapper.queryBrandIds(categoryId);
         // 根据品牌id查询品牌信息
-        List<Brand> brandList = this.baseMapper.selectBatchIds(brandIds);
-        return brandList;
+        if (brandIds != null && brandIds.size() > 0) {
+            List<Brand> brandList = this.brandMapper.selectBatchIds(brandIds);
+            return brandList;
+        }
+        return null;
     }
 }
