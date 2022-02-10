@@ -6,45 +6,42 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 
 /**
- * 品牌表
+ * 商品分类
  *
  * @author Kang Yong
- * @date 2022/1/21
+ * @date 2022/2/10
  * @since 1.0.0
  */
 @Data
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName(value = "brand")
-public class Brand implements Serializable {
+@TableName(value = "category")
+public class Category implements Serializable {
 
     /**
-     * ID 主键
+     * 分类ID 主键
      */
     @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 品牌名字
+     * 分类名称
      */
     private String name;
-
-    /**
-     * 品牌图片
-     */
-    private String image;
-
-    /**
-     * 品牌首字母
-     */
-    private String initial;
 
     /**
      * 排序
      */
     private Integer sort;
+
+    /**
+     * 上级ID
+     */
+    private Integer parentId;
 }

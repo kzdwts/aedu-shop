@@ -10,17 +10,17 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * 品牌表
+ * sku商品属性
  *
  * @author Kang Yong
- * @date 2022/1/21
+ * @date 2022/2/10
  * @since 1.0.0
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName(value = "brand")
-public class Brand implements Serializable {
+@TableName(value = "sku_attribute")
+public class SkuAttribute implements Serializable {
 
     /**
      * ID 主键
@@ -29,19 +29,14 @@ public class Brand implements Serializable {
     private Integer id;
 
     /**
-     * 品牌名字
+     * 属性名称
      */
     private String name;
 
     /**
-     * 品牌图片
+     * 属性选项
      */
-    private String image;
-
-    /**
-     * 品牌首字母
-     */
-    private String initial;
+    private String options;
 
     /**
      * 排序
