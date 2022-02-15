@@ -32,7 +32,7 @@ public class SkuController {
      * @date 2022/2/14
      */
     @GetMapping("/additems/type")
-    public RespResult<List<Sku>> typeItems(@PathParam("id") Integer id) {
+    public RespResult<List<Sku>> typeSkuItems(@RequestParam("id") Integer id) {
         List<Sku> skuList = this.skuService.typeSkuItems(id);
         return RespResult.ok(skuList);
     }
