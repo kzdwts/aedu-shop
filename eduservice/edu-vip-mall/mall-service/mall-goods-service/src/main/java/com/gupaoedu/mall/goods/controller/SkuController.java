@@ -4,9 +4,7 @@ import com.gupaoedu.mall.goods.model.Sku;
 import com.gupaoedu.mall.goods.service.SkuService;
 import com.gupaoedu.mall.util.RespResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
@@ -37,6 +35,21 @@ public class SkuController {
     public RespResult<List<Sku>> typeItems(@PathParam("id") Integer id) {
         List<Sku> skuList = this.skuService.typeSkuItems(id);
         return RespResult.ok(skuList);
+    }
+
+    /**
+     * 删除指定分类下的推广产品列表
+     *
+     * @param id {@link Integer}
+     * @return {@link RespResult}
+     * @author Kang Yong
+     * @date 2022/2/15
+     */
+    @DeleteMapping("/aditems/type")
+    public RespResult deleteTypeItems(@RequestParam("id") Integer id) {
+        // 清理缓存
+        this.skuService.delTypeSkuItems(id);
+        return RespResult.ok();
     }
 
 }

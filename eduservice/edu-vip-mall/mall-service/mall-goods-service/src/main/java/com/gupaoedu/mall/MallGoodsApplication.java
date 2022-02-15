@@ -3,6 +3,7 @@ package com.gupaoedu.mall;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * MallGoods启动类
@@ -13,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan(basePackages = {"com.gupaoedu.mall.goods.mapper.*"})
+@EnableCaching // 开启缓存
 public class MallGoodsApplication {
 
     public static void main(String[] args) {
