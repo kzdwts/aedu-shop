@@ -36,3 +36,9 @@
     * 使用 Lua 脚本语言调动 Nginx 支持的各种 C 以及 Lua 模块
     * 足以胜任 10K 乃至 1000K 以上单机并发连接的高性能 Web 应用系统
     * OpenResty® 的目标是让你的Web服务直接跑在 Nginx 服务内部
+* [Canal](https://github.com/alibaba/canal)    
+    * 主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费
+    * 工作原理
+        * canal 模拟 MySQL slave 的交互协议，伪装自己为 MySQL slave ，向 MySQL master 发送dump 协议
+        * MySQL master 收到 dump 请求，开始推送 binary log 给 slave (即 canal )
+        * canal 解析 binary log 对象(原始为 byte 流)
