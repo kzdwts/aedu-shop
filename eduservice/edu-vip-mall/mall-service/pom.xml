@@ -6,6 +6,7 @@
     <modules>
         <module>mall-goods-service</module>
         <module>mall-file-service</module>
+        <module>mall-canal-service</module>
     </modules>
     <parent>
         <artifactId>gupaoedu-vip-mall</artifactId>
