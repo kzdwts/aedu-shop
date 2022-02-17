@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -17,6 +18,7 @@ import java.io.Serializable;
  * @since 1.0.0
  */
 @Data
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName(value = "ad_items")

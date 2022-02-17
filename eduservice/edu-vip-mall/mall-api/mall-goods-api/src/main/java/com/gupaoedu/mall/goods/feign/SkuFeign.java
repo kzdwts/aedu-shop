@@ -5,6 +5,7 @@ import com.gupaoedu.mall.util.RespResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -40,4 +41,15 @@ public interface SkuFeign {
      */
     @DeleteMapping("/sku/aditems/type")
     RespResult deleteTypeItems(@RequestParam("id") Integer id);
+
+    /**
+     * 修改制定分类下的推广产品列表
+     *
+     * @param id {@link Integer}  分类id
+     * @return {@link RespResult}
+     * @author Kang Yong
+     * @date 2022/2/17
+     */
+    @PutMapping("/aditems/type")
+    RespResult updateTypeItems(@RequestParam("id") Integer id);
 }

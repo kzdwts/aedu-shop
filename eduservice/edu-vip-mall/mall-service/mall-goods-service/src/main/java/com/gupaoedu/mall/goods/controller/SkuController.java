@@ -26,7 +26,7 @@ public class SkuController {
     /**
      * 根据推广分类查询推广产品列表
      *
-     * @param id {@link Integer}
+     * @param id {@link Integer} 分类id
      * @return {@link RespResult< List< Sku>>}
      * @author Kang Yong
      * @date 2022/2/14
@@ -40,7 +40,7 @@ public class SkuController {
     /**
      * 删除指定分类下的推广产品列表
      *
-     * @param id {@link Integer}
+     * @param id {@link Integer} 分类id
      * @return {@link RespResult}
      * @author Kang Yong
      * @date 2022/2/15
@@ -49,6 +49,20 @@ public class SkuController {
     public RespResult deleteTypeItems(@RequestParam("id") Integer id) {
         // 清理缓存
         this.skuService.delTypeSkuItems(id);
+        return RespResult.ok();
+    }
+
+    /**
+     * 修改制定分类下的推广产品列表
+     *
+     * @param id {@link Integer}  分类id
+     * @return {@link RespResult}
+     * @author Kang Yong
+     * @date 2022/2/17
+     */
+    @PutMapping("/aditems/type")
+    public RespResult updateTypeItems(@RequestParam("id") Integer id) {
+        this.skuService.updateTypeItems(id);
         return RespResult.ok();
     }
 

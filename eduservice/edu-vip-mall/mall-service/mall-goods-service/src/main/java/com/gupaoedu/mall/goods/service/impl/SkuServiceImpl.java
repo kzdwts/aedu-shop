@@ -76,4 +76,16 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
     public void delTypeSkuItems(Integer typeId) {
         log.info("===根据分类id清空推广产品缓存===");
     }
+
+    /**
+     * 修改制定分类下的推广产品列表
+     *
+     * @param typeId {@link Integer}
+     * @author Kang Yong
+     * @date 2022/2/17
+     */
+    @Override
+    public void updateTypeItems(Integer typeId) {
+
+    }
 }

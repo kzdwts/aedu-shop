@@ -32,4 +32,13 @@ public interface SkuService extends IService<Sku> {
      * @date 2022/2/15
      */
     void delTypeSkuItems(Integer typeId);
+
+    /**
+     * 修改制定分类下的推广产品列表
+     *
+     * @param typeId {@link Integer}
+     * @author Kang Yong
+     * @date 2022/2/17
+     */
+    void updateTypeItems(Integer typeId);
 }
