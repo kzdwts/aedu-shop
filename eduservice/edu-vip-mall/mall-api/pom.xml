@@ -5,6 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>mall-goods-api</module>
+        <module>mall-search-api</module>
     </modules>
 
     <!--父工程-->
