@@ -30,4 +30,9 @@
     * 服务及其元数据管理  
 * [Ceph](https://ceph.com/en/)
     * 分布式文件存储系统Ceph
-    
+* [OpenResty](http://openresty.org/cn/)    
+    * OpenResty® 是一个基于 Nginx 与 Lua 的高性能 Web 平台
+    * 用于方便地搭建能够处理超高并发、扩展性极高的动态 Web 应用、Web 服务和动态网关
+    * 使用 Lua 脚本语言调动 Nginx 支持的各种 C 以及 Lua 模块
+    * 足以胜任 10K 乃至 1000K 以上单机并发连接的高性能 Web 应用系统
+    * OpenResty® 的目标是让你的Web服务直接跑在 Nginx 服务内部
