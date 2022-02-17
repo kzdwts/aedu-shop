@@ -1,0 +1,23 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: mall-search
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml
+        server-addr: 192.168.100.133:8848
+      discovery:
+        # Nacos的注册地址
+        server-addr: 192.168.100.133:8848
+  # ElasticSearch服务配置
+  elasticsearch:
+    rest:
+      uris: http://192.168.100.133:9200
+# 日志配置
+logging:
+  pattern:
+    console: "%msg%n"
+    level:
+      root: error
