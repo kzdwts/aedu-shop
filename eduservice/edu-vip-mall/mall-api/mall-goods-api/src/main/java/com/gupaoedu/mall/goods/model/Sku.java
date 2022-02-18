@@ -27,7 +27,7 @@ public class Sku implements Serializable {
      * 商品id
      */
     @TableId(type = IdType.ASSIGN_ID)
-    private Integer id;
+    private String id;
 
     /**
      * SKU名称
@@ -67,7 +67,7 @@ public class Sku implements Serializable {
     /**
      * SPUID
      */
-    private Integer spuId;
+    private String spuId;
 
     /**
      * 类目ID

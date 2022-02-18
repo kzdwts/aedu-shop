@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * @since 1.0.0
  */
 @Slf4j
-@CacheConfig(cacheNames = "ad-items-skus")
+//@CacheConfig(cacheNames = "ad-items-skus")
 @Service
 public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuService {
 
@@ -50,7 +50,7 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
      * @author Kang Yong
      * @date 2022/2/14
      */
-    @Cacheable(key = "#typeId")
+//    @Cacheable(key = "#typeId")
     @Override
     public List<Sku> typeSkuItems(Integer typeId) {
         // 1、查询当前分类下的所有列表信息
@@ -71,7 +71,7 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
      * @author Kang Yong
      * @date 2022/2/15
      */
-    @CacheEvict(key = "#typeId")
+//    @CacheEvict(key = "#typeId")
     @Override
     public void delTypeSkuItems(Integer typeId) {
         log.info("===根据分类id清空推广产品缓存===");

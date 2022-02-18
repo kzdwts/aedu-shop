@@ -26,7 +26,7 @@ public class Spu implements Serializable {
      * ID 主键
      */
     @TableId(type = IdType.ASSIGN_ID)
-    private Integer id;
+    private String id;
 
     /**
      * SPU名
