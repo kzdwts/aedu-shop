@@ -36,6 +36,16 @@
     * 使用 Lua 脚本语言调动 Nginx 支持的各种 C 以及 Lua 模块
     * 足以胜任 10K 乃至 1000K 以上单机并发连接的高性能 Web 应用系统
     * OpenResty® 的目标是让你的Web服务直接跑在 Nginx 服务内部
+* [Lua](http://www.lua.org/docs.html)
+  * [Lua中文官网](https://zhuanlan.zhihu.com/p/73147795)
+  * Lua是一种强大，高效，轻量级，可嵌入的脚本语言
+  * Lua是一种经过验证的，健壮的语言。
+  * Lua是快速的
+  * Lua是便携的
+  * Lua可嵌入
+  * Lua很强大（但很简单）
+  * Lua是轻量级的
+  * Lua是免费的
 * [Canal](https://github.com/alibaba/canal)    
     * 主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费
     * 工作原理
