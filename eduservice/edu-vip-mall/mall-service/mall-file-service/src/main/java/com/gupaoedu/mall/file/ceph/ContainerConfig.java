@@ -22,7 +22,6 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "ceph")
 public class ContainerConfig {
 
-
     // 自用户名
     private String username;
 

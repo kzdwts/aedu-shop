@@ -15,7 +15,7 @@ spring:
 ceph:
   username: cephtester:subtester # ceph配置 主用户名：自用户名
   password: gupao # 秘钥
-  authUrl: http://192.168.100.133:7480/auth/1.0 # 接口访问路径
+  authUrl: http://192.168.100.132:7480/auth/1.0 # 接口访问路径
   defaultContainerName: user_datainfo # 默认容器名字
 
 # 图片路径
