@@ -40,5 +40,5 @@ public interface SkuService extends IService<Sku> {
      * @author Kang Yong
      * @date 2022/2/17
      */
-    void updateTypeItems(Integer typeId);
+    List<Sku> updateTypeSkuItems(Integer typeId);
 }

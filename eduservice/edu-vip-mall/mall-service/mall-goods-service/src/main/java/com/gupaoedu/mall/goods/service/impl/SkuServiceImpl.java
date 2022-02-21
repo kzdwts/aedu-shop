@@ -10,9 +10,7 @@ import com.gupaoedu.mall.goods.model.Sku;
 import com.gupaoedu.mall.goods.service.SkuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -84,8 +82,16 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
      * @author Kang Yong
      * @date 2022/2/17
      */
+    @CachePut(key = "#typeId")
     @Override
-    public void updateTypeItems(Integer typeId) {
+    public List<Sku> updateTypeSkuItems(Integer typeId) {
+        // 查询当前分类下的所有列表
+        List<AdItems> adItemsList = this.adItemsMapper.selectList(Wrappers.<AdItems>lambdaQuery()
+                .eq(AdItems::getType, typeId)
+        );
 
+        // 根据推广列表查询产品列表信息
+        List<String> skuIds = adItemsList.stream().map(AdItems::getSkuId).collect(Collectors.toList());
+        return skuIds == null || skuIds.size() <= 0 ? null : this.skuMapper.selectBatchIds(skuIds);
     }
 }

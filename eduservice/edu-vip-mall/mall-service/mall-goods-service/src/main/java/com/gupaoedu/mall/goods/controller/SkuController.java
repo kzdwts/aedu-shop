@@ -62,7 +62,7 @@ public class SkuController {
      */
     @PutMapping("/aditems/type")
     public RespResult updateTypeItems(@RequestParam("id") Integer id) {
-        this.skuService.updateTypeItems(id);
+        this.skuService.updateTypeSkuItems(id);
         return RespResult.ok();
     }
 
