@@ -14,7 +14,7 @@ import org.springframework.cache.annotation.EnableCaching;
  */
 @SpringBootApplication
 @MapperScan(basePackages = {"com.gupaoedu.mall.goods.mapper"})
-//@EnableCaching // 开启缓存
+@EnableCaching // 开启缓存
 public class MallGoodsApplication {
 
     public static void main(String[] args) {
