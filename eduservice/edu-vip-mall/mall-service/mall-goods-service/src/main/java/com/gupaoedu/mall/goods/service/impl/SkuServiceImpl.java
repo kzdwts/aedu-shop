@@ -61,7 +61,7 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
                 .eq(AdItems::getType, typeId)
         );
         if (CollectionUtils.isEmpty(adItemsList)) {
-            return new ArrayList<>();
+            return null;
         }
 
         // 2、根据推广列表查询产品信息

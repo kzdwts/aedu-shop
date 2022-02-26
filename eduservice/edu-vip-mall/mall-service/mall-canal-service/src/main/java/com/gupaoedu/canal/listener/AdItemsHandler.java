@@ -17,7 +17,7 @@ import top.javatool.canal.client.handler.EntryHandler;
  */
 @Slf4j
 @Component
-@CanalTable("ad_items")
+@CanalTable(value = "ad_items")
 public class AdItemsHandler implements EntryHandler<AdItems> {
 
     @Autowired
@@ -50,7 +50,8 @@ public class AdItemsHandler implements EntryHandler<AdItems> {
     public void update(AdItems before, AdItems after) {
         log.info("===update:\nbefore:{}\nafter:{}", before, after);
 
-        if (before.getType().intValue() != after.getType().intValue()) {
+        // 数据库改动那个字段，before就会只有那一个字段有值，所以这里要注意报空指针
+        if (before.getType() != null && (before.getType().intValue() != after.getType().intValue())) {
             // 如果更新之前的分类和当前不一样，将之前的分类缓存也更新一下
             this.skuFeign.updateTypeItems(before.getType());
         }

@@ -50,6 +50,6 @@ public interface SkuFeign {
      * @author Kang Yong
      * @date 2022/2/17
      */
-    @PutMapping("/aditems/type")
+    @PutMapping("/sku/aditems/type")
     RespResult updateTypeItems(@RequestParam("id") Integer id);
 }
