@@ -15,7 +15,9 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,6 +60,9 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
         List<AdItems> adItemsList = this.adItemsMapper.selectList(Wrappers.<AdItems>lambdaQuery()
                 .eq(AdItems::getType, typeId)
         );
+        if (CollectionUtils.isEmpty(adItemsList)) {
+            return new ArrayList<>();
+        }
 
         // 2、根据推广列表查询产品信息
         List<String> skuIds = adItemsList.stream().map(AdItems::getSkuId).collect(Collectors.toList());
