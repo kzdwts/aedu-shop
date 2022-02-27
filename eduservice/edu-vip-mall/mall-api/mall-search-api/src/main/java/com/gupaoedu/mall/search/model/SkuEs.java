@@ -31,7 +31,9 @@ public class SkuEs {
 
     /**
      * SKU名称
+     * 模糊查找，分词
      */
+    @Field(type = FieldType.Text, analyzer = "ik_smart", searchAnalyzer = "ik_smart")
     private String name;
 
     /**

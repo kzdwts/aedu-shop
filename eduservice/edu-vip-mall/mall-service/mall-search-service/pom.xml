@@ -11,7 +11,7 @@
 
     <artifactId>mall-search-service</artifactId>
     <description>
-        搜索工程
+        数据搜索工程
     </description>
 
     <dependencies>
