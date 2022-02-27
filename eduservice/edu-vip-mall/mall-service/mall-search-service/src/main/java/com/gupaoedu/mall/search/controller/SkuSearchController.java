@@ -23,7 +23,7 @@ public class SkuSearchController {
     /**
      * 增加索引
      *
-     * @param skuEs {@link SkuEs}
+     * @param skuEs {@link SkuEs} 索引内容
      * @return {@link RespResult}
      * @author Kang Yong
      * @date 2022/2/27
@@ -37,7 +37,7 @@ public class SkuSearchController {
     /**
      * 删除索引
      *
-     * @param id {@link String}
+     * @param id {@link String} 索引id
      * @return {@link RespResult}
      * @author Kang Yong
      * @date 2022/2/27
