@@ -1,4 +1,4 @@
-package com.gupaoedu.mall.search.client;
+package com.gupaoedu.mall.search.feign;
 
 import com.gupaoedu.mall.search.model.SkuEs;
 import com.gupaoedu.mall.util.RespResult;

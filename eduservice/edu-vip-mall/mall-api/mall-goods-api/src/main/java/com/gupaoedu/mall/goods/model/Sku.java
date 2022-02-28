@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,6 +22,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName(value = "sku")
+@Table
 public class Sku implements Serializable {
 
     /**
