@@ -4,10 +4,17 @@ import com.alibaba.fastjson.JSON;
 import com.gupaoedu.mall.search.mapper.SkuSearchMapper;
 import com.gupaoedu.mall.search.model.SkuEs;
 import com.gupaoedu.mall.search.service.SkuSearchService;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,6 +29,53 @@ public class SkuSearchServiceImpl implements SkuSearchService {
 
     @Autowired
     private SkuSearchMapper skuSearchMapper;
+
+    /**
+     * 关键词搜索
+     *
+     * @param searchMap {@link Map<String, Object>}
+     *                  关键词：keywords->name
+     * @return {@link Map< String, Object>}
+     * @author Kang Yong
+     * @date 2022/3/4
+     */
+    @Override
+    public Map<String, Object> search(Map<String, Object> searchMap) {
+        // QueryBuilder -> 构建搜索条件
+        NativeSearchQueryBuilder searchQueryBuilder = this.queryBuilder(searchMap);
+
+        // skuSearchMapper进行搜索
+        Page<SkuEs> skuEsPage = this.skuSearchMapper.search(searchQueryBuilder.build());
+
+        // 获取结果集：集合列表、总记录数
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("list", skuEsPage.getContent());
+        resultMap.put("totalElements", skuEsPage.getTotalElements());
+        resultMap.put("pageSize", skuEsPage.getSize());
+        resultMap.put("pageNum", skuEsPage.getNumber());
+
+        return resultMap;
+    }
+
+    /**
+     * 构建搜索条件
+     *
+     * @param searchMap 搜索条件参数
+     * @return
+     */
+    private NativeSearchQueryBuilder queryBuilder(Map<String, Object> searchMap) {
+        NativeSearchQueryBuilder builder = new NativeSearchQueryBuilder();
+        // 判断关键词是否为空，不为空设置条件
+        if (!CollectionUtils.isEmpty(searchMap)) {
+            Object keywords = searchMap.get("keywords");
+            if (ObjectUtils.isNotEmpty(keywords)) {
+                // 根据名称查询
+                builder.withQuery(QueryBuilders.termQuery("name", keywords.toString()));
+            }
+        }
+
+        return builder;
+    }
 
     /**
      * 增加索引

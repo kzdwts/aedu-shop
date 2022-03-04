@@ -6,6 +6,8 @@ import com.gupaoedu.mall.util.RespResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * 搜索控制层
  *
@@ -19,6 +21,21 @@ public class SkuSearchController {
 
     @Autowired
     private SkuSearchService skuSearchService;
+
+    /**
+     * 商品搜索
+     *
+     * @param searchMap {@link Map<String, Object>} 搜索条件
+     *                  关键词：keywords->name
+     * @return {@link RespResult< Map< String, Object>>}
+     * @author Kang Yong
+     * @date 2022/3/4
+     */
+    @PostMapping
+    public RespResult<Map<String, Object>> search(@RequestBody Map<String, Object> searchMap) {
+        Map<String, Object> resultMap = this.skuSearchService.search(searchMap);
+        return RespResult.ok(resultMap);
+    }
 
     /**
      * 增加索引
