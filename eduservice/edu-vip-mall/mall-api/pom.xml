@@ -48,7 +48,7 @@
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
             <version>1.0</version>
-            <scope>compile</scope>
+            <scope>compile</scope> <!-- compile是默认的范围；如果没有提供一个范围，那该依赖的范围就是编译范围。编译范围依赖在所有的classpath 中可用， -->
         </dependency>
     </dependencies>
 

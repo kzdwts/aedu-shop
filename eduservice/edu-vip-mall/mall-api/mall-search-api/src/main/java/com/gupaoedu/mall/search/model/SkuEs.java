@@ -105,7 +105,10 @@ public class SkuEs {
     private Integer status;
 
     /**
-     * 属性映射
+     * 属性映射（动态创建域信息）
+     * key=就业薪资
+     * value=1万
+     * attrMap.就业薪资.key=1万
      */
     private Map<String, String> attrMap;
 }

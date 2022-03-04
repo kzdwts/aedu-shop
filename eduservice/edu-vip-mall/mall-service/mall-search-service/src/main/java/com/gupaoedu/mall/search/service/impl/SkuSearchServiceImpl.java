@@ -1,10 +1,14 @@
 package com.gupaoedu.mall.search.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.gupaoedu.mall.search.mapper.SkuSearchMapper;
 import com.gupaoedu.mall.search.model.SkuEs;
 import com.gupaoedu.mall.search.service.SkuSearchService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * 搜索业务实现
@@ -26,6 +30,12 @@ public class SkuSearchServiceImpl implements SkuSearchService {
      */
     @Override
     public void add(SkuEs skuEs) {
+        // 获取属性
+        String attrMapStr = skuEs.getSkuAttribute();
+        if (StringUtils.isNotEmpty(attrMapStr)) {
+            // 将属性添加到attrMap中
+            skuEs.setAttrMap(JSON.parseObject(attrMapStr, Map.class));
+        }
         this.skuSearchMapper.save(skuEs);
     }
 
