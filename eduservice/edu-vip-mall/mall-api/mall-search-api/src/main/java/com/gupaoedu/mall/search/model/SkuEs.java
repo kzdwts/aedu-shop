@@ -97,6 +97,7 @@ public class SkuEs {
     /**
      * 规格
      */
+    @Field(type = FieldType.Keyword)
     private String skuAttribute;
 
     /**

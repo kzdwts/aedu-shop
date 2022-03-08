@@ -128,6 +128,14 @@ public class SkuSearchServiceImpl implements SkuSearchService {
                             .size(100) // 分组结果显示100个
             );
         }
+
+        // 如果用户没有输入属性条件，则将属性搜索出来，作为条件提供给用户
+        queryBuilder.addAggregation(
+                AggregationBuilders
+                        .terms("attrmaps") // 别名，类似map的key
+                        .field("skuAttribute") // 根据brandName域进行分组
+                        .size(1000) // 分组结果显示100个
+        );
     }
 
     /**
