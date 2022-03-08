@@ -8,6 +8,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -44,6 +45,9 @@ public class SkuSearchServiceImpl implements SkuSearchService {
         // QueryBuilder -> 构建搜索条件
         NativeSearchQueryBuilder searchQueryBuilder = this.queryBuilder(searchMap);
 
+        // 分组搜索调用
+        searchQueryBuilder = this.group(searchQueryBuilder, searchMap);
+
         // skuSearchMapper进行搜索
         Page<SkuEs> skuEsPage = this.skuSearchMapper.search(searchQueryBuilder.build());
 
@@ -55,6 +59,35 @@ public class SkuSearchServiceImpl implements SkuSearchService {
         resultMap.put("pageNum", skuEsPage.getNumber());
 
         return resultMap;
+    }
+
+    /**
+     * 分组查询
+     *
+     * @param queryBuilder 构建搜索条件
+     * @param searchMap    查询条件
+     * @return
+     */
+    public NativeSearchQueryBuilder group(NativeSearchQueryBuilder queryBuilder, Map<String, Object> searchMap) {
+        // 如果用户没有输入分类条件，则将分类搜索出来，作为条件提供给用户
+        if (ObjectUtils.isEmpty(searchMap.get("category"))) {
+            queryBuilder.addAggregation(
+                    AggregationBuilders
+                            .terms("categoryList") // 用哪个进行接收
+                            .field("categoryName") // 根据categoryName域进行分组
+                            .size(100) // 分组结果显示100个
+            );
+        }
+        // 如果用户没有输入品牌条件，则将品牌搜索出来，作为条件提供给用户
+        if (ObjectUtils.isEmpty(searchMap.get("brand"))) {
+            queryBuilder.addAggregation(
+                    AggregationBuilders
+                            .terms("brandList") // 别名，类似map的key
+                            .field("brandName") // 根据brandName域进行分组
+                            .size(100) // 分组结果显示100个
+            );
+        }
+        return queryBuilder;
     }
 
     /**
