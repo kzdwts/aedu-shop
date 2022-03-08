@@ -17,6 +17,7 @@ import org.elasticsearch.search.aggregations.bucket.terms.ParsedStringTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
@@ -183,7 +184,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
      * @return
      */
     private NativeSearchQueryBuilder queryBuilder(Map<String, Object> searchMap) {
-        NativeSearchQueryBuilder builder = new NativeSearchQueryBuilder();
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
         // 组合条件查询对象
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
 
@@ -193,7 +194,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
             Object keywords = searchMap.get("keywords");
             if (ObjectUtils.isNotEmpty(keywords)) {
                 // 根据名称查询
-                //builder.withQuery(QueryBuilders.termQuery("name", keywords.toString()));
+                //queryBuilder.withQuery(QueryBuilders.termQuery("name", keywords.toString()));
                 boolQueryBuilder.must(QueryBuilders.termQuery("name", keywords.toString())); // must表示条件必须成立
             }
 
@@ -230,10 +231,31 @@ public class SkuSearchServiceImpl implements SkuSearchService {
                 }
             }
 
-            // 分页参数：page
         }
+        // 分页参数：page
+        queryBuilder.withPageable(PageRequest.of(this.currentPage(searchMap), 10));
 
-        return builder;
+        queryBuilder.withQuery(boolQueryBuilder);
+
+        return queryBuilder;
+    }
+
+    /**
+     * 获取当前页
+     *
+     * @param searchMap
+     * @return
+     */
+    private int currentPage(Map<String, Object> searchMap) {
+        Object page = searchMap.get("page");
+        try {
+            if (ObjectUtils.isNotEmpty(page)) {
+                return Integer.parseInt(page.toString()) - 1;
+            }
+            return 0;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     /**
