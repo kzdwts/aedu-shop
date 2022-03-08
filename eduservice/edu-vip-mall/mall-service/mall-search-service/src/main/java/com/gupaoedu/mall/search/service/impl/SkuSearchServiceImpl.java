@@ -222,6 +222,13 @@ public class SkuSearchServiceImpl implements SkuSearchService {
             }
 
             // 属性参数： attr_属性名：属性值
+            for (Map.Entry<String, Object> entry : searchMap.entrySet()) {
+                if (entry.getKey().startsWith("attr_")) {
+                    // 以attr_开始，动态属性 attr_网络：移动5G
+                    String key = "attrMap." + entry.getKey().replaceFirst("attr_", "") + ".keyword";
+                    boolQueryBuilder.must(QueryBuilders.termQuery(key, entry.getValue()));
+                }
+            }
 
             // 分页参数：page
         }
