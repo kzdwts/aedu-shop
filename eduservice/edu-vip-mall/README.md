@@ -70,5 +70,6 @@
       * MySQL Master将数据变更写入二进制日志（binary log，其中记录叫做二进制日志事件binary log events，可以通过show binlog events进行查看）
       * MySQL slave将master的binary log events拷贝到它的中继日志（relay log）
       * MySQL salve重放 relay log中事件，将数据变更反映它自己的数据
+* [MyBatis-Plus](https://baomidou.com/) 魂斗罗，MyBatis好兄弟      
 * [ElasticSearch](https://www.elastic.co/cn/)      
     * [搜索服务](https://learnku.com/docs/elasticsearch73/7.3) 
