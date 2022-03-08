@@ -21,10 +21,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 搜索业务实现
@@ -69,8 +66,48 @@ public class SkuSearchServiceImpl implements SkuSearchService {
         resultMap.put("totalElements", skuEsPage.getTotalElements());
         // 解析分组结果
         this.parseGroup(skuEsPage.getAggregations(), resultMap);
+        // 属性数据解析
+        this.parseAttr(resultMap);
 
         return resultMap;
+    }
+
+    /**
+     * 属性解析封装
+     *
+     * @param searchResultMap
+     */
+    public void parseAttr(Map<String, Object> searchResultMap) {
+        // 属性，其实是一个list
+        Object attrmaps = searchResultMap.get("attrmaps");
+        if (attrmaps != null) {
+            // 不为空就处理，这里直接强转为list
+            List<String> attrList = (List<String>) attrmaps;
+
+            // 所有属性名拥有的属性集合
+            Map<String, Set<String>> allMaps = new HashMap<>();
+
+            // 遍历属性
+            for (String attr : attrList) {
+                // 将属性转为map
+                Map<String, String> attrMap = JSON.parseObject(attr, Map.class);
+
+                // 遍历map
+                for (Map.Entry<String, String> entry : attrMap.entrySet()) {
+                    // 判断全部属性里有没有这个属性，没有就加入
+                    Set<String> values = allMaps.get(entry.getKey());
+                    if (values == null) {
+                        values = new HashSet<>();
+                    }
+                    // 存在，则取出来，再添加当前值
+                    values.add(entry.getValue());
+                    // 将修改后的值，添加到allMaps中
+                    allMaps.put(entry.getKey(), values);
+                }
+            }
+            // 重置查询结果里面的attrmaps
+            searchResultMap.put("arrtmaps", allMaps);
+        }
     }
 
     /**
@@ -134,7 +171,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
                 AggregationBuilders
                         .terms("attrmaps") // 别名，类似map的key
                         .field("skuAttribute") // 根据brandName域进行分组
-                        .size(1000) // 分组结果显示100个
+                        .size(10000) // 分组结果显示100个
         );
     }
 
