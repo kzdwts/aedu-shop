@@ -7,6 +7,7 @@ import com.gupaoedu.mall.search.service.SkuSearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.Aggregation;
@@ -183,13 +184,46 @@ public class SkuSearchServiceImpl implements SkuSearchService {
      */
     private NativeSearchQueryBuilder queryBuilder(Map<String, Object> searchMap) {
         NativeSearchQueryBuilder builder = new NativeSearchQueryBuilder();
+        // 组合条件查询对象
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+
         // 判断关键词是否为空，不为空设置条件
         if (!CollectionUtils.isEmpty(searchMap)) {
+            // 关键词搜索
             Object keywords = searchMap.get("keywords");
             if (ObjectUtils.isNotEmpty(keywords)) {
                 // 根据名称查询
-                builder.withQuery(QueryBuilders.termQuery("name", keywords.toString()));
+                //builder.withQuery(QueryBuilders.termQuery("name", keywords.toString()));
+                boolQueryBuilder.must(QueryBuilders.termQuery("name", keywords.toString())); // must表示条件必须成立
             }
+
+            // 分类参数 category
+            Object category = searchMap.get("category");
+            if (ObjectUtils.isNotEmpty(category)) {
+                boolQueryBuilder.must(QueryBuilders.termQuery("categoryName", category.toString()));
+            }
+
+            // 品牌参数 brand
+            Object brand = searchMap.get("brand");
+            if (ObjectUtils.isNotEmpty(brand)) {
+                boolQueryBuilder.must(QueryBuilders.termQuery("brandName", brand.toString()));
+            }
+
+            // 价格参数(区间) price=0-500元 500-1000元 1000元以上
+            Object price = searchMap.get("price");
+            if (ObjectUtils.isNotEmpty(price)) {
+                String[] prices = price.toString().replace("元", "").replace("以上", "").split("-");
+                // price > x
+                boolQueryBuilder.must(QueryBuilders.rangeQuery("price").gt(Integer.parseInt(prices[0])));
+                if (prices.length == 2) {
+                    // price <= y
+                    boolQueryBuilder.must(QueryBuilders.rangeQuery("price").lte(Integer.parseInt(prices[1])));
+                }
+            }
+
+            // 属性参数： attr_属性名：属性值
+
+            // 分页参数：page
         }
 
         return builder;
