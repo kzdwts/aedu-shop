@@ -46,7 +46,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
         NativeSearchQueryBuilder searchQueryBuilder = this.queryBuilder(searchMap);
 
         // 分组搜索调用
-        searchQueryBuilder = this.group(searchQueryBuilder, searchMap);
+        this.group(searchQueryBuilder, searchMap);
 
         // skuSearchMapper进行搜索
         Page<SkuEs> skuEsPage = this.skuSearchMapper.search(searchQueryBuilder.build());
@@ -66,9 +66,8 @@ public class SkuSearchServiceImpl implements SkuSearchService {
      *
      * @param queryBuilder 构建搜索条件
      * @param searchMap    查询条件
-     * @return
      */
-    public NativeSearchQueryBuilder group(NativeSearchQueryBuilder queryBuilder, Map<String, Object> searchMap) {
+    public void group(NativeSearchQueryBuilder queryBuilder, Map<String, Object> searchMap) {
         // 如果用户没有输入分类条件，则将分类搜索出来，作为条件提供给用户
         if (ObjectUtils.isEmpty(searchMap.get("category"))) {
             queryBuilder.addAggregation(
@@ -87,7 +86,6 @@ public class SkuSearchServiceImpl implements SkuSearchService {
                             .size(100) // 分组结果显示100个
             );
         }
-        return queryBuilder;
     }
 
     /**
