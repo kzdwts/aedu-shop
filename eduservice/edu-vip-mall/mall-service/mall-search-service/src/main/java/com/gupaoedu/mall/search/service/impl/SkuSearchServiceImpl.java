@@ -4,18 +4,26 @@ import com.alibaba.fastjson.JSON;
 import com.gupaoedu.mall.search.mapper.SkuSearchMapper;
 import com.gupaoedu.mall.search.model.SkuEs;
 import com.gupaoedu.mall.search.service.SkuSearchService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.terms.ParsedStringTerms;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,6 +33,7 @@ import java.util.Map;
  * @date 2022/2/27
  * @since 1.0.0
  */
+@Slf4j
 @Service
 public class SkuSearchServiceImpl implements SkuSearchService {
 
@@ -44,21 +53,54 @@ public class SkuSearchServiceImpl implements SkuSearchService {
     public Map<String, Object> search(Map<String, Object> searchMap) {
         // QueryBuilder -> 构建搜索条件
         NativeSearchQueryBuilder searchQueryBuilder = this.queryBuilder(searchMap);
-
         // 分组搜索调用
         this.group(searchQueryBuilder, searchMap);
 
         // skuSearchMapper进行搜索
-        Page<SkuEs> skuEsPage = this.skuSearchMapper.search(searchQueryBuilder.build());
+//        Page<SkuEs> skuEsPage = this.skuSearchMapper.search(searchQueryBuilder.build());
+        AggregatedPage<SkuEs> skuEsPage = (AggregatedPage<SkuEs>) this.skuSearchMapper.search(searchQueryBuilder.build());
+
+        // 解析分组结果
+        Aggregations aggregations = skuEsPage.getAggregations();
 
         // 获取结果集：集合列表、总记录数
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("list", skuEsPage.getContent());
         resultMap.put("totalElements", skuEsPage.getTotalElements());
-        resultMap.put("pageSize", skuEsPage.getSize());
-        resultMap.put("pageNum", skuEsPage.getNumber());
+        // 解析分组结果
+        this.parseGroup(skuEsPage.getAggregations(), resultMap);
 
         return resultMap;
+    }
+
+    /**
+     * 分组结果解析
+     *
+     * @param aggregations 分组数据
+     * @param resultMap
+     * @return 分组解析后的数据
+     */
+    public void parseGroup(Aggregations aggregations, Map<String, Object> resultMap) {
+        // 分组为空，直接返回
+        if (aggregations == null) {
+            log.info("===分组数据为空");
+            return;
+        }
+
+        // 遍历分组
+        for (Aggregation aggregation : aggregations) {
+            ParsedStringTerms terms = (ParsedStringTerms) aggregation;
+
+            // 循环结果集对象
+            List<String> values = new ArrayList<String>(terms.getBuckets().size());
+            for (Terms.Bucket bucket : terms.getBuckets()) {
+                values.add(bucket.getKeyAsString());
+            }
+
+            // 名称
+            String name = aggregation.getName();
+            resultMap.put(name, values);
+        }
     }
 
     /**
