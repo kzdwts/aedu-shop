@@ -15,11 +15,14 @@ import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.ParsedStringTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
@@ -41,6 +44,9 @@ public class SkuSearchServiceImpl implements SkuSearchService {
     @Autowired
     private SkuSearchMapper skuSearchMapper;
 
+    @Autowired
+    private ElasticsearchTemplate elasticsearchTemplate;
+
     /**
      * 关键词搜索
      *
@@ -57,9 +63,18 @@ public class SkuSearchServiceImpl implements SkuSearchService {
         // 分组搜索调用
         this.group(searchQueryBuilder, searchMap);
 
+        // 设置高亮信息， 关键词前后的标签， 高亮域
+        HighlightBuilder.Field field = new HighlightBuilder
+                .Field("name") // 根据指定的域进行高亮查询
+                .preTags("<span>") // 关键词高亮前缀
+                .postTags("</span>") // 关键词高亮后缀
+                .fragmentSize(100) // 碎片长度
+                ;
+
         // skuSearchMapper进行搜索
 //        Page<SkuEs> skuEsPage = this.skuSearchMapper.search(searchQueryBuilder.build());
         AggregatedPage<SkuEs> skuEsPage = (AggregatedPage<SkuEs>) this.skuSearchMapper.search(searchQueryBuilder.build());
+        elasticsearchTemplate.queryForPage(searchQueryBuilder.build(), SkuEs.class);
 
         // 解析分组结果
         Aggregations aggregations = skuEsPage.getAggregations();
@@ -239,7 +254,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
             if (ObjectUtils.isNotEmpty(sfield) && ObjectUtils.isNotEmpty(sm)) {
                 queryBuilder.withSort(
                         SortBuilders.fieldSort(sfield.toString()) // 指定排序的域
-                        .order(SortOrder.valueOf(sm.toString())) // 排序方式：降序DESC，升序ASC，（记得测一下小写）
+                                .order(SortOrder.valueOf(sm.toString())) // 排序方式：降序DESC，升序ASC，（记得测一下小写）
                 );
             }
 
