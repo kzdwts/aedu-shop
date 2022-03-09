@@ -73,3 +73,4 @@
 * [MyBatis-Plus](https://baomidou.com/) 魂斗罗，MyBatis好兄弟      
 * [ElasticSearch](https://www.elastic.co/cn/)      
     * [搜索服务](https://learnku.com/docs/elasticsearch73/7.3) 
+    * [中文API](https://www.elastic.co/guide/cn/index.html)
