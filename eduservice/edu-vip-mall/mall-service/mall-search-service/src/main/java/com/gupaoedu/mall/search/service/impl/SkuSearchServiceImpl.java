@@ -227,7 +227,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
                 if (entry.getKey().startsWith("attr_")) {
                     // 以attr_开始，动态属性 attr_网络：移动5G
                     String key = "attrMap." + entry.getKey().replaceFirst("attr_", "") + ".keyword";
-                    boolQueryBuilder.must(QueryBuilders.termQuery(key, entry.getValue()));
+                    boolQueryBuilder.must(QueryBuilders.termQuery(key, entry.getValue().toString()));
                 }
             }
 
