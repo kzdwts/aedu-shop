@@ -17,7 +17,15 @@ canal:
   destination: example
 # 日志配置
 logging:
-  pattern:
-    console: "%msg%n"
-    level:
-      root: error
+#  pattern:
+#    console: "%msg%n"
+  level:
+    root: info
+    top:
+      javatool:
+        canal:
+          client:
+            client:
+              AbstractCanalClient: error
+
+
