@@ -44,8 +44,8 @@ public class SkuSearchServiceImpl implements SkuSearchService {
     @Autowired
     private SkuSearchMapper skuSearchMapper;
 
-    @Autowired
-    private ElasticsearchTemplate elasticsearchTemplate;
+//    @Autowired
+//    private ElasticsearchTemplate elasticsearchTemplate;
 
     /**
      * 关键词搜索
@@ -74,7 +74,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
         // skuSearchMapper进行搜索
 //        Page<SkuEs> skuEsPage = this.skuSearchMapper.search(searchQueryBuilder.build());
         AggregatedPage<SkuEs> skuEsPage = (AggregatedPage<SkuEs>) this.skuSearchMapper.search(searchQueryBuilder.build());
-        elasticsearchTemplate.queryForPage(searchQueryBuilder.build(), SkuEs.class);
+//        elasticsearchTemplate.queryForPage(searchQueryBuilder.build(), SkuEs.class);
 
         // 解析分组结果
         Aggregations aggregations = skuEsPage.getAggregations();
