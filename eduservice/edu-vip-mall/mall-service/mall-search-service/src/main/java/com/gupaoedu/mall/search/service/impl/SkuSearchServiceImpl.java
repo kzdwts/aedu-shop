@@ -260,7 +260,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
 
         }
         // 分页参数：page
-        queryBuilder.withPageable(PageRequest.of(this.currentPage(searchMap), 10));
+        queryBuilder.withPageable(PageRequest.of(this.currentPage(searchMap), 6));
 
         queryBuilder.withQuery(boolQueryBuilder);
         return queryBuilder;
