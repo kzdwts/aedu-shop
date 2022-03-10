@@ -17,7 +17,7 @@ spring:
       uris: http://192.168.100.133:9200
 # 日志配置
 logging:
-  pattern:
-    console: "%msg%n"
-    level:
-      root: error
+#  pattern:
+#    console: "%msg%n"
+  level:
+    root: error
