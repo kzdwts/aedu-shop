@@ -125,7 +125,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
                 }
             }
             // 重置查询结果里面的attrmaps
-            searchResultMap.put("arrtmaps", allMaps);
+            searchResultMap.put("attrmaps", allMaps);
         }
     }
 
