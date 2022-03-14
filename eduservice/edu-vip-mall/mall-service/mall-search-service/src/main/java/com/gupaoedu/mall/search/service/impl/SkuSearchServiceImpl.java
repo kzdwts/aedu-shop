@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.gupaoedu.mall.search.mapper.SkuSearchMapper;
 import com.gupaoedu.mall.search.model.SkuEs;
 import com.gupaoedu.mall.search.service.SkuSearchService;
+import com.gupaoedu.mall.search.util.HighlightResultMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -44,8 +45,8 @@ public class SkuSearchServiceImpl implements SkuSearchService {
     @Autowired
     private SkuSearchMapper skuSearchMapper;
 
-//    @Autowired
-//    private ElasticsearchTemplate elasticsearchTemplate;
+    @Autowired
+    private ElasticsearchTemplate elasticsearchTemplate;
 
     /**
      * 关键词搜索
@@ -66,7 +67,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
         // 设置高亮信息， 关键词前后的标签， 高亮域
         HighlightBuilder.Field field = new HighlightBuilder
                 .Field("name") // 根据指定的域进行高亮查询
-                .preTags("<span>") // 关键词高亮前缀
+                .preTags("<span style=\"color:red\">") // 关键词高亮前缀
                 .postTags("</span>") // 关键词高亮后缀
                 .fragmentSize(100) // 碎片长度
                 ;
@@ -74,11 +75,8 @@ public class SkuSearchServiceImpl implements SkuSearchService {
 
         // skuSearchMapper进行搜索
 //        Page<SkuEs> skuEsPage = this.skuSearchMapper.search(searchQueryBuilder.build());
-        AggregatedPage<SkuEs> skuEsPage = (AggregatedPage<SkuEs>) this.skuSearchMapper.search(searchQueryBuilder.build());
-//        elasticsearchTemplate.queryForPage(searchQueryBuilder.build(), SkuEs.class);
-
-        // 解析分组结果
-        Aggregations aggregations = skuEsPage.getAggregations();
+//        AggregatedPage<SkuEs> skuEsPage = (AggregatedPage<SkuEs>) this.skuSearchMapper.search(searchQueryBuilder.build());
+        AggregatedPage<SkuEs> skuEsPage = elasticsearchTemplate.queryForPage(searchQueryBuilder.build(), SkuEs.class, new HighlightResultMapper());
 
         // 获取结果集：集合列表、总记录数
         Map<String, Object> resultMap = new HashMap<>();
