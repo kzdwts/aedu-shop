@@ -70,6 +70,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
                 .postTags("</span>") // 关键词高亮后缀
                 .fragmentSize(100) // 碎片长度
                 ;
+        searchQueryBuilder.withHighlightFields(field); // 开启高亮显示
 
         // skuSearchMapper进行搜索
 //        Page<SkuEs> skuEsPage = this.skuSearchMapper.search(searchQueryBuilder.build());
