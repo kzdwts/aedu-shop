@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Map;
+
 /**
  * 搜索服务feign
  *
@@ -17,6 +19,18 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 @FeignClient(value = "mall-search")
 public interface SkuSearchFeign {
+
+    /**
+     * 商品搜索
+     *
+     * @param searchMap {@link Map <String, Object>} 搜索条件
+     *                  关键词：keywords->name
+     * @return {@link RespResult< Map< String, Object>>}
+     * @author Kang Yong
+     * @date 2022/3/4
+     */
+    @PostMapping("/search")
+    RespResult<Map<String, Object>> search(@RequestBody Map<String, Object> searchMap);
 
     /**
      * 增加索引
