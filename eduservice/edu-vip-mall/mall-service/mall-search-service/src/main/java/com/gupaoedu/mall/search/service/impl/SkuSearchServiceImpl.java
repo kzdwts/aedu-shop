@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
@@ -17,13 +16,11 @@ import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.ParsedStringTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
-import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
@@ -46,7 +43,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
     private SkuSearchMapper skuSearchMapper;
 
     @Autowired
-    private ElasticsearchTemplate elasticsearchTemplate;
+    private ElasticsearchRestTemplate elasticsearchRestTemplate;
 
     /**
      * 关键词搜索
@@ -76,7 +73,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
         // skuSearchMapper进行搜索
 //        Page<SkuEs> skuEsPage = this.skuSearchMapper.search(searchQueryBuilder.build());
 //        AggregatedPage<SkuEs> skuEsPage = (AggregatedPage<SkuEs>) this.skuSearchMapper.search(searchQueryBuilder.build());
-        AggregatedPage<SkuEs> skuEsPage = elasticsearchTemplate.queryForPage(searchQueryBuilder.build(), SkuEs.class, new HighlightResultMapper());
+        AggregatedPage<SkuEs> skuEsPage = elasticsearchRestTemplate.queryForPage(searchQueryBuilder.build(), SkuEs.class, new HighlightResultMapper());
 
         // 获取结果集：集合列表、总记录数
         Map<String, Object> resultMap = new HashMap<>();
