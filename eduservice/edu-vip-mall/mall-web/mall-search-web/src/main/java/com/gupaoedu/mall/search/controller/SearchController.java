@@ -43,7 +43,7 @@ public class SearchController {
         model.addAttribute("searchMap", searchMap);
 
         // 当前地址
-        model.addAttribute("url", UrlUtils.map2url("/web/search", searchMap));
+        model.addAttribute("url", UrlUtils.map2url("/web/search", searchMap, "page"));
         // 没有排序参数的url
         model.addAttribute("urlsort", UrlUtils.replateUrlParameter(model.getAttribute("url").toString(), "sfield", "sm"));
 
