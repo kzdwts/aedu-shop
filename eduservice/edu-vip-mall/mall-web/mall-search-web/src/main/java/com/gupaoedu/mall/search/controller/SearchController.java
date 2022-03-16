@@ -35,11 +35,11 @@ public class SearchController {
     @GetMapping
     public String search(Model model, @RequestParam Map<String, Object> searchMap) {
         // 搜索
-//        RespResult<Map<String, Object>> respResult = skuSearchFeign.search(searchMap);
-//
-//        // 数据存入model
-//        model.addAttribute("result", respResult.getData());
-//        model.addAttribute("searchMap", searchMap);
+        RespResult<Map<String, Object>> respResult = skuSearchFeign.search(searchMap);
+
+        // 数据存入model
+        model.addAttribute("result", respResult.getData());
+        model.addAttribute("searchMap", searchMap);
 
         return "search";
     }
