@@ -2,6 +2,7 @@ package com.gupaoedu.mall.search.controller;
 
 import com.gupaoedu.mall.search.feign.SkuSearchFeign;
 import com.gupaoedu.mall.util.RespResult;
+import com.gupaoedu.mall.util.UrlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +41,11 @@ public class SearchController {
         // 数据存入model
         model.addAttribute("result", respResult.getData());
         model.addAttribute("searchMap", searchMap);
+
+        // 当前地址
+        model.addAttribute("url", UrlUtils.map2url("/web/search", searchMap));
+        // 没有排序参数的url
+        model.addAttribute("urlsort", UrlUtils.replateUrlParameter(model.getAttribute("url").toString(), "sfield", "sm"));
 
         return "search";
     }
