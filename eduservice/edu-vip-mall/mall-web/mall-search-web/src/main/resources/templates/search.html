@@ -598,33 +598,24 @@
         </div>
         <!--selector-->
         <div class="clearfix selector">
-            <div class="type-wrap">
+            <div class="type-wrap" th:if="${#maps.containsKey(result, 'categoryList')}"> <!-- 如果查询中有categoryList，则回显分类条件 -->
                 <div class="fl key">分类</div>
-                <div class="fl value">家电、儿童、图书、视频</div>
+                <div class="fl value">
+                    <!--循环回显分类条件-->
+                    <a class="mlr15" href="#" th:each="category:${result.categoryList}" th:text="${category}"></a>
+                </div>
                 <div class="fl ext"></div>
             </div>
-            <div class="type-wrap logo">
+            <div class="type-wrap logo" th:if="${#maps.containsKey(result, 'brandList')}">
                 <div class="fl key brand">品牌</div>
                 <div class="value logos">
                     <ul class="logo-list">
-                        <li><img src="/img/_/phone01.png"/></li>
-                        <li><img src="/img/_/phone02.png"/></li>
-                        <li><img src="/img/_/phone03.png"/></li>
-                        <li><img src="/img/_/phone04.png"/></li>
-                        <li><img src="/img/_/phone05.png"/></li>
-                        <li><img src="/img/_/phone06.png"/></li>
-                        <li><img src="/img/_/phone07.png"/></li>
-                        <li><img src="/img/_/phone08.png"/></li>
-                        <li><img src="/img/_/phone09.png"/></li>
-                        <li><img src="/img/_/phone10.png"/></li>
-                        <li><img src="/img/_/phone11.png"/></li>
-                        <li><img src="/img/_/phone12.png"/></li>
-                        <li><img src="/img/_/phone13.png"/></li>
-                        <li><img src="/img/_/phone14.png"/></li>
-                        <li><img src="/img/_/phone15.png"/></li>
-                        <li><img src="/img/_/phone16.png"/></li>
-                        <li><img src="/img/_/phone17.png"/></li>
-                        <li><img src="/img/_/phone18.png"/></li>
+                        <li th:each="brand:${result.brandList}">
+                            <div>
+                                <a href="#" th:text="${brand}"></a>
+                            </div>
+                        </li>
+                        <!--<li><img src="/img/_/phone18.png"/></li>-->
                     </ul>
                 </div>
                 <div class="ext">
