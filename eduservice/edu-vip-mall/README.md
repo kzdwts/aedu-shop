@@ -8,6 +8,7 @@
     * doc 文档相关
     * mall-api（所有数据库表对应的Bean和Feign）
         * mall-goods-api（shop_goods对应的Api工程）
+        * mall-search-api（搜索服务api工程）
     * mall-gateway（管理所有微服务网关）
     * mall-service（所有微服务工程的父工程）
         * mall-goods-service（shop_goods数据库的增删改查）
