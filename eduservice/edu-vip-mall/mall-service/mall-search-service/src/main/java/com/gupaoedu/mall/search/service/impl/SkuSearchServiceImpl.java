@@ -5,6 +5,7 @@ import com.gupaoedu.mall.search.mapper.SkuSearchMapper;
 import com.gupaoedu.mall.search.model.SkuEs;
 import com.gupaoedu.mall.search.service.SkuSearchService;
 import com.gupaoedu.mall.search.util.HighlightResultMapper;
+import com.gupaoedu.mall.util.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -83,6 +84,11 @@ public class SkuSearchServiceImpl implements SkuSearchService {
         this.parseGroup(skuEsPage.getAggregations(), resultMap);
         // 属性数据解析
         this.parseAttr(resultMap);
+
+        // 分页创建
+        int currentPage = searchQueryBuilder.build().getPageable().getPageNumber() + 1;
+        PageInfo pageInfo = new PageInfo(skuEsPage.getTotalElements(), currentPage, 5);
+        resultMap.put("pageInfo", pageInfo);
 
         return resultMap;
     }
@@ -256,7 +262,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
 
         }
         // 分页参数：page
-        queryBuilder.withPageable(PageRequest.of(this.currentPage(searchMap), 6));
+        queryBuilder.withPageable(PageRequest.of(this.currentPage(searchMap), 5));
 
         queryBuilder.withQuery(boolQueryBuilder);
         return queryBuilder;

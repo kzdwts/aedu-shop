@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
@@ -55,9 +54,9 @@
                             <form action="/web/search" class="sui-form form-inline">
                                 <!--searchAutoComplete-->
                                 <div class="input-append">
-                                    <input type="text" id="autocomplete"
-                                           th:value="${#maps.containsKey(searchMap, 'keywords')} ? ${searchMap.keywords}:''"
-                                           name="keywords" class="input-error input-xxlarge"/>
+                                    <input type="text" name="keywords"
+                                           th:value="${#maps.containsKey(searchMap,'keywords')}? ${searchMap.keywords}:''"
+                                           id="autocomplete" class="input-error input-xxlarge"/>
                                     <button class="sui-btn btn-xlarge btn-danger" type="submit">搜索</button>
                                 </div>
                             </form>
@@ -588,34 +587,52 @@
                 <li>
                     <a href="#">全部结果</a>
                 </li>
-                <li class="active">家用电器</li>
+                <li class="active" th:if="${#maps.containsKey(searchMap,'category')}">
+                    <i th:text="${searchMap.category}"></i>
+                    <a th:href="@{${#strings.replace(url,'category='+searchMap.category,'')}}">×</a>
+                </li>
             </ul>
             <ul class="fl sui-tag">
-                <li class="with-x">小天鹅洗衣机<i>×</i></li>
-                <li class="with-x">格力空调<i>×</i></li>
-                <li class="with-x">美的风扇<i>×</i></li>
+                <li class="with-x" th:if="${#maps.containsKey(searchMap,'brand')}">
+                    品牌:<i th:text="${searchMap.brand}"></i>
+                    <a th:href="@{${#strings.replace(url,'brand='+searchMap.brand,'')}}">×</a>
+                </li>
+                <li class="with-x" th:if="${#maps.containsKey(searchMap,'price')}">
+                    <i th:text="${searchMap.price}"></i>
+                    <a th:href="@{${#strings.replace(url,'price='+searchMap.price,'')}}">×</a>
+                </li>
+                <!--
+                    searchMap:key 以attr_
+                    strings.startsWit:判断key的开始元素
+                    strings.replace:替换字符串中指定字符
+                -->
+                <li class="with-x" th:each="attr:${searchMap}"
+                    th:if="${#strings.startsWith(attr.key,'attr_')}">
+                    <i th:text="${#strings.replace(attr.key,'attr_','')}"></i>:<i th:text="${attr.value}"></i>
+                    <a th:href="@{${#strings.replace(url,attr.key+'='+attr.value,'')}}">×</a></li>
             </ul>
         </div>
         <!--selector-->
         <div class="clearfix selector">
-            <div class="type-wrap" th:if="${#maps.containsKey(result, 'categoryList')}"> <!-- 如果查询中有categoryList，则回显分类条件 -->
+            <!--
+                unless:条件不成立的时候，才显示
+            -->
+            <div class="type-wrap" th:unless="${#maps.containsKey(searchMap,'category')}">
                 <div class="fl key">分类</div>
                 <div class="fl value">
-                    <!--循环回显分类条件-->
-                    <a class="mlr15" href="#" th:each="category:${result.categoryList}" th:text="${category}"></a>
+                    <div th:each="category:${result.categoryList}">
+                        <a th:href="@{${url}(category=${category})}" th:text="${category}"></a>
+                    </div>
                 </div>
                 <div class="fl ext"></div>
             </div>
-            <div class="type-wrap logo" th:if="${#maps.containsKey(result, 'brandList')}">
+            <div class="type-wrap logo" th:unless="${#maps.containsKey(searchMap,'brand')}">
                 <div class="fl key brand">品牌</div>
                 <div class="value logos">
                     <ul class="logo-list">
                         <li th:each="brand:${result.brandList}">
-                            <div>
-                                <a href="#" th:text="${brand}"></a>
-                            </div>
+                            <a th:href="@{${url}(brand=${brand})}" th:text="${brand}"></a>
                         </li>
-                        <!--<li><img src="/img/_/phone18.png"/></li>-->
                     </ul>
                 </div>
                 <div class="ext">
@@ -623,93 +640,31 @@
                     <a href="javascript:void(0);">更多</a>
                 </div>
             </div>
-            <div class="type-wrap">
-                <div class="fl key">网络</div>
+            <div class="type-wrap" th:each="attr:${result.attrmaps}"
+                 th:unless="${#maps.containsKey(searchMap,'attr_'+attr.key)}">
+                <div class="fl key" th:text="${attr.key}"></div>
                 <div class="fl value">
                     <ul class="type-list">
-                        <li>
-                            <a>电信5G</a>
-                        </li>
-                        <li>
-                            <a>电信4G</a>
-                        </li>
-                        <li>
-                            <a>移动3G</a>
-                        </li>
-                        <li>
-                            <a>联通3G</a>
-                        </li>
-                        <li>
-                            <a>电信3G</a>
-                        </li>
-                        <li>
-                            <a>移动3G</a>
-                        </li>
-                        <li>
-                            <a>联通3G</a>
-                        </li>
-                        <li>
-                            <a>联通4G</a>
+                        <li th:each="opt:${attr.value}">
+                            <a th:href="@{${url}('attr_'+${attr.key}=${opt})}" th:text="${opt}"></a>
                         </li>
                     </ul>
                 </div>
                 <div class="fl ext"></div>
             </div>
-            <div class="type-wrap">
-                <div class="fl key">手机屏尺寸</div>
-                <div class="fl value">
-                    <ul class="type-list">
-                        <li>
-                            <a>5.0-5.9英寸</a>
-                        </li>
-                        <li>
-                            <a>6.0-6.2英寸</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="fl ext"></div>
-            </div>
-            <div class="type-wrap">
-                <div class="fl key">像素</div>
-                <div class="fl value">
-                    <ul class="type-list">
-                        <li>
-                            <a>3000万以上</a>
-                        </li>
-                        <li>
-                            <a>800-3000万</a>
-                        </li>
-                        <li>
-                            <a>1200-1599万</a>
-                        </li>
-                        <li>
-                            <a>1600万以上</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="fl ext"></div>
-            </div>
-            <div class="type-wrap">
+
+            <div class="type-wrap" th:unless="${#maps.containsKey(searchMap,'price')}">
                 <div class="fl key">价格范围</div>
                 <div class="fl value">
                     <ul class="type-list">
                         <li>
-                            <a>0-500元</a>
+                            <a th:href="@{${url}(price='0-500元')}">0-500元</a>
                         </li>
                         <li>
-                            <a>500-1000元</a>
+                            <a th:href="@{${url}(price='500-1000元')}">500-1000元</a>
                         </li>
                         <li>
-                            <a>1000-1500元</a>
-                        </li>
-                        <li>
-                            <a>1500-2000元</a>
-                        </li>
-                        <li>
-                            <a>2000-3000元 </a>
-                        </li>
-                        <li>
-                            <a>3000元以上</a>
+                            <a th:href="@{${url}(price='1000元以上')}">1000元以上</a>
                         </li>
                     </ul>
                 </div>
@@ -729,13 +684,16 @@
                             <a href="#">销量</a>
                         </li>
                         <li>
-                            <a href="#">新品</a>
+                            <a th:href="@{${urlsort}(sfield='updateTime',sm='DESC')}">新品</a>
                         </li>
                         <li>
                             <a href="#">评价</a>
                         </li>
                         <li>
-                            <a href="#">价格</a>
+                            <a th:href="@{${urlsort}(sfield='price',sm='ASC')}">价格+</a>
+                        </li>
+                        <li>
+                            <a th:href="@{${urlsort}(sfield='price',sm='DESC')}">价格-</a>
                         </li>
                     </ul>
                 </div>
@@ -745,7 +703,9 @@
                     <li th:each="item:${result.list}" class="yui3-u-1-5">
                         <div class="list-wrap">
                             <div class="p-img">
-                                <a href="item.html" target="_blank"><img th:src="${item.image}"/></a>
+                                <a href="item.html" target="_blank">
+                                    <img th:src="${item.image}"/>
+                                </a>
                             </div>
                             <div class="price">
                                 <strong>
@@ -765,357 +725,24 @@
                             </div>
                         </div>
                     </li>
-                    <li class="yui3-u-1-5">
-                        <div class="list-wrap">
-                            <div class="p-img">
-                                <img src="/img/_/se2.jpg"/>
-                            </div>
-                            <div class="price">
-                                <strong>
-                                    <em>¥</em>
-                                    <i>77.00</i>
-                                </strong>
-                            </div>
-                            <div class="attr">
-                                <a target="_blank" href="item.html">ROMOSS/罗马仕充电宝sense6 20000毫安手机移动电源来图定制适用</a>
-                            </div>
-                            <div class="commit">
-                                <i class="command">已有<span>43</span>人评价</i>
-                            </div>
-                            <div class="operate">
-                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                                <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="yui3-u-1-5">
-                        <div class="list-wrap">
-                            <div class="p-img">
-                                <img src="/img/_/se3.jpg"/>
-                            </div>
-                            <div class="price">
-                                <strong>
-                                    <em>¥</em>
-                                    <i>29.00</i>
-                                </strong>
-                            </div>
-                            <div class="attr">
-                                <a target="_blank" href="item.html">彩虹电热毯双人双控安全家用调温双温加大安全智能2米三人电褥子</a>
-                            </div>
-                            <div class="commit">
-                                <i class="command">已有<span>244</span>人评价</i>
-                            </div>
-                            <div class="operate">
-                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                                <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="yui3-u-1-5">
-                        <div class="list-wrap">
-                            <div class="p-img">
-                                <img src="/img/_/se4.jpg"/>
-                            </div>
-                            <div class="price">
-                                <strong>
-                                    <em>¥</em>
-                                    <i>466.00</i>
-                                </strong>
-                            </div>
-                            <div class="attr">
-                                <a target="_blank" href="item.html">佳博GP1324D蓝牙快递单电子面单打印机热敏条码不干胶标签打印机E邮宝通用</a>
-                            </div>
-                            <div class="commit">
-                                <i class="command">已有<span>2344</span>人评价</i>
-                            </div>
-                            <div class="operate">
-                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                                <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="yui3-u-1-5">
-                        <div class="list-wrap">
-                            <div class="p-img">
-                                <img src="/img/_/se5.jpg"/>
-                            </div>
-                            <div class="price">
-                                <strong>
-                                    <em>¥</em>
-                                    <i>388.00</i>
-                                </strong>
-                            </div>
-                            <div class="attr">
-                                <a target="_blank" href="item.html">美的电烤箱家用烘焙小型烤箱多功能全自动蛋糕迷你大容量干果正品</a>
-                            </div>
-                            <div class="commit">
-                                <i class="command">已有<span>67</span>人评价</i>
-                            </div>
-                            <div class="operate">
-                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                                <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="yui3-u-1-5">
-                        <div class="list-wrap">
-                            <div class="p-img">
-                                <img src="/img/_/se6.jpg"/>
-                            </div>
-                            <div class="price">
-                                <strong>
-                                    <em>¥</em>
-                                    <i>98.00</i>
-                                </strong>
-                            </div>
-                            <div class="attr">
-                                <a target="_blank" href="item.html">飞科剃须刀电动男士刮胡刀全身水洗智能充电式胡须刀正品刮胡子刀</a>
-                            </div>
-                            <div class="commit">
-                                <i class="command">已有<span>989</span>人评价</i>
-                            </div>
-                            <div class="operate">
-                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                                <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="yui3-u-1-5">
-                        <div class="list-wrap">
-                            <div class="p-img">
-                                <img src="/img/_/se7.jpg"/>
-                            </div>
-                            <div class="price">
-                                <strong>
-                                    <em>¥</em>
-                                    <i>168.00</i>
-                                </strong>
-                            </div>
-                            <div class="attr">
-                                <a target="_blank" href="item.html">九阳榨汁机家用水果小型全自动果蔬多功能炸果汁辅食料理机榨汁杯</a>
-                            </div>
-                            <div class="commit">
-                                <i class="command">已有<span>876</span>人评价</i>
-                            </div>
-                            <div class="operate">
-                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                                <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="yui3-u-1-5">
-                        <div class="list-wrap">
-                            <div class="p-img">
-                                <img src="/img/_/se8.jpg"/>
-                            </div>
-                            <div class="price">
-                                <strong>
-                                    <em>¥</em>
-                                    <i>288.00</i>
-                                </strong>
-                            </div>
-                            <div class="attr">
-                                <a target="_blank" href="item.html">飞科剃须刀电动男士刮胡刀智能充电式全身水洗胡须刀正品刮胡子刀</a>
-                            </div>
-                            <div class="commit">
-                                <i class="command">已有<span>4556</span>人评价</i>
-                            </div>
-                            <div class="operate">
-                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                                <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="yui3-u-1-5">
-                        <div class="list-wrap">
-                            <div class="p-img">
-                                <img src="/img/_/se9.jpg"/>
-                            </div>
-                            <div class="price">
-                                <strong>
-                                    <em>¥</em>
-                                    <i>2088.00</i>
-                                </strong>
-                            </div>
-                            <div class="attr">
-                                <a target="_blank" href="item.html">Ronshen/容声 BCD-172D11D双开门</a>
-                            </div>
-                            <div class="commit">
-                                <i class="command">已有<span>2456</span>人评价</i>
-                            </div>
-                            <div class="operate">
-                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                                <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="yui3-u-1-5">
-                        <div class="list-wrap">
-                            <div class="p-img">
-                                <img src="/img/_/se10.jpg"/>
-                            </div>
-                            <div class="price">
-                                <strong>
-                                    <em>¥</em>
-                                    <i>1998.00</i>
-                                </strong>
-                            </div>
-                            <div class="attr">
-                                <a target="_blank" href="item.html">Midea/美的 BCD-230WTM(E)风冷无</a>
-                            </div>
-                            <div class="commit">
-                                <i class="command">已有<span>45</span>人评价</i>
-                            </div>
-                            <div class="operate">
-                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                                <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="yui3-u-1-5">
-                        <div class="list-wrap">
-                            <div class="p-img">
-                                <img src="/img/_/se11.jpg"/>
-                            </div>
-                            <div class="price">
-                                <strong>
-                                    <em>¥</em>
-                                    <i>73.00</i>
-                                </strong>
-                            </div>
-                            <div class="attr">
-                                <a target="_blank" href="item.html">sup掌上复古游戏机老式童年怀旧款超</a>
-                            </div>
-                            <div class="commit">
-                                <i class="command">已有<span>656</span>人评价</i>
-                            </div>
-                            <div class="operate">
-                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                                <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="yui3-u-1-5">
-                        <div class="list-wrap">
-                            <div class="p-img">
-                                <img src="/img/_/se12.jpg"/>
-                            </div>
-                            <div class="price">
-                                <strong>
-                                    <em>¥</em>
-                                    <i>268.00</i>
-                                </strong>
-                            </div>
-                            <div class="attr">
-                                <a target="_blank" href="item.html">北通蝙蝠pc电脑版steam游戏手柄usb</a>
-                            </div>
-                            <div class="commit">
-                                <i class="command">已有<span>344</span>人评价</i>
-                            </div>
-                            <div class="operate">
-                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                                <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="yui3-u-1-5">
-                        <div class="list-wrap">
-                            <div class="p-img">
-                                <img src="/img/_/se13.jpg"/>
-                            </div>
-                            <div class="price">
-                                <strong>
-                                    <em>¥</em>
-                                    <i>298.00</i>
-                                </strong>
-                            </div>
-                            <div class="attr">
-                                <a target="_blank" href="item.html">九阳破壁机家用加热全自动料理机多功能豆浆辅食榨汁官网正品Y912</a>
-                            </div>
-                            <div class="commit">
-                                <i class="command">已有<span>4567</span>人评价</i>
-                            </div>
-                            <div class="operate">
-                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                                <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="yui3-u-1-5">
-                        <div class="list-wrap">
-                            <div class="p-img">
-                                <img src="/img/_/se14.jpg"/>
-                            </div>
-                            <div class="price">
-                                <strong>
-                                    <em>¥</em>
-                                    <i>288.00</i>
-                                </strong>
-                            </div>
-                            <div class="attr">
-                                <a target="_blank" href="item.html">九阳面条机家用全自动小型电动压面机智能打面和面饺子皮一体机L6</a>
-                            </div>
-                            <div class="commit">
-                                <i class="command">已有<span>57</span>人评价</i>
-                            </div>
-                            <div class="operate">
-                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                                <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="yui3-u-1-5">
-                        <div class="list-wrap">
-                            <div class="p-img">
-                                <img src="/img/_/se15.jpg"/>
-                            </div>
-                            <div class="price">
-                                <strong>
-                                    <em>¥</em>
-                                    <i>98.00</i>
-                                </strong>
-                            </div>
-                            <div class="attr">
-                                <a target="_blank" href="item.html">美的电饼铛电饼档家用双面加热煎烙饼锅新款自动断电加深加大正品</a>
-                            </div>
-                            <div class="commit">
-                                <i class="command">已有<span>3345</span>人评价</i>
-                            </div>
-                            <div class="operate">
-                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                                <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                            </div>
-                        </div>
-                    </li>
+
                 </ul>
             </div>
             <div class="fr page">
                 <div class="sui-pagination pagination-large">
                     <ul>
                         <li class="prev disabled">
-                            <a href="#">«上一页</a>
+                            <a th:href="@{${url}(page=${result.pageInfo.upper})}">«上一页</a>
                         </li>
-                        <li class="active">
-                            <a href="#">1</a>
+                        <li th:each="num:${#numbers.sequence(result.pageInfo.lpage,result.pageInfo.rpage)}"
+                            th:class="${num}==${result.pageInfo.currentpage}? 'active':''">
+                            <a th:href="@{${url}(page=${num})}" th:text="${num}"></a>
                         </li>
-                        <li>
-                            <a href="#">2</a>
-                        </li>
-                        <li>
-                            <a href="#">3</a>
-                        </li>
-                        <li>
-                            <a href="#">4</a>
-                        </li>
-                        <li>
-                            <a href="#">5</a>
-                        </li>
-                        <li class="dotted"><span>...</span></li>
                         <li class="next">
-                            <a href="#">下一页»</a>
+                            <a th:href="@{${url}(page=${result.pageInfo.next})}">下一页»</a>
                         </li>
                     </ul>
-                    <div><span>共10页&nbsp;</span><span>
+                    <div><span>共<i th:text="${result.pageInfo.last}"></i>页&nbsp;</span><span>
       到第
       <input type="text" class="page-num">
       页 </span></div>
