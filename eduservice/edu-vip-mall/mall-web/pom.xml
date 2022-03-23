@@ -5,6 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>mall-search-web</module>
+        <module>mall-page-web</module>
     </modules>
     <parent>
         <artifactId>gupaoedu-vip-mall</artifactId>
