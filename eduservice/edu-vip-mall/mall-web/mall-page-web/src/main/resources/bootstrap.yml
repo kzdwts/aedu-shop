@@ -1,0 +1,29 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: mall-page-web
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml
+        server-addr: 192.168.100.133:8848
+      discovery:
+        # Nacos的注册地址
+        server-addr: 192.168.100.133:8848
+  thymeleaf:
+    cache: false
+    suffix: .html
+    prefix: classpath:/templates/
+    encoding: UTF-8
+  main:
+    allow-bean-definition-overriding: true
+# 日志配置
+logging:
+#  pattern:
+#    console: "%msg%n"
+  level:
+    root: info
+
+# 页面生成存储路径
+pagepath: E:/pages/items
