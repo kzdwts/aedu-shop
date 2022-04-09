@@ -38,4 +38,19 @@ public class CategoryController {
         List<Category> categoryList = this.categoryService.findByParentId(pid);
         return RespResult.ok(categoryList);
     }
+
+    /**
+     * 根据id查询
+     *
+     * @param id {@link Integer} 分类id
+     * @return {@link RespResult< Category>}
+     * @author Kang Yong
+     * @date 2022/4/9
+     */
+    @GetMapping(value = "/{id}")
+    public RespResult<Category> one(@PathVariable(value = "id") Integer id) {
+        Category category = this.categoryService.getById(id);
+        return RespResult.ok(category);
+    }
+
 }

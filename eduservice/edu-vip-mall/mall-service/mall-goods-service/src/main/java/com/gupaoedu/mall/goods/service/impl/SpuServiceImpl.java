@@ -100,4 +100,27 @@ public class SpuServiceImpl extends ServiceImpl<SpuMapper, Spu> implements SpuSe
 
     }
 
+    /**
+     * 查询商品详情
+     *
+     * @param id {@link String} 商品id，即商品spuid
+     * @return {@link Product}
+     * @author Kang Yong
+     * @date 2022/4/9
+     */
+    @Override
+    public Product findBySpuId(String id) {
+        // 查询spu
+        Spu spu = this.spuMapper.selectById(id);
+
+        // 查询sku
+        List<Sku> skuList = this.skuMapper.selectList(Wrappers.<Sku>lambdaQuery().eq(Sku::getSpuId, id));
+
+        // 封装商品信息返回
+        Product product = new Product();
+        product.setSpu(spu);
+        product.setSkus(skuList);
+        return product;
+    }
+
 }

@@ -22,4 +22,14 @@ public interface SpuService extends IService<Spu> {
      */
     void saveProduct(Product product);
 
+    /**
+     * 查询商品详情
+     *
+     * @param id {@link String} 商品id
+     * @return {@link Product}
+     * @author Kang Yong
+     * @date 2022/4/9
+     */
+    Product findBySpuId(String id);
+
 }

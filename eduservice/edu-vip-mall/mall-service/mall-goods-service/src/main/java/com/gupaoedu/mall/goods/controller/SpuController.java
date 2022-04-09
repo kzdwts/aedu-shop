@@ -4,10 +4,7 @@ import com.gupaoedu.mall.goods.model.Product;
 import com.gupaoedu.mall.goods.service.SpuService;
 import com.gupaoedu.mall.util.RespResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * spu商品
@@ -35,6 +32,20 @@ public class SpuController {
     public RespResult saveProduct(@RequestBody Product product) {
         this.spuService.saveProduct(product);
         return RespResult.ok();
+    }
+
+    /**
+     * 根据id查询商品信息
+     *
+     * @param id {@link String} 商品id，即商品spuid
+     * @return {@link RespResult< Product>}
+     * @author Kang Yong
+     * @date 2022/4/9
+     */
+    @GetMapping("/product/{id}")
+    public RespResult<Product> one(@PathVariable(value = "id") String id) {
+        Product product = this.spuService.findBySpuId(id);
+        return RespResult.ok(product);
     }
 
 }
