@@ -19,6 +19,7 @@
         * mall-common（工具工程）
         * mall-service-dependency（所有微服务工程公共依赖包、所有微服务工程公共配置类）
     * mall-web（管理涉及到页面渲染的工程）
+        * mall-page-web（商品详情）
         * mall-search-web（搜索前端页面工程）
     
     
