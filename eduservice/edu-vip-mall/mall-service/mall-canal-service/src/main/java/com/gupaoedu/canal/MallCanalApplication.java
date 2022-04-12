@@ -13,7 +13,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @since 1.0.0
  */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class) // 取消数据库自动装配
-@EnableFeignClients(basePackages = {"com.gupaoedu.mall.goods.feign","com.gupaoedu.mall.search.feign"})
+@EnableFeignClients(basePackages = {"com.gupaoedu.mall.goods.feign", // 商品
+        "com.gupaoedu.mall.search.feign", // 搜索
+        "com.gupaoedu.mall.page.feign" // 商品详情页面
+})
 public class MallCanalApplication {
 
     public static void main(String[] args) {
