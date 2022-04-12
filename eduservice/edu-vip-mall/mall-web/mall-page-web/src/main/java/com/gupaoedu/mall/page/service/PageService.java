@@ -1,5 +1,8 @@
 package com.gupaoedu.mall.page.service;
 
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+
 /**
  * page
  *
@@ -16,6 +19,6 @@ public interface PageService {
      * @author Kang Yong
      * @date 2022/4/9
      */
-    void html(String id);
+    void html(String id) throws FileNotFoundException, UnsupportedEncodingException;
 
 }

@@ -20,17 +20,24 @@
             <version>1.2.1-RELEASE</version>
         </dependency>
 
-        <!--goods-api-->
+        <!--goods api-->
         <dependency>
             <groupId>com.gupaoedu</groupId>
             <artifactId>mall-goods-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <!--searchapi-->
+        <!--search api-->
         <dependency>
             <groupId>com.gupaoedu</groupId>
             <artifactId>mall-search-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!--page api-->
+        <dependency>
+            <groupId>com.gupaoedu</groupId>
+            <artifactId>mall-page-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

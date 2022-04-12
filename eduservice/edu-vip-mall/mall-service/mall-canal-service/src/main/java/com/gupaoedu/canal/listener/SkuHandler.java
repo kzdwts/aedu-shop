@@ -2,6 +2,7 @@ package com.gupaoedu.canal.listener;
 
 import com.alibaba.fastjson.JSON;
 import com.gupaoedu.mall.goods.model.Sku;
+import com.gupaoedu.mall.page.feign.PageFeign;
 import com.gupaoedu.mall.search.feign.SkuSearchFeign;
 import com.gupaoedu.mall.search.model.SkuEs;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,9 @@ public class SkuHandler implements EntryHandler<Sku> {
     @Autowired
     private SkuSearchFeign skuSearchFeign;
 
+    @Autowired
+    private PageFeign pageFeign;
+
     /**
      * 增加数据
      *
@@ -40,6 +44,9 @@ public class SkuHandler implements EntryHandler<Sku> {
         if (ObjectUtils.isNotEmpty(sku.getStatus()) && (sku.getStatus().intValue() == 1)) {
             this.skuSearchFeign.add(JSON.parseObject(JSON.toJSONString(sku), SkuEs.class));
         }
+
+        // 生成静态页面
+        this.pageFeign.html(sku.getSpuId());
     }
 
     /**
@@ -60,6 +67,9 @@ public class SkuHandler implements EntryHandler<Sku> {
         } else {
             this.skuSearchFeign.add(JSON.parseObject(JSON.toJSONString(after), SkuEs.class));
         }
+
+        // 生成静态页面
+        this.pageFeign.html(after.getSpuId());
     }
 
     /**
