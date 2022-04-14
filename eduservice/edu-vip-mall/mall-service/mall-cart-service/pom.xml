@@ -3,37 +3,36 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <modules>
-        <module>mall-goods-service</module>
-        <module>mall-file-service</module>
-        <module>mall-canal-service</module>
-        <module>mall-search-service</module>
-        <module>mall-cart-service</module>
-    </modules>
     <parent>
-        <artifactId>gupaoedu-vip-mall</artifactId>
+        <artifactId>mall-service</artifactId>
         <groupId>com.gupaoedu</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <!--本工程信息-->
-    <packaging>pom</packaging>
-    <artifactId>mall-service</artifactId>
-    <description>所有微服务工程的父工程</description>
+    <artifactId>mall-cart-service</artifactId>
+    <description>购物车工程</description>
 
     <dependencies>
-        <!--jar包依赖-->
+        <!--cart api-->
         <dependency>
             <groupId>com.gupaoedu</groupId>
-            <artifactId>mall-service-dependency</artifactId>
+            <artifactId>mall-cart-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!--工具包依赖-->
+        <!--goods api-->
         <dependency>
             <groupId>com.gupaoedu</groupId>
-            <artifactId>mall-common</artifactId>
+            <artifactId>mall-goods-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <!--mongodb-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <version>2.2.10.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
 
