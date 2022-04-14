@@ -66,4 +66,18 @@ public class SkuController {
         return RespResult.ok();
     }
 
+    /**
+     * 根据id获取sku
+     *
+     * @param id {@link String} sku id
+     * @return {@link RespResult< Sku>}
+     * @author Kang Yong
+     * @date 2022/4/14
+     */
+    @GetMapping("/{id}")
+    public RespResult<Sku> one(@PathVariable(value = "id") String id) {
+        Sku sku = this.skuService.getById(id);
+        return RespResult.ok(sku);
+    }
+
 }

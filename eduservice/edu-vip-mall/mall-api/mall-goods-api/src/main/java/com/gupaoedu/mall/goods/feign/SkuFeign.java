@@ -3,10 +3,7 @@ package com.gupaoedu.mall.goods.feign;
 import com.gupaoedu.mall.goods.model.Sku;
 import com.gupaoedu.mall.util.RespResult;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -52,4 +49,15 @@ public interface SkuFeign {
      */
     @PutMapping("/sku/aditems/type")
     RespResult updateTypeItems(@RequestParam("id") Integer id);
+
+    /**
+     * 根据id获取sku
+     *
+     * @param id {@link String} sku id
+     * @return {@link RespResult< Sku>}
+     * @author Kang Yong
+     * @date 2022/4/14
+     */
+    @GetMapping("/{id}")
+    RespResult<Sku> one(@PathVariable(value = "id") String id);
 }
