@@ -77,3 +77,24 @@
 * [ElasticSearch](https://www.elastic.co/cn/)      
     * [搜索服务](https://learnku.com/docs/elasticsearch73/7.3) 
     * [中文API](https://www.elastic.co/guide/cn/index.html)
+* [MongoDB](https://www.mongodb.org.cn/)
+    * MongoDB特点
+        * MongoDB是一个面向文档存储的数据库，操作起来比较简单和容易
+        * 你可以在MongoDB记录中设置任何属性的索引来实现更快的排序
+        * MongoDB有很强的扩展性，海量数据处理时可以根据需要进行分片
+        * MongoDB支持丰富的查询表达式
+        * MongoDB中Map/Reduce主要是用来对数据进行批量处理和聚合操作
+        * GridFS是MongoDB中的一个内置功能，可以用于存放大量小文件
+        * MongoDB允许在服务端执行脚本，可以用JavaScript编写某个函数，直接在服务端执行，也可以把函数的定义存储在服务端，下次直接调用即可
+        * MongoDB支持各种编程语言：Ruby，Python，Java，C++，PHP，C#等多种语言
+        * MongoDB安装简单
+
+
+
+
+
+
+
+
+
+
