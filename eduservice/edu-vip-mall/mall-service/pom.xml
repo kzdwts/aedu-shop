@@ -9,6 +9,7 @@
         <module>mall-canal-service</module>
         <module>mall-search-service</module>
         <module>mall-cart-service</module>
+        <module>mall-user-service</module>
     </modules>
     <parent>
         <artifactId>gupaoedu-vip-mall</artifactId>
