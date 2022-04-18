@@ -1,5 +1,9 @@
 package com.gupaoedu.mall.cart.service;
 
+import com.gupaoedu.mall.cart.model.Cart;
+
+import java.util.List;
+
 /**
  * 购物车 业务层
  *
@@ -19,5 +23,15 @@ public interface CartService {
      * @date 2022/4/14
      */
     void add(String id, String userName, Integer num);
+
+    /**
+     * 查询购物车列表
+     *
+     * @param userName {@link String} 用户名
+     * @return {@link List< Cart>}
+     * @author Kang Yong
+     * @date 2022/4/18
+     */
+    List<Cart> list(String userName);
 
 }
