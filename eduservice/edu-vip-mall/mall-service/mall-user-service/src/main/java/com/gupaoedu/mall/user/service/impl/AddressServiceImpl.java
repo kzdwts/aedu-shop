@@ -36,4 +36,5 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
         return this.addressMapper.selectList(Wrappers.<Address>lambdaQuery().
                 eq(Address::getUsername, userName));
     }
+
 }
