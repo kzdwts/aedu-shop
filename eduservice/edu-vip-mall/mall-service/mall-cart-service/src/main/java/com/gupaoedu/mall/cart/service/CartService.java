@@ -34,4 +34,14 @@ public interface CartService {
      */
     List<Cart> list(String userName);
 
+    /**
+     * 根据id集合查询购物车列表
+     *
+     * @param ids {@link List<String>}
+     * @return {@link Iterable< Cart>}
+     * @author Kang Yong
+     * @date 2022/4/22
+     */
+    Iterable<Cart> list(List<String> ids);
+
 }

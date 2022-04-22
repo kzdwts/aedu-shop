@@ -1,11 +1,13 @@
 package com.gupaoedu.mall.cart.controller;
 
+import com.google.common.collect.Lists;
 import com.gupaoedu.mall.cart.model.Cart;
 import com.gupaoedu.mall.cart.service.CartService;
 import com.gupaoedu.mall.util.RespResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,6 +54,21 @@ public class CartController {
     public RespResult<List<Cart>> list() {
         String userName = "gupao";
         List<Cart> cartList = this.cartService.list(userName);
+        return RespResult.ok(cartList);
+    }
+
+    /**
+     * 购物车数据
+     *
+     * @param ids {@link List<String>}
+     * @return {@link RespResult< List< Cart>>}
+     * @author Kang Yong
+     * @date 2022/4/22
+     */
+    @PostMapping("/list")
+    public RespResult<List<Cart>> list(@RequestBody List<String> ids) {
+        // 购物车集合
+        ArrayList<Cart> cartList = Lists.newArrayList(this.cartService.list(ids));
         return RespResult.ok(cartList);
     }
 
