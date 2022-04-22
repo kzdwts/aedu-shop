@@ -72,4 +72,19 @@ public class CartController {
         return RespResult.ok(cartList);
     }
 
+    /**
+     * 删除指定购物车
+     *
+     * @param ids {@link List<String>}
+     * @return {@link RespResult}
+     * @author Kang Yong
+     * @date 2022/4/22
+     */
+    @DeleteMapping
+    public RespResult delete(@RequestBody List<String> ids) {
+        // 删除购物车集合
+        this.cartService.delete(ids);
+        return RespResult.ok();
+    }
+
 }

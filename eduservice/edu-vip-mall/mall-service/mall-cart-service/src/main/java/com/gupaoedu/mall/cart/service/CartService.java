@@ -44,4 +44,13 @@ public interface CartService {
      */
     Iterable<Cart> list(List<String> ids);
 
+    /**
+     * 删除购物车集合
+     *
+     * @param ids {@link List<String>}
+     * @author Kang Yong
+     * @date 2022/4/22
+     */
+    void delete(List<String> ids);
+
 }

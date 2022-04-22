@@ -9,6 +9,9 @@ import com.gupaoedu.mall.util.RespResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +31,9 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private CartMapper cartMapper;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     /**
      * 加入购物车
@@ -105,6 +111,18 @@ public class CartServiceImpl implements CartService {
     @Override
     public Iterable<Cart> list(List<String> ids) {
         return this.cartMapper.findAllById(ids);
+    }
+
+    /**
+     * 删除购物车集合(根据id删除)
+     *
+     * @param ids {@link List<String>}
+     * @author Kang Yong
+     * @date 2022/4/22
+     */
+    @Override
+    public void delete(List<String> ids) {
+        this.mongoTemplate.remove(Query.query(Criteria.where("_id").in(ids)), Cart.class);
     }
 
 }

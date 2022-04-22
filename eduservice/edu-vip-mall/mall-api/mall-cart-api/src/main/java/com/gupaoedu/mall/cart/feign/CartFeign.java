@@ -3,6 +3,7 @@ package com.gupaoedu.mall.cart.feign;
 import com.gupaoedu.mall.cart.model.Cart;
 import com.gupaoedu.mall.util.RespResult;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -28,5 +29,16 @@ public interface CartFeign {
      */
     @PostMapping("/cart/list")
     RespResult<List<Cart>> list(@RequestBody List<String> ids);
+
+    /**
+     * 删除指定购物车
+     *
+     * @param ids {@link List<String>}
+     * @return {@link RespResult}
+     * @author Kang Yong
+     * @date 2022/4/22
+     */
+    @DeleteMapping("/cart")
+    RespResult delete(@RequestBody List<String> ids);
 
 }
