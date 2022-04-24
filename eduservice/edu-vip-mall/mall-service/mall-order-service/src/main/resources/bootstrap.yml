@@ -16,10 +16,7 @@ spring:
       discovery:
         #Nacos的注册地址
         server-addr: 192.168.100.133:8848
-  # ====================redis====================
-  redis:
-    host: 192.168.100.133
-    port: 6379
+
 # ====================MybatisPlus====================
 mybatis-plus:
   mapper-locations: mapper/*.xml

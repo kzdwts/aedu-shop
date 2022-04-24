@@ -1,5 +1,6 @@
 package com.gupaoedu.mall.goods.feign;
 
+import com.gupaoedu.mall.cart.model.Cart;
 import com.gupaoedu.mall.goods.model.Sku;
 import com.gupaoedu.mall.util.RespResult;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -60,4 +61,15 @@ public interface SkuFeign {
      */
     @GetMapping("/{id}")
     RespResult<Sku> one(@PathVariable(value = "id") String id);
+
+    /**
+     * 库存递减
+     *
+     * @param carts {@link List<Cart>}
+     * @return {@link RespResult}
+     * @author Kang Yong
+     * @date 2022/4/24
+     */
+    @PostMapping("/sku/dcount")
+    RespResult decount(@RequestBody List<Cart> carts);
 }

@@ -1,5 +1,6 @@
 package com.gupaoedu.mall.goods.controller;
 
+import com.gupaoedu.mall.cart.model.Cart;
 import com.gupaoedu.mall.goods.model.Sku;
 import com.gupaoedu.mall.goods.service.SkuService;
 import com.gupaoedu.mall.util.RespResult;
@@ -78,6 +79,20 @@ public class SkuController {
     public RespResult<Sku> one(@PathVariable(value = "id") String id) {
         Sku sku = this.skuService.getById(id);
         return RespResult.ok(sku);
+    }
+
+    /**
+     * 库存递减
+     *
+     * @param carts {@link List<Cart>}
+     * @return {@link RespResult}
+     * @author Kang Yong
+     * @date 2022/4/24
+     */
+    @PostMapping("/dcount")
+    public RespResult decount(@RequestBody List<Cart> carts) {
+        this.skuService.decount(carts);
+        return RespResult.ok();
     }
 
 }

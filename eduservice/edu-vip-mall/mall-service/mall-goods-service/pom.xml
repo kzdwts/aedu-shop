@@ -22,6 +22,12 @@
             <artifactId>mall-goods-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <!--cart api-->
+        <dependency>
+            <groupId>com.gupaoedu</groupId>
+            <artifactId>mall-cart-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <!--代码生成器包-->
         <dependency>

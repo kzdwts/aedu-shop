@@ -1,6 +1,7 @@
 package com.gupaoedu.mall.goods.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.gupaoedu.mall.cart.model.Cart;
 import com.gupaoedu.mall.goods.model.Sku;
 
 import java.util.List;
@@ -41,4 +42,13 @@ public interface SkuService extends IService<Sku> {
      * @date 2022/2/17
      */
     List<Sku> updateTypeSkuItems(Integer typeId);
+
+    /**
+     * 库存递减
+     *
+     * @param carts {@link List<Cart>}
+     * @author Kang Yong
+     * @date 2022/4/24
+     */
+    void decount(List<Cart> carts);
 }

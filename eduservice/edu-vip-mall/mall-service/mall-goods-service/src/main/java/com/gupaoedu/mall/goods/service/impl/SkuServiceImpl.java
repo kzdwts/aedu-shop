@@ -2,6 +2,7 @@ package com.gupaoedu.mall.goods.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.gupaoedu.mall.cart.model.Cart;
 import com.gupaoedu.mall.goods.mapper.AdItemsMapper;
 import com.gupaoedu.mall.goods.mapper.SkuMapper;
 import com.gupaoedu.mall.goods.mapper.SpuMapper;
@@ -101,5 +102,23 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
         // 根据推广列表查询产品列表信息
         List<String> skuIds = adItemsList.stream().map(AdItems::getSkuId).collect(Collectors.toList());
         return skuIds == null || skuIds.size() <= 0 ? null : this.skuMapper.selectBatchIds(skuIds);
+    }
+
+    /**
+     * 库存递减
+     *
+     * @param carts {@link List< Cart >}
+     * @author Kang Yong
+     * @date 2022/4/24
+     */
+    @Override
+    public void decount(List<Cart> carts) {
+        for (Cart cart : carts) {
+            // 语句级控制，防止超卖
+            int count = skuMapper.decount(cart.getSkuId(), cart.getNum());
+            if (count < 0) {
+                throw new RuntimeException("库存不足");
+            }
+        }
     }
 }
