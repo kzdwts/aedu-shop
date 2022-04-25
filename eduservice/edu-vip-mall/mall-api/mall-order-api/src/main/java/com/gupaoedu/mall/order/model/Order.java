@@ -27,6 +27,7 @@ public class Order implements Serializable {
 
     @TableId(type = IdType.ASSIGN_ID)
     private String id;
+
     private String payType;
     private Date createTime;
     private Date updateTime;
