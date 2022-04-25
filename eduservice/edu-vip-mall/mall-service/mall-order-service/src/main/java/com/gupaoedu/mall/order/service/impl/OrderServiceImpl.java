@@ -80,9 +80,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         // 4、增加订单
         order.setTotalNum(totalNum);
         order.setMoneys(totalMoney);
-        order.setOrderStatus(0);
-        order.setPayStatus(0);
-        order.setIsDelete(0);
         this.orderMapper.insert(order);
 
         // 5、删除购物车记录
