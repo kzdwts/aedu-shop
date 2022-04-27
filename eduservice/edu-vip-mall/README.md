@@ -9,12 +9,18 @@
     * mall-api（所有数据库表对应的Bean和Feign）
         * mall-goods-api（shop_goods对应的Api工程）
         * mall-search-api（搜索服务api工程）
+        * mall-cart-api（购物车工程）
+        * mall-user-api（用户工程）
+        * mall-order-api（订单工程）
     * mall-gateway（管理所有微服务网关）
     * mall-service（所有微服务工程的父工程）
         * mall-goods-service（shop_goods数据库的增删改查）
         * mall-file-service（文件系统）
         * mall-canal-service（canal微服务）
         * mall-search-service（商品搜索工程）
+        * mall-cart-service（购物车工程）
+        * mall-user-service（用户工程）
+        * mall-order-service（订单工程）
     * mall-util（所有工具工程管理）
         * mall-common（工具工程）
         * mall-service-dependency（所有微服务工程公共依赖包、所有微服务工程公共配置类）
