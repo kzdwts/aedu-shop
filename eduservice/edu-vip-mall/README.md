@@ -9,6 +9,7 @@
     * mall-api（所有数据库表对应的Bean和Feign）
         * mall-goods-api（shop_goods对应的Api工程）
         * mall-search-api（搜索服务api工程）
+        * mall-page-api（商品详情页api工程）
         * mall-cart-api（购物车工程）
         * mall-user-api（用户工程）
         * mall-order-api（订单工程）
