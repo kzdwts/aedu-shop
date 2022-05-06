@@ -16,6 +16,10 @@ spring:
       discovery:
         #Nacos的注册地址
         server-addr: 192.168.100.133:8848
+    # seata
+    alibaba:
+      seata:
+        tx-service-group: tx_shop
 
 # ====================MybatisPlus====================
 mybatis-plus:
@@ -29,3 +33,5 @@ mybatis-plus:
 logging:
   pattern:
     console: "%msg%n"
+
+

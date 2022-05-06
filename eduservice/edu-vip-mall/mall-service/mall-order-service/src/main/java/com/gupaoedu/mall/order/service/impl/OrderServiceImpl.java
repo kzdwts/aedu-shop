@@ -11,6 +11,7 @@ import com.gupaoedu.mall.order.model.Order;
 import com.gupaoedu.mall.order.model.OrderSku;
 import com.gupaoedu.mall.order.service.OrderService;
 import com.gupaoedu.mall.util.RespResult;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.keyvalue.core.IterableConverter;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      * @author Kang Yong
      * @date 2022/4/24
      */
+    @GlobalTransactional
     @Override
     public Boolean add(Order order) {
         // 1、查询购物车记录
