@@ -10,6 +10,7 @@
         <module>mall-cart-api</module>
         <module>mall-user-api</module>
         <module>mall-order-api</module>
+        <module>mall-pay-api</module>
     </modules>
 
     <!--父工程-->
