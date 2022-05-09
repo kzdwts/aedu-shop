@@ -19,6 +19,17 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+rocketmq:
+  name-server: 192.168.100.133:9876
+  producer:
+    group: pay-group
+    send-message-timeout: 300000
+    compress-message-body-threshould: 4096
+    max-message-size: 4194304
+    retry-times-when-send-async-failed: 0
+    retry-next-server: true
+    retry-times-when-send-failed: 2
+
 feign:
   client:
     config:
