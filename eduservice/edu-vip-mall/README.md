@@ -13,6 +13,7 @@
         * mall-cart-api（购物车工程）
         * mall-user-api（用户工程）
         * mall-order-api（订单工程）
+        * mall-pay-api（支付工程）
     * mall-gateway（管理所有微服务网关）
     * mall-service（所有微服务工程的父工程）
         * mall-goods-service（shop_goods数据库的增删改查）
@@ -22,6 +23,7 @@
         * mall-cart-service（购物车工程）
         * mall-user-service（用户工程）
         * mall-order-service（订单工程）
+        * mall-pay-service（支付工程）
     * mall-util（所有工具工程管理）
         * mall-common（工具工程）
         * mall-service-dependency（所有微服务工程公共依赖包、所有微服务工程公共配置类）
