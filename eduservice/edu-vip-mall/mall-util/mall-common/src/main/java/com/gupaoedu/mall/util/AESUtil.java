@@ -32,7 +32,7 @@ public class AESUtil {
         // 2、创建秘钥对象，并指定算法
         SecretKeySpec secretKey = new SecretKeySpec(appsecret.getBytes(StandardCharsets.UTF_8), "AES");
         // 3、设置Cipher的加密模式，AES/ECP/PKCS7Padding BC指定算法对象（）
-        Cipher cipher = Cipher.getInstance("AES/ECP/PKCS7Padding", "BC");
+        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS7Padding", "BC");
         // 4、初始化加密配置
         cipher.init(mode, secretKey);
         // 5、执行加密/解密
@@ -46,7 +46,7 @@ public class AESUtil {
         String key = "1616161616161616";
 
         // 秘钥MD5值
-        key = MD5.md5(key);
+//        key = MD5.md5(key);
 
         // 加密
         byte[] encrypt = encryptAndDecrypt(content.getBytes("UTF-8"), key, 1);
