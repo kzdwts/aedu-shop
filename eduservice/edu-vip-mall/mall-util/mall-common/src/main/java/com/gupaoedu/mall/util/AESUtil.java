@@ -19,10 +19,10 @@ public class AESUtil {
     /**
      * AES 加密/解密
      *
-     * @param buffer    {@link byte[]} 明文/密文
+     * @param buffer    {@link byte} 明文/密文
      * @param appsecret {@link String} 秘钥，16位
      * @param mode      {@link Integer} 处理方式 1：加密，2：解密
-     * @return {@link byte[]}
+     * @return {@link byte}
      * @author Kang Yong
      * @date 2022/5/15
      */
@@ -44,6 +44,9 @@ public class AESUtil {
         String content = "SpringCloud Alibaba!";
         // 16位秘钥
         String key = "1616161616161616";
+
+        // 秘钥MD5值
+        key = MD5.md5(key);
 
         // 加密
         byte[] encrypt = encryptAndDecrypt(content.getBytes("UTF-8"), key, 1);
