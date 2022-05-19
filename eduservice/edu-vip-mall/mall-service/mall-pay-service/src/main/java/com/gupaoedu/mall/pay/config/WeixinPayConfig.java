@@ -1,5 +1,7 @@
 package com.gupaoedu.mall.pay.config;
 
+import com.github.wxpay.sdk.WXPayConfig;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,16 +14,39 @@ import org.springframework.stereotype.Component;
 @Component
 public class WeixinPayConfig extends WXPayConfig {
 
+    /**
+     * 应用id
+     */
+    @Value("${payconfig.weixin.appId}")
     private String appId;
 
+    /**
+     * 商户号
+     */
+    @Value("${payconfig.weixin.mchID}")
     private String mchID;
 
+    /**
+     * 秘钥
+     */
+    @Value("${payconfig.weixin.key}")
     private String key;
 
+    /**
+     * 会调地址
+     */
+    @Value("${payconfig.weixin.notifyUrl}")
     private String notifyUrl;
 
+    /**
+     * 整数路径
+     */
+    @Value("${payconfig.weixin.certPath}")
     private String certPath;
 
+    /**
+     * 证书字节数组
+     */
     private byte[] certData;
 
 }
