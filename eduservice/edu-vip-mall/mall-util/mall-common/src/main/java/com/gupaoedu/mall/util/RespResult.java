@@ -111,6 +111,24 @@ public class RespResult<T> implements Serializable {
     }
 
     /**
+     * 自定义返回
+     *
+     * @param code {@link Integer} 自定义code
+     * @param msg  {@link String} 描述
+     * @param data {@link Object} 数据
+     * @return {@link RespResult}
+     * @author Kang Yong
+     * @date 2022/5/20
+     */
+    public static RespResult secResult(Integer code, String msg, Object data) {
+        RespResult result = new RespResult();
+        result.setCode(code);
+        result.setMsg(msg);
+        result.setData(data);
+        return result;
+    }
+
+    /**
      * 自定义错误响应
      *
      * @param respCode {@link RespCode}
