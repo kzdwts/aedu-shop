@@ -1,8 +1,11 @@
 package com.gupaoedu.mall.pay.config;
 
+import com.github.wxpay.sdk.IWXPayDomain;
 import com.github.wxpay.sdk.WXPayConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.io.InputStream;
 
 /**
  * 微信支付配置
@@ -49,4 +52,28 @@ public class WeixinPayConfig extends WXPayConfig {
      */
     private byte[] certData;
 
+    @Override
+    public String getAppID() {
+        return this.appId;
+    }
+
+    @Override
+    public String getMchID() {
+        return this.mchID;
+    }
+
+    @Override
+    public String getKey() {
+        return this.key;
+    }
+
+    @Override
+    public InputStream getCertStream() {
+        return null;
+    }
+
+    @Override
+    public IWXPayDomain getWXPayDomain() {
+        return null;
+    }
 }
