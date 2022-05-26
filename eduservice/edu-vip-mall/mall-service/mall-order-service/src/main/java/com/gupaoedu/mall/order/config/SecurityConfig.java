@@ -1,10 +1,10 @@
 package com.gupaoedu.mall.order.config;
 
+import com.gupaoedu.mall.util.Signature;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.security.Signature;
 
 /**
  * 初始化signature配置
