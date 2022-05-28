@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 微信支付参数
@@ -31,8 +33,20 @@ public class WeixinPayParam {
      * @author Kang Yong
      * @date 2022/5/27
      */
-    public String weixinParam(Order order, HttpServletRequest request) {
-        return null;
+    public String weixinParam(Order order, HttpServletRequest request) throws Exception {
+        //定义Map封装参数
+        Map<String, String> dataMap = new HashMap<String, String>();
+        dataMap.put("body", "商城订单-" + order.getId());
+        dataMap.put("out_trade_no", order.getId());
+        dataMap.put("device_info", "PC");
+        dataMap.put("fee_type", "CNY");
+        //dataMap.put("total_fee",String.valueOf(order.getMoneys()));
+        dataMap.put("total_fee", "1");//1分钱测试
+        dataMap.put("spbill_create_ip", IPUtils.getIpAddr(request));
+        dataMap.put("notify_url", "http://www.example.com/wxpay/notify");
+        dataMap.put("trade_type", "NATIVE");//此处指定为扫码支付
+        // 生成签名，并且参数加密
+        return signature.security(dataMap);
     }
 
 }
