@@ -66,9 +66,9 @@ payconfig:
   #支付安全校验(验签)
   aes:
     #AES加密秘钥
-      skey: ab2cc473d3334c39
-      #验签盐
-      salt: XPYQZb1kMES8HNaJWW8+TDu/4JdBK4owsU9eXCXZDOI=
+    skey: ab2cc473d3334c39
+    #验签盐
+    salt: XPYQZb1kMES8HNaJWW8+TDu/4JdBK4owsU9eXCXZDOI=
 
 
 
