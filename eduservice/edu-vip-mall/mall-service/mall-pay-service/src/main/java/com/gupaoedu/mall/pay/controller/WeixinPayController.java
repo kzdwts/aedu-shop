@@ -5,6 +5,7 @@ import com.gupaoedu.mall.pay.model.PayLog;
 import com.gupaoedu.mall.pay.service.PayLogService;
 import com.gupaoedu.mall.pay.service.WeixinPayService;
 import com.gupaoedu.mall.util.RespResult;
+import com.gupaoedu.mall.util.Signature;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
@@ -38,6 +39,9 @@ public class WeixinPayController {
     @Autowired
     private RocketMQTemplate rocketMQTemplate;
 
+    @Autowired
+    private Signature signature;
+
     /**
      * 记录支付结果
      * 执行事务消息发送
@@ -58,13 +62,16 @@ public class WeixinPayController {
     /**
      * 预下单
      *
-     * @param map {@link Map< String}
+     * @param ciphertext {@link String}
      * @return {@link  RespResult< Map>}
      * @author Kang Yong
      * @date 2022/5/23
      */
     @GetMapping("/pay")
-    public RespResult<Map> pay(@RequestParam Map<String, String> map) throws Exception {
+    public RespResult<Map> pay(@RequestParam(value = "ciptext") String ciphertext) throws Exception {
+        // 数据解析，并验签校验
+        Map<String, String> map = signature.security(ciphertext);
+
         // 1分钱测试
         if (Objects.nonNull(map)) {
             Map<String, String> resultMap = this.weixinPayService.preOrder(map);
