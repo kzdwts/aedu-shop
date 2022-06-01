@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
@@ -51,7 +52,8 @@ public class WeixinPayController {
      * @date 2022/5/12
      */
     @GetMapping("/result")
-    public RespResult payLog() {
+    public RespResult payLog(HttpServletRequest request) {
+        // TODO 获取支付结果
         PayLog payLog = new PayLog("1", 1, "test", "No001", new Date());
         Message<String> message = MessageBuilder.withPayload(JSON.toJSONString(payLog)).build();
         // 发送支付成功回调消息

@@ -43,7 +43,7 @@ public class WeixinPayParam {
         //dataMap.put("total_fee",String.valueOf(order.getMoneys()));
         dataMap.put("total_fee", "1");//1分钱测试
         dataMap.put("spbill_create_ip", IPUtils.getIpAddr(request));
-        dataMap.put("notify_url", "http://www.example.com/wxpay/notify");
+        dataMap.put("notify_url", "http://www.example.com/wxpay/notify"); // 支付回调域名 TODO
         dataMap.put("trade_type", "NATIVE");//此处指定为扫码支付
         // 生成签名，并且参数加密
         return signature.security(dataMap);
