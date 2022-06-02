@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
@@ -52,8 +55,15 @@ public class WeixinPayController {
      * @date 2022/5/12
      */
     @GetMapping("/result")
-    public RespResult payLog(HttpServletRequest request) {
-        // TODO 获取支付结果
+    public RespResult payLog(HttpServletRequest request) throws IOException {
+        // 获取支付结果
+        ServletInputStream is = request.getInputStream();
+        // 接受存储网络输入流（微信服务器返回的支付状态数据）
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        // 缓冲区定义
+        byte[] buffer = new byte[1024];
+
+
         PayLog payLog = new PayLog("1", 1, "test", "No001", new Date());
         Message<String> message = MessageBuilder.withPayload(JSON.toJSONString(payLog)).build();
         // 发送支付成功回调消息
