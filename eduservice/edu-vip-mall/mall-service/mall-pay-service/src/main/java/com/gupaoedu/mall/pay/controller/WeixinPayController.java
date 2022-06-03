@@ -62,6 +62,13 @@ public class WeixinPayController {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         // 缓冲区定义
         byte[] buffer = new byte[1024];
+        int len = 0;
+        while ((len = is.read(buffer)) != -1) {
+            os.write(buffer, 0, len);
+        }
+        // 关闭资源
+        os.close();
+        is.close();
 
 
         PayLog payLog = new PayLog("1", 1, "test", "No001", new Date());
