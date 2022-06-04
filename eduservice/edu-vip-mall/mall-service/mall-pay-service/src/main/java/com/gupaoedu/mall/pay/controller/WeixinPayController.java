@@ -70,6 +70,11 @@ public class WeixinPayController {
         os.close();
         is.close();
 
+        // 将支付结果转成xml的字符串
+        String xmlResult = new String(os.toByteArray(), "UTF-8");
+        // 将xmlResult转成Map
+        Map<String, String> responseMap = WXPayUtil.xmlToMap(xmlResult);
+
 
         PayLog payLog = new PayLog("1", 1, "test", "No001", new Date());
         Message<String> message = MessageBuilder.withPayload(JSON.toJSONString(payLog)).build();
