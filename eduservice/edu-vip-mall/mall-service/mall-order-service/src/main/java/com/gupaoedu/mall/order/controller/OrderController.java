@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * 订单
@@ -44,6 +45,8 @@ public class OrderController {
         // 参数
         order.setId(IdWorker.getIdStr());
         order.setUsername("gupao");
+        order.setCreateTime(new Date());
+        order.setUpdateTime(new Date());
         order.setOrderStatus(0);
         order.setPayStatus(0);
         order.setIsDelete(0);
