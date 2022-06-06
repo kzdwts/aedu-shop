@@ -88,4 +88,17 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         this.cartFeign.delete(order.getCartIds());
         return true;
     }
+
+    /**
+     * 支付后修改订单状态
+     *
+     * @param id {@link String}
+     * @return {@link int}
+     * @author Kang Yong
+     * @date 2022/6/6
+     */
+    @Override
+    public int updateAfterPayStatus(String id) {
+        return 0;
+    }
 }

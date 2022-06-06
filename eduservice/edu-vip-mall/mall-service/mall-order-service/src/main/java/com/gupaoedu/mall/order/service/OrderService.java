@@ -22,4 +22,14 @@ public interface OrderService extends IService<Order> {
      */
     Boolean add(Order order);
 
+    /**
+     * 支付后修改订单状态
+     *
+     * @param id {@link String}
+     * @return {@link int}
+     * @author Kang Yong
+     * @date 2022/6/6
+     */
+    int updateAfterPayStatus(String id);
+
 }
