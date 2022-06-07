@@ -1,6 +1,7 @@
 package com.gupaoedu.mall.order.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gupaoedu.mall.cart.feign.CartFeign;
 import com.gupaoedu.mall.cart.model.Cart;
@@ -17,6 +18,7 @@ import org.springframework.data.keyvalue.core.IterableConverter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 订单业务实现层
@@ -99,6 +101,19 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      */
     @Override
     public int updateAfterPayStatus(String id) {
+        // 先查询出订单
+        Order order = this.orderMapper.selectOne(Wrappers.<Order>lambdaQuery()
+                .select(Order::getId, Order::getOrderStatus, Order::getPayStatus)
+                .eq(Order::getId, id)
+                .eq(Order::getOrderStatus, 0)
+                .eq(Order::getPayStatus, 0)
+        );
+
+        if (Objects.nonNull(order)) {
+            order.setPayStatus(1); // 已支付
+            order.setOrderStatus(1); // 待发货
+            return this.baseMapper.updateById(order);
+        }
         return 0;
     }
 }
