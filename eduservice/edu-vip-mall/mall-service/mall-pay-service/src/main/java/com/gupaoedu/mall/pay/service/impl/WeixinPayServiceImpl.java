@@ -1,6 +1,7 @@
 package com.gupaoedu.mall.pay.service.impl;
 
 import com.github.wxpay.sdk.WXPay;
+import com.gupaoedu.mall.pay.model.PayLog;
 import com.gupaoedu.mall.pay.service.WeixinPayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,18 @@ public class WeixinPayServiceImpl implements WeixinPayService {
         Map<String, String> respMap = wxPay.unifiedOrder(dataMap);
         return respMap;
     }
-    
+
+    /**
+     * 支付结果查询
+     *
+     * @param outno {@link String} 外部订单号
+     * @return {@link PayLog}
+     * @author Kang Yong
+     * @date 2022/6/10
+     */
+    @Override
+    public PayLog result(String outno) {
+        return null;
+    }
+
 }
