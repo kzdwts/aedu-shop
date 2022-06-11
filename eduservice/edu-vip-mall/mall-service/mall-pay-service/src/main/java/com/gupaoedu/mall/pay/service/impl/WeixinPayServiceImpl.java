@@ -1,6 +1,7 @@
 package com.gupaoedu.mall.pay.service.impl;
 
 import com.github.wxpay.sdk.WXPay;
+import com.gupaoedu.mall.pay.mapper.PayLogMapper;
 import com.gupaoedu.mall.pay.model.PayLog;
 import com.gupaoedu.mall.pay.service.WeixinPayService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class WeixinPayServiceImpl implements WeixinPayService {
 
     @Autowired
     private WXPay wxPay;
+
+    @Autowired
+    private PayLogMapper payLogMapper;
 
     /**
      * 统一下单，获取支付二维码
@@ -45,6 +49,8 @@ public class WeixinPayServiceImpl implements WeixinPayService {
      */
     @Override
     public PayLog result(String outno) {
+        // 查询数据库
+
         return null;
     }
 
