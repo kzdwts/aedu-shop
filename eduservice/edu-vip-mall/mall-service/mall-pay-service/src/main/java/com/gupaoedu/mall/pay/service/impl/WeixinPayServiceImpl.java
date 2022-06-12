@@ -1,5 +1,6 @@
 package com.gupaoedu.mall.pay.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.wxpay.sdk.WXPay;
 import com.gupaoedu.mall.pay.mapper.PayLogMapper;
 import com.gupaoedu.mall.pay.model.PayLog;
@@ -50,6 +51,12 @@ public class WeixinPayServiceImpl implements WeixinPayService {
     @Override
     public PayLog result(String outno) {
         // 查询数据库
+        PayLog payLog = this.payLogMapper.selectOne(Wrappers.<PayLog>lambdaQuery()
+                .eq(PayLog::getPayId, outno)
+                .orderByDesc(PayLog::getCreateTime)
+                .last("LIMIT 1")
+        );
+
 
         return null;
     }
