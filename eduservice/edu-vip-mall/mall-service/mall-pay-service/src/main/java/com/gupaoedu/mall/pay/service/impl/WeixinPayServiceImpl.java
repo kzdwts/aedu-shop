@@ -8,7 +8,9 @@ import com.gupaoedu.mall.pay.service.WeixinPayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 微信支付
@@ -57,6 +59,13 @@ public class WeixinPayServiceImpl implements WeixinPayService {
                 .last("LIMIT 1")
         );
 
+        if (Objects.isNull(payLog)) {
+            // 微信服务器查询
+            payLog = new PayLog();
+            Map<String, String> queryMap = new HashMap<>();
+            queryMap.put("out_trade_no", outno);
+            Map<String, String> resultMap = wxPay.orderQuery(queryMap);
+        }
 
         return null;
     }
