@@ -97,6 +97,7 @@
         * MongoDB允许在服务端执行脚本，可以用JavaScript编写某个函数，直接在服务端执行，也可以把函数的定义存储在服务端，下次直接调用即可
         * MongoDB支持各种编程语言：Ruby，Python，Java，C++，PHP，C#等多种语言
         * MongoDB安装简单
+* [seata](https://seata.io/zh-cn/) 一款开源的分布式事务解决方案，致力于在微服务架构下提供高性能和简单易用的分布式事务服务        
 
 
 
