@@ -98,7 +98,11 @@
         * MongoDB支持各种编程语言：Ruby，Python，Java，C++，PHP，C#等多种语言
         * MongoDB安装简单
 * [seata](https://seata.io/zh-cn/) 一款开源的分布式事务解决方案，致力于在微服务架构下提供高性能和简单易用的分布式事务服务        
-
+    * 功能特色
+      * 微服务框架支持
+      * AT模式
+      * TCC模式
+      * SAGA模式
 
 
 
