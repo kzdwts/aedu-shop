@@ -30,25 +30,25 @@
         </dependency>
 
         <!--代码生成器包-->
-        <dependency>
+        <!--<dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
             <version>3.4.0</version>
-        </dependency>
+        </dependency>-->
 
         <!--模板工具包-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-engine-core</artifactId>
             <version>2.2</version>
-        </dependency>
+        </dependency>-->
 
         <!--seata分布式事务-->
-        <dependency>
+        <!--<dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
             <version>2.1.0.RELEASE</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
 
