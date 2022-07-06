@@ -75,8 +75,8 @@ public class CartServiceImpl implements CartService {
      * @date 2022/4/18
      */
     private void sku2cart(Sku sku, Cart cart) {
-        cart.setImage(sku.getImage());
         cart.set_id(cart.getUserName() + cart.getSkuId());
+        cart.setImage(sku.getImage());
         cart.setName(sku.getName());
         cart.setPrice(sku.getPrice());
         cart.setSkuId(sku.getId());
