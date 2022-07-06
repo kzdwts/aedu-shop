@@ -59,7 +59,7 @@ public interface SkuFeign {
      * @author Kang Yong
      * @date 2022/4/14
      */
-    @GetMapping("/{id}")
+    @GetMapping("/sku/{id}")
     RespResult<Sku> one(@PathVariable(value = "id") String id);
 
     /**
