@@ -23,6 +23,6 @@ public interface SkuMapper extends BaseMapper<Sku> {
      * @author Kang Yong
      * @date 2022/4/24
      */
-    @Update("UPDATE sku SET num=num-#{num} WHERE id=#{id} AND num>#{num}")
+    @Update("UPDATE sku SET num=num-#{num} WHERE id=#{id} AND num>=#{num}")
     int decount(@Param("id") String skuId, @Param("num") Integer num);
 }
