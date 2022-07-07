@@ -13,9 +13,11 @@ import com.gupaoedu.mall.order.model.OrderSku;
 import com.gupaoedu.mall.order.service.OrderService;
 import com.gupaoedu.mall.util.RespResult;
 import io.seata.spring.annotation.GlobalTransactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.keyvalue.core.IterableConverter;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,6 +29,7 @@ import java.util.Objects;
  * @date 2022/4/24
  * @since 1.0.0
  */
+@Slf4j
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
 
@@ -55,7 +58,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public Boolean add(Order order) {
         // 1、查询购物车记录
         RespResult<List<Cart>> respResult = this.cartFeign.list(order.getCartIds());
-        List<Cart> cartList = IterableConverter.toList(respResult.getData());
+        List<Cart> cartList = respResult.getData();
+        if (CollectionUtils.isEmpty(cartList)) {
+            log.info("===创建订单=购物车数据为空===");
+            return false;
+        }
 
         // 2、减库存
         this.skuFeign.decount(cartList);
@@ -88,6 +95,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
         // 5、删除购物车记录
         this.cartFeign.delete(order.getCartIds());
+
         return true;
     }
 
