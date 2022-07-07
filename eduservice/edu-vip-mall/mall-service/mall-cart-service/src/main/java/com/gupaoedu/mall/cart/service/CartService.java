@@ -42,7 +42,7 @@ public interface CartService {
      * @author Kang Yong
      * @date 2022/4/22
      */
-    Iterable<Cart> list(List<String> ids);
+    List<Cart> list(List<String> ids);
 
     /**
      * 删除购物车集合

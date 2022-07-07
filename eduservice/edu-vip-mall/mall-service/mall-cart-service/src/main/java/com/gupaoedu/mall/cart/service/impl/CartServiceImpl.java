@@ -1,5 +1,6 @@
 package com.gupaoedu.mall.cart.service.impl;
 
+import com.google.common.collect.Lists;
 import com.gupaoedu.mall.cart.mapper.CartMapper;
 import com.gupaoedu.mall.cart.model.Cart;
 import com.gupaoedu.mall.cart.service.CartService;
@@ -14,6 +15,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -104,13 +106,15 @@ public class CartServiceImpl implements CartService {
      * 根据id集合查询购物车列表
      *
      * @param ids {@link List<String>}
-     * @return {@link Iterable< Cart>}
+     * @return {@link List< Cart>}
      * @author Kang Yong
      * @date 2022/4/22
      */
     @Override
-    public Iterable<Cart> list(List<String> ids) {
-        return this.cartMapper.findAllById(ids);
+    public List<Cart> list(List<String> ids) {
+        Iterable<Cart> carts = this.cartMapper.findAllById(ids);
+        ArrayList<Cart> cartList = Lists.newArrayList(carts);
+        return cartList;
     }
 
     /**

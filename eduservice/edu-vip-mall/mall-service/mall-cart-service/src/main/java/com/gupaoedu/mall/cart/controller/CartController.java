@@ -68,7 +68,7 @@ public class CartController {
     @PostMapping("/list")
     public RespResult<List<Cart>> list(@RequestBody List<String> ids) {
         // 购物车集合
-        ArrayList<Cart> cartList = Lists.newArrayList(this.cartService.list(ids));
+        List<Cart> cartList = this.cartService.list(ids);
         return RespResult.ok(cartList);
     }
 
