@@ -33,7 +33,7 @@ public interface CartFeign {
     /**
      * 删除指定购物车
      *
-     * @param ids {@link List<String>}
+     * @param ids {@link List<String>} 购物车id集合
      * @return {@link RespResult}
      * @author Kang Yong
      * @date 2022/4/22

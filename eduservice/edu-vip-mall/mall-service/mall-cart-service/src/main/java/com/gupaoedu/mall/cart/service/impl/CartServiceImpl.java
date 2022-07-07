@@ -120,7 +120,7 @@ public class CartServiceImpl implements CartService {
     /**
      * 删除购物车集合(根据id删除)
      *
-     * @param ids {@link List<String>}
+     * @param ids {@link List<String>} 购物车id集合
      * @author Kang Yong
      * @date 2022/4/22
      */
