@@ -5,20 +5,20 @@ spring:
     name: mall-user
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.100.133:3306/shop_user?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://192.168.10.131:3306/shop_user?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 1024KangYong@MySQL
   cloud:
     nacos:
       config:
         file-extension: yaml
-        server-addr: 192.168.100.133:8848
+        server-addr: 192.168.10.131:8848
       discovery:
         #Nacos的注册地址
-        server-addr: 192.168.100.133:8848
+        server-addr: 192.168.10.131:8848
   # ====================redis====================
   redis:
-    host: 192.168.100.133
+    host: 192.168.10.131
     port: 6379
 # ====================MybatisPlus====================
 mybatis-plus:

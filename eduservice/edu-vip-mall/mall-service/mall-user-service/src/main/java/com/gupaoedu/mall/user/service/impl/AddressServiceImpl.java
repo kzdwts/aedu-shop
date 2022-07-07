@@ -34,7 +34,8 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
     @Override
     public List<Address> list(String userName) {
         return this.addressMapper.selectList(Wrappers.<Address>lambdaQuery().
-                eq(Address::getUsername, userName));
+                eq(Address::getUsername, userName)
+        );
     }
 
 }
