@@ -16,9 +16,9 @@ spring:
       discovery:
         #Nacos的注册地址
         server-addr: 192.168.10.131:8848
-#    alibaba:
-#      seata: # 分布式事务
-#        tx-service-group: tx_shop
+    alibaba:
+      seata: # 分布式事务
+        tx-service-group: tx_shop # 与file.conf中的配置相对应
   # ====================redis====================
   redis:
     host: 192.168.10.131
