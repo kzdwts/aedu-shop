@@ -16,6 +16,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -111,11 +112,14 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
      * @author Kang Yong
      * @date 2022/4/24
      */
+    @Transactional(rollbackFor = Exception.class) // 本地事务
     @Override
     public void decount(List<Cart> carts) {
         for (Cart cart : carts) {
             // 语句级控制，防止超卖
             int count = skuMapper.decount(cart.getSkuId(), cart.getNum());
+            log.info("===count:{}", count);
+
             if (count < 0) {
                 throw new RuntimeException("库存不足");
             }
