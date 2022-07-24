@@ -33,6 +33,6 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 #日志配置
-logging:
-  pattern:
-    console: "%msg%n"
+#logging:
+#  pattern:
+#    console: "%msg%n"
