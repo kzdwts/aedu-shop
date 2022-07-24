@@ -23,6 +23,13 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+ribbon:
+  max-auto-retries: 2 # 最大重试次数，当Eureka中可以找到服务，但是服务连不上时将会重试
+  max-auto-retries-next-server: 3 # 切换实例的重试次数
+  ok-to-retry-on-all-operations: false # 对所有操作请求都进行重试，如果是get则可以
+  connection-timeout: 5000 # 请求连接的超时时间
+  read-timeout: 6000 # 请求处理的超时时间
+
 # ====================MybatisPlus====================
 mybatis-plus:
   mapper-locations: mapper/*.xml
@@ -32,9 +39,9 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 #日志配置
-logging:
-  pattern:
-    console: "%msg%n"
+#logging:
+#  pattern:
+#    console: "%msg%n"
 #支付配置
 payconfig:
   #支付安全校验

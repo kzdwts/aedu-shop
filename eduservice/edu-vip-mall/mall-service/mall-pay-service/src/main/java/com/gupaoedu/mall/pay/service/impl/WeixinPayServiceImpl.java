@@ -64,7 +64,7 @@ public class WeixinPayServiceImpl implements WeixinPayService {
             payLog = new PayLog();
             Map<String, String> queryMap = new HashMap<>();
             queryMap.put("out_trade_no", outno);
-            Map<String, String> resultMap = wxPay.orderQuery(queryMap);
+//            Map<String, String> resultMap = wxPay.orderQuery(queryMap);
         }
 
         return null;

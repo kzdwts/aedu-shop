@@ -52,10 +52,12 @@ public class OrderController {
         // 添加订单
         Boolean addFlag = this.orderService.add(order);
 
-        if (addFlag) {
-            String ciptext = this.weixinPayParam.weixinParam(order, request);
-            return RespResult.ok(ciptext);
-        }
-        return RespResult.error(RespCode.SYSTEM_ERROR);
+        return RespResult.ok(order.getId());
+
+//        if (addFlag) {
+//            String ciptext = this.weixinPayParam.weixinParam(order, request);
+//            return RespResult.ok(ciptext);
+//        }
+//        return RespResult.error(RespCode.SYSTEM_ERROR);
     }
 }

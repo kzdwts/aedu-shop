@@ -39,22 +39,22 @@ public class AESUtil {
         return cipher.doFinal(buffer);
     }
 
-    public static void main(String[] args) throws Exception {
-        // 明文
-        String content = "SpringCloud Alibaba!";
-        // 16位秘钥
-        String key = "1616161616161616";
-
-        // 秘钥MD5值
-//        key = MD5.md5(key);
-
-        // 加密
-        byte[] encrypt = encryptAndDecrypt(content.getBytes("UTF-8"), key, 1);
-        System.out.println("加密后的明文：" + Base64Util.encode(encrypt));
-
-        // 解密
-        byte[] decrypt = encryptAndDecrypt(encrypt, key, 2);
-        System.out.println("解密：" + new String(decrypt, "UTF-8"));
-    }
+//    public static void main(String[] args) throws Exception {
+//        // 明文
+//        String content = "SpringCloud Alibaba!";
+//        // 16位秘钥
+//        String key = "1616161616161616";
+//
+//        // 秘钥MD5值
+////        key = MD5.md5(key);
+//
+//        // 加密
+//        byte[] encrypt = encryptAndDecrypt(content.getBytes("UTF-8"), key, 1);
+//        System.out.println("加密后的明文：" + Base64Util.encode(encrypt));
+//
+//        // 解密
+//        byte[] decrypt = encryptAndDecrypt(encrypt, key, 2);
+//        System.out.println("解密：" + new String(decrypt, "UTF-8"));
+//    }
 
 }
