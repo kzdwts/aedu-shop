@@ -37,7 +37,7 @@ public class SkuEs {
     private String name;
 
     /**
-     * ）
+     * 价格（分）
      */
     private Integer price;
 
