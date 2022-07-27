@@ -19,5 +19,13 @@ public interface PayLogService {
      * @date 2022/5/11
      */
     void log(PayLog payLog);
-    
+
+    /**
+     * 新增日志
+     *
+     * @param payLog {@link PayLog}
+     * @author Kang Yong
+     * @date 2022/7/27
+     */
+    void add(PayLog payLog);
 }

@@ -20,7 +20,7 @@ spring:
     allow-bean-definition-overriding: true
 
 rocketmq:
-  name-server: 192.168.100.133:9876
+  name-server: 192.168.10.131:9876
   producer:
     group: pay-group
     send-message-timeout: 300000

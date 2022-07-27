@@ -33,4 +33,16 @@ public class PayLogServiceImpl extends ServiceImpl<PayLogMapper, PayLog> impleme
     public void log(PayLog payLog) {
         this.payLogMapper.insert(payLog);
     }
+
+    /**
+     * 新增日志
+     *
+     * @param payLog {@link PayLog}
+     * @author Kang Yong
+     * @date 2022/7/27
+     */
+    @Override
+    public void add(PayLog payLog) {
+        this.payLogMapper.insert(payLog);
+    }
 }

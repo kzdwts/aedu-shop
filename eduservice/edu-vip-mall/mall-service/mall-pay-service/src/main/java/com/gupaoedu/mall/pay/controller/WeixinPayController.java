@@ -12,10 +12,7 @@ import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +31,7 @@ import java.util.Objects;
  */
 @RestController
 @RequestMapping("/wx")
+@CrossOrigin
 public class WeixinPayController {
 
     @Autowired
@@ -87,7 +85,7 @@ public class WeixinPayController {
 
         PayLog payLog = new PayLog(responseMap.get("out_trade_no"), status, JSON.toJSONString(responseMap), responseMap.get("out_trade_no"), new Date());
         Message<String> message = MessageBuilder.withPayload(JSON.toJSONString(payLog)).build();
-        // 发送支付成功回调消息
+        // 发送支付成功回调消息（事务消息）
         rocketMQTemplate.sendMessageInTransaction("rocket", "log", message, null);
 
         // 返回结果
