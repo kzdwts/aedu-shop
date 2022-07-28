@@ -24,6 +24,14 @@ public class PayLog {
 
     @TableId(type = IdType.ASSIGN_UUID)
     private String id;
+
+    /**
+     * 支付状态
+     * <p>
+     * 2-已支付
+     * <p>
+     * 7-支付失败
+     */
     private Integer status;
     private String content;
     private String payId;

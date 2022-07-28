@@ -1,9 +1,9 @@
 package com.gupaoedu.mall.pay.mq;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.gupaoedu.mall.pay.model.PayLog;
 import com.gupaoedu.mall.pay.service.PayLogService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.spring.annotation.RocketMQTransactionListener;
 import org.apache.rocketmq.spring.core.RocketMQLocalTransactionListener;
 import org.apache.rocketmq.spring.core.RocketMQLocalTransactionState;
@@ -20,6 +20,7 @@ import java.io.UnsupportedEncodingException;
  * @date 2022/5/12
  * @since 1.0.0
  */
+@Slf4j
 @Component
 @RocketMQTransactionListener(txProducerGroup = "rocket")
 public class TransactionListener implements RocketMQLocalTransactionListener {
@@ -43,6 +44,8 @@ public class TransactionListener implements RocketMQLocalTransactionListener {
             String result = new String((byte[]) msg.getPayload(), "UTF-8");
             PayLog payLog = JSONObject.parseObject(result, PayLog.class);
             this.payLogService.add(payLog);
+            log.info("===支付日志入库成功===");
+            System.out.println("===支付日志入库成功===");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return RocketMQLocalTransactionState.ROLLBACK;

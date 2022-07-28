@@ -5,17 +5,17 @@ spring:
     name: mall-pay
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.100.133:3306/shop_pay?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://192.168.10.131:3306/shop_pay?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 1024KangYong@MySQL
   cloud:
     nacos:
       config:
         file-extension: yaml
-        server-addr: 192.168.100.133:8848
+        server-addr: 192.168.10.131:8848
       discovery:
         #Nacos的注册地址
-        server-addr: 192.168.100.133:8848
+        server-addr: 192.168.10.131:8848
   main:
     allow-bean-definition-overriding: true
 
@@ -46,23 +46,23 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 #日志配置
-logging:
-  pattern:
-    console: "%msg%n"
+#logging:
+#  pattern:
+#    console: "%msg%n"
 
 # 支付配置
 payconfig:
   weixin:
-  #应用ID
-  appId: wx9f1fa58451efa9b2
-  #商户ID号
-  mchID: 1576040561
-  #秘钥
-  key: QS8rrOISuu8LojP1OFd8xmswB7TQCfI1
-  #默认回调地址
-  notifyUrl: http://2cw4969042:wicp:vip:50381/wx/result
-  #证书存储路径
-  certPath: D:/gupaoedu-vip-mall/mall-service/mall-pay-service/src/main/resources/apiclient_cert:p12
+    #应用ID
+    appId: wx9f1fa58451efa9b2
+    #商户ID号
+    mchID: 1576040561
+    #秘钥
+    key: QS8rrOISuu8LojP1OFd8xmswB7TQCfI1
+    #默认回调地址
+    notifyUrl: http://2cw4969042:wicp:vip:50381/wx/result
+    #证书存储路径
+    certPath: D:/gupaoedu-vip-mall/mall-service/mall-pay-service/src/main/resources/apiclient_cert:p12
   #支付安全校验(验签)
   aes:
     #AES加密秘钥
