@@ -82,7 +82,7 @@ public class WeixinPayController {
 //        }
 //
 //        PayLog payLog = new PayLog(responseMap.get("out_trade_no"), status, JSON.toJSONString(responseMap), responseMap.get("out_trade_no"), new Date());
-        PayLog payLog = new PayLog(UUID.randomUUID().toString(), 2, "这里是订单内容", UUID.randomUUID().toString(), new Date());
+        PayLog payLog = new PayLog("123123", 2, "这里是订单内容", 1, new Date());
         Message<String> message = MessageBuilder.withPayload(JSON.toJSONString(payLog)).build();
         // 发送支付成功回调消息（事务消息）
         rocketMQTemplate.sendMessageInTransaction("rocket", "log", message, null);

@@ -34,7 +34,15 @@ public class PayLog {
      */
     private Integer status;
     private String content;
-    private String payId;
+
+    /**
+     * 支付id
+     */
+    private Integer payId;
+
+    /**
+     * 支付时间
+     */
     private Date createTime;
 
 }

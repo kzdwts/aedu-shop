@@ -43,12 +43,20 @@ public class TransactionListener implements RocketMQLocalTransactionListener {
         try {
             String result = new String((byte[]) msg.getPayload(), "UTF-8");
             PayLog payLog = JSONObject.parseObject(result, PayLog.class);
+            System.out.println("===支付日志入库===START===");
             this.payLogService.add(payLog);
-            log.info("===支付日志入库成功===");
-            System.out.println("===支付日志入库成功===");
+            System.out.println("===支付日志入库===END===");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            System.out.println("===支付日志入库===FAIL===");
             return RocketMQLocalTransactionState.ROLLBACK;
+        } catch (Exception e) {
+            // 数据库异常没上抛，这里捕获到了
+            e.printStackTrace();
+            System.out.println("===支付日志入库===FAIL===");
+            return RocketMQLocalTransactionState.ROLLBACK;
+        } finally {
+            System.out.println("===finally===");
         }
         return RocketMQLocalTransactionState.COMMIT;
     }
