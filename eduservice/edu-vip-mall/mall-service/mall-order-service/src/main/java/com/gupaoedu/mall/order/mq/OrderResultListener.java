@@ -32,7 +32,7 @@ public class OrderResultListener implements RocketMQListener, RocketMQPushConsum
 
     @Override
     public void onMessage(Object o) {
-
+        System.out.println("===onMessage===监听到消息===");
     }
 
     /**

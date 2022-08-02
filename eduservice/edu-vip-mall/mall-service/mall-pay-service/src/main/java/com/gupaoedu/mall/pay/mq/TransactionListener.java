@@ -56,7 +56,7 @@ public class TransactionListener implements RocketMQLocalTransactionListener {
             System.out.println("===支付日志入库===FAIL===");
             return RocketMQLocalTransactionState.ROLLBACK;
         } finally {
-            System.out.println("===finally===");
+            System.out.println("===支付日志入库===finally===");
         }
         return RocketMQLocalTransactionState.COMMIT;
     }

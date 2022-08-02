@@ -19,6 +19,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+# 消息队列
 rocketmq:
   name-server: 192.168.10.131:9876
   producer:

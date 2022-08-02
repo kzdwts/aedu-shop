@@ -23,6 +23,10 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+# 消息队列 消费者配置
+rocketmq:
+  name-server: 192.168.10.131:9876
+
 ribbon:
   max-auto-retries: 2 # 最大重试次数，当Eureka中可以找到服务，但是服务连不上时将会重试
   max-auto-retries-next-server: 3 # 切换实例的重试次数
