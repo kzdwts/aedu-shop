@@ -21,7 +21,7 @@ public class AESUtil {
      *
      * @param buffer    {@link byte} 明文/密文
      * @param appsecret {@link String} 秘钥，16位
-     * @param mode      {@link Integer} 处理方式 1：加密，2：解密
+     * @param mode      {@link Integer} 加密/解密模式 1：加密，2：解密
      * @return {@link byte}
      * @author Kang Yong
      * @date 2022/5/15
