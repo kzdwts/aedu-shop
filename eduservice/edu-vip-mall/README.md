@@ -104,6 +104,10 @@
       * AT模式
       * TCC模式
       * SAGA模式
+* AES算法库
+  * [jdk1.8](https://www.oracle.com/java/technologies/javase-jce8-downloads.html)
+  * 使用
+    * 将两个算法包拷贝到jdk和jre的security目录下
 
 
 

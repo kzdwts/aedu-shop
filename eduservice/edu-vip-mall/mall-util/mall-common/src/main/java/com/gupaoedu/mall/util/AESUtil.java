@@ -31,7 +31,9 @@ public class AESUtil {
         Security.addProvider(new BouncyCastleProvider());
         // 2、创建秘钥对象，并指定算法
         SecretKeySpec secretKey = new SecretKeySpec(appsecret.getBytes(StandardCharsets.UTF_8), "AES");
-        // 3、设置Cipher的加密模式，AES/ECP/PKCS7Padding BC指定算法对象（）
+        // 3、设置Cipher的加密模式，
+        // 1）AES/ECP/PKCS7Padding ：设置算法
+        // 2）BC指定算法对象（）：指定算法库对象
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS7Padding", "BC");
         // 4、初始化加密配置
         cipher.init(mode, secretKey);
