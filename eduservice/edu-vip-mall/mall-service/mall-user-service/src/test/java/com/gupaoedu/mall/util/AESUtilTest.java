@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * AES test
  *
@@ -18,13 +16,22 @@ public class AESUtilTest {
     @Test
     public void encryptAndDecrypt() throws Exception {
         String bufferStr = "SpringCloud Alibaba";
-        String appsecret = "db0a600084533319e6e0a946f72caa7f";
+        String appsecret = "aaaaaaaaaaaaaaaa";
+
+        // 加密
         byte[] bytes = AESUtil.encryptAndDecrypt(bufferStr.getBytes(StandardCharsets.UTF_8), appsecret, 1);
-        String decr = new String(bytes);
-        System.out.println(decr);
 
         String encode = Base64Util.encode(bytes);
         System.out.println(encode);
+
+        // 解密1
+//        byte[] bytes1 = AESUtil.encryptAndDecrypt(bytes, appsecret, 2);
+//        String str = new String(bytes1);
+//        System.out.println(str);
+
+        // 解密2
+        byte[] bytes1 = AESUtil.encryptAndDecrypt(Base64Util.decode(encode), appsecret, 2);
+        System.out.println(new String(bytes1));
 
     }
 
