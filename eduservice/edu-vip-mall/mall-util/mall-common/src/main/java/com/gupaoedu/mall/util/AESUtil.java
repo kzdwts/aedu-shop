@@ -3,8 +3,11 @@ package com.gupaoedu.mall.util;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 
 /**
@@ -39,6 +42,37 @@ public class AESUtil {
         cipher.init(mode, secretKey);
         // 5、执行加密/解密
         return cipher.doFinal(buffer);
+    }
+
+    /**
+     * 生成秘钥
+     *
+     * @return {@link String} 秘钥
+     * @author Kang Yong
+     * @date 2022/8/14
+     */
+    public static String generatorKey() throws Exception {
+        // 指定加密类型
+        KeyGenerator keyGen = KeyGenerator.getInstance("AES");
+        // 指定秘钥长度 128/192/256
+        keyGen.init(128);
+        SecretKey secretKey = keyGen.generateKey();
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+
+        // 获取秘钥
+        byte[] digest = secretKey.getEncoded();
+        StringBuffer hexStr = new StringBuffer();
+        String shaHex = "";
+        for (int c = 0; c < digest.length; c++) {
+            shaHex = Integer.toHexString(digest[c] & 0xff);
+            if (shaHex.length() < 2) {
+                hexStr.append(0);
+            }
+            hexStr.append(shaHex);
+        }
+
+        return hexStr.toString();
     }
 
 //    public static void main(String[] args) throws Exception {
