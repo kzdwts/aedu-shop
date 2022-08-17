@@ -2,6 +2,7 @@ package com.gupaoedu.mall.pay.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.wxpay.sdk.WXPay;
+import com.gupaoedu.mall.pay.config.WeixinPayConfig;
 import com.gupaoedu.mall.pay.mapper.PayLogMapper;
 import com.gupaoedu.mall.pay.model.PayLog;
 import com.gupaoedu.mall.pay.service.WeixinPayService;
@@ -38,6 +39,7 @@ public class WeixinPayServiceImpl implements WeixinPayService {
      */
     @Override
     public Map<String, String> preOrder(Map<String, String> dataMap) throws Exception {
+        // 下单获取支付参数
         Map<String, String> respMap = wxPay.unifiedOrder(dataMap);
         return respMap;
     }

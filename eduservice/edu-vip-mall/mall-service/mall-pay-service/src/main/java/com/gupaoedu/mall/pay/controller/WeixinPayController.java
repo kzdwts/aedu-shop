@@ -96,24 +96,27 @@ public class WeixinPayController {
     }
 
     /**
-     * 预下单
+     * 预下单 微信支付二维码获取
      *
-     * @param ciphertext {@link String}
+     * @param dataMap {@link Map<String, String>}
      * @return {@link  RespResult< Map>}
      * @author Kang Yong
      * @date 2022/5/23
      */
     @GetMapping("/pay")
-    public RespResult<Map> pay(@RequestParam(value = "ciptext") String ciphertext) throws Exception {
-        // 数据解析，并验签校验
-        Map<String, String> map = signature.security(ciphertext);
+    public RespResult<Map> pay(@RequestParam Map<String, String> dataMap) throws Exception {
+//        // 数据解析，并验签校验
+//        Map<String, String> map = signature.security(ciphertext);
 
         // 1分钱测试
-        if (Objects.nonNull(map)) {
-            Map<String, String> resultMap = this.weixinPayService.preOrder(map);
-            resultMap.put("orderNumber", map.get("out_trade_no"));
-            resultMap.put("money", map.get("total_fee"));
-            return RespResult.ok(resultMap);
+        if (Objects.nonNull(dataMap)) {
+            Map<String, String> resultMap = this.weixinPayService.preOrder(dataMap);
+
+            if (Objects.nonNull(resultMap)) {
+                resultMap.put("orderNumber", dataMap.get("out_trade_no"));
+                resultMap.put("money", dataMap.get("total_fee"));
+                return RespResult.ok(resultMap);
+            }
         }
 
         return RespResult.error("支付系统繁忙，请稍后再试！");
