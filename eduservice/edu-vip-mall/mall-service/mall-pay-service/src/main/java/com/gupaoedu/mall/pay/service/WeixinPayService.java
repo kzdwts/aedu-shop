@@ -31,5 +31,5 @@ public interface WeixinPayService {
      * @author Kang Yong
      * @date 2022/6/10
      */
-    PayLog result(String outno);
+    PayLog result(String outno) throws Exception;
 }

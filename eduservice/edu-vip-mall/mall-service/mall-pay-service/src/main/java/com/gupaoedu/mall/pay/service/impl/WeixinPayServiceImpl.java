@@ -1,5 +1,7 @@
 package com.gupaoedu.mall.pay.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.wxpay.sdk.WXPay;
 import com.gupaoedu.mall.pay.config.WeixinPayConfig;
@@ -9,6 +11,7 @@ import com.gupaoedu.mall.pay.service.WeixinPayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -53,7 +56,7 @@ public class WeixinPayServiceImpl implements WeixinPayService {
      * @date 2022/6/10
      */
     @Override
-    public PayLog result(String outno) {
+    public PayLog result(String outno) throws Exception {
         // 查询数据库
         PayLog payLog = this.payLogMapper.selectOne(Wrappers.<PayLog>lambdaQuery()
                 .eq(PayLog::getPayId, outno)
@@ -66,10 +69,45 @@ public class WeixinPayServiceImpl implements WeixinPayService {
             payLog = new PayLog();
             Map<String, String> queryMap = new HashMap<>();
             queryMap.put("out_trade_no", outno);
-//            Map<String, String> resultMap = wxPay.orderQuery(queryMap);
+            Map<String, String> resultMap = wxPay.orderQuery(queryMap);
+
+            // 交易状态
+            int state = tradeState(resultMap.get("trade_state"));
+            payLog.setStatus(state);
+            payLog.setPayId(Integer.valueOf(outno));
+
+            // 支付结果（日志记录时间）
+            payLog.setCreateTime(new Date());
+            payLog.setId(IdWorker.getIdStr());
+            payLog.setContent(JSON.toJSONString(resultMap));
+
+            // 状态不可逆装：已支付、转入退款、已关闭、已撤销、支付失败
+            if (state == 2 || state == 3 || state == 4 || state == 5 || state == 7) {
+                // 记录到数据库
+                payLogMapper.insert(payLog);
+            }
+
         }
 
-        return null;
+        return payLog;
+    }
+
+    /**
+     * 微信支付状态转义（后期可定义为枚举）
+     *
+     * @param tradeState {@link String}
+     * @return {@link int}
+     * @author Kang Yong
+     * @date 2023/1/29
+     */
+    public int tradeState(String tradeState) {
+        int state = 1;
+        switch (tradeState) {
+            case "NOTPAY": // 未支付
+                state = 1;
+                break;
+        }
+        return state;
     }
 
 }
