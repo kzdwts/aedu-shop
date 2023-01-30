@@ -122,4 +122,18 @@ public class WeixinPayController {
         return RespResult.error("支付系统繁忙，请稍后再试！");
     }
 
+    /**
+     * 支付状态查询
+     *
+     * @param outno {@link String} 交易号
+     * @return {@link RespResult< PayLog>}
+     * @author Kang Yong
+     * @date 2023/1/30
+     */
+    @GetMapping("/result/{outno}")
+    public RespResult<PayLog> query(@PathVariable(value = "outno") String outno) throws Exception {
+        PayLog payLog = weixinPayService.result(outno);
+        return RespResult.ok(payLog);
+    }
+
 }
