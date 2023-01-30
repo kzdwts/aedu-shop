@@ -95,8 +95,8 @@ public class WeixinPayServiceImpl implements WeixinPayService {
     /**
      * 微信支付状态转义（后期可定义为枚举）
      *
-     * @param tradeState {@link String}
-     * @return {@link int}
+     * @param tradeState {@link String} 交易状态codeStr
+     * @return {@link int} 交易状态code
      * @author Kang Yong
      * @date 2023/1/29
      */
@@ -106,6 +106,26 @@ public class WeixinPayServiceImpl implements WeixinPayService {
             case "NOTPAY": // 未支付
                 state = 1;
                 break;
+            case "SUCCESS": // 已支付
+                state = 2;
+                break;
+            case "REFUND": // 转入退款
+                state = 3;
+                break;
+            case "CLOSED": // 已关闭
+                state = 4;
+                break;
+            case "REVOKED": // 已撤销
+                state = 5;
+                break;
+            case "USERPAYING": // 用户支付中
+                state = 6;
+                break;
+            case "PAYERROR": // 支付失败
+                state = 7;
+                break;
+            default:
+                state = 1;
         }
         return state;
     }
