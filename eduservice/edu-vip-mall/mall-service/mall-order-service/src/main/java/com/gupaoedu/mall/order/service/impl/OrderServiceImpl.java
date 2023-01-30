@@ -7,8 +7,10 @@ import com.gupaoedu.mall.cart.feign.CartFeign;
 import com.gupaoedu.mall.cart.model.Cart;
 import com.gupaoedu.mall.goods.feign.SkuFeign;
 import com.gupaoedu.mall.order.mapper.OrderMapper;
+import com.gupaoedu.mall.order.mapper.OrderRefundMapper;
 import com.gupaoedu.mall.order.mapper.OrderSkuMapper;
 import com.gupaoedu.mall.order.model.Order;
+import com.gupaoedu.mall.order.model.OrderRefund;
 import com.gupaoedu.mall.order.model.OrderSku;
 import com.gupaoedu.mall.order.service.OrderService;
 import com.gupaoedu.mall.util.RespResult;
@@ -18,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.keyvalue.core.IterableConverter;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -39,6 +42,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Autowired
     private OrderSkuMapper orderSkuMapper;
+
+    @Autowired
+    private OrderRefundMapper orderRefundMapper;
 
     @Autowired
     private SkuFeign skuFeign;
@@ -125,4 +131,32 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         }
         return 0;
     }
+
+    /**
+     * 申请退款（取消订单）
+     *
+     * @param orderRefund {@link OrderRefund}
+     * @return {@link int}
+     * @author Kang Yong
+     * @date 2023/1/30
+     */
+    @Transactional
+    @Override
+    public int refund(OrderRefund orderRefund) {
+        // 退款申请记录
+        int icount = orderRefundMapper.insert(orderRefund);
+
+        // 更新订单状态
+        int mcount = orderMapper.update(null, Wrappers.<Order>lambdaUpdate()
+                .set(Order::getOrderStatus, 4) // 申请退款
+                .eq(Order::getId, orderRefund.getOrderNo())
+                .eq(Order::getUsername, orderRefund.getUsername())
+                // 原来是已支付待发货状态
+                .eq(Order::getOrderStatus, 1) // 待发货
+                .eq(Order::getPayStatus, 1) // 已支付
+        );
+        return mcount;
+    }
+
+
 }

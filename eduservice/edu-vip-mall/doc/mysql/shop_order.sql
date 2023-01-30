@@ -1260,3 +1260,20 @@ INSERT INTO `order_sku` VALUES ('No1313281406859874304', '74', '75', '76', 'P123
 INSERT INTO `order_sku` VALUES ('No1313441731865350145', '161', '162', '166', 'P1235477886220128256', 'S1235477925755637760', 'No1313441731865350144', '华为畅享 平板电脑 . 商城ipad爆款 麒麟八核可选通话大屏手机平板AGS AL【G+G 全网G通话】香槟金 标配【正品全新 全国联保 可开专票】  16英寸  银白色  1TSSD  I5  64G  Linux', '3588', '50', '179400', 'https://img13.360buyimg.com/n7/jfs/t1/97372/15/12849/209332/5e4f73deE952f507a/73d59dbc8c6e2d83.jpg');
 INSERT INTO `order_sku` VALUES ('No1313463254353317888', '161', '162', '168', 'P1235480520834506752', 'S1235480550739894272', 'No1313463254349123584', '惠普（HP）战 商用办公台式电脑主机（九代i- G TB Win Office WiFi蓝牙 四年上门）  15英寸  银白色  1TSSD  I6  8G  Windows', '1999', '1', '1999', 'https://img11.360buyimg.com/n7/jfs/t1/99550/18/2024/96355/5dc9429dEe7c4dc99/3ad3e389baea43a3.jpg');
 INSERT INTO `order_sku` VALUES ('No1313466168933224448', '74', '75', '76', 'P1235433012594864128', 'S1235433013903486976', 'No1313466168929030144', '液晶电视机高清网络wifi智能平板彩电 【影院级屏幕AI智能】（顶配） 全国联保  无限Wifi  小影院  65英寸  人工智能', '799', '1', '799', 'https://img12.360buyimg.com/n7/jfs/t1/99762/7/12943/101515/5e53a45dE3dfb9d96/dd297b1bb675a3bc.jpg');
+
+
+# 订单退款记录表
+DROP TABLE IF EXISTS `order_refund`;
+CREATE TABLE `order_refund`
+(
+    `id`           varchar(60) NOT NULL COMMENT 'id',
+    `order_no`     varchar(60) NOT NULL COMMENT '退款订单',
+    `refund_type`  int         NOT NULL COMMENT '退款类型：0-整个订单退款，1-指定订单明细退款',
+    `order_sku_id` varchar(60) DEFAULT NULL COMMENT '退款订单明细，当refund_type=1时填写该ID值',
+    `status`       int         DEFAULT NULL COMMENT '状态：0-申请退款，1-退款成功，2-退款失败',
+    `username`     varchar(50) NOT NULL COMMENT '用户名',
+    `money`        int         DEFAULT NULL COMMENT '退款金额',
+    `create_time`  datetime    NOT NULL COMMENT '创建时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='订单退款记录表';

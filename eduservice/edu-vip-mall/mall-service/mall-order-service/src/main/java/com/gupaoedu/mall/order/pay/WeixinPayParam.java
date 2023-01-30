@@ -50,4 +50,33 @@ public class WeixinPayParam {
         return signature.security(dataMap);
     }
 
+    /**
+     * 微信退款参数封装
+     * 对参数进行签名
+     * 对整体参数进行加密
+     *
+     * @param order       {@link Order}
+     * @param outrefundno {@link String}
+     * @return {@link String}
+     * @author Kang Yong
+     * @date 2023/1/30
+     */
+    public String weixinRefundParam(Order order, String outrefundno) throws Exception {
+        // 定义map分装参数
+        HashMap<String, String> dataMap = new HashMap<>();
+        dataMap.put("out_trade_no", order.getId());
+        dataMap.put("out+refund_no", outrefundno);
+
+//        dataMap.put("total_fee", String.valueOf(order.getMoneys()));
+        dataMap.put("total_fee", "1"); // 用1分钱测试
+
+        // 退款金额
+//        dataMap.put("refund_fee", String.valueOf(order.getMoneys()));
+        dataMap.put("refund_fee", "1");
+        dataMap.put("notify_url", "http://2cw4969042.wicp.vip:25082/wx/refund/result");
+
+        // 生成签名，并且参数加密
+        return signature.security(dataMap);
+    }
+
 }

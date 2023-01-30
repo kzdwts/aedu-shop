@@ -2,11 +2,17 @@ package com.gupaoedu.mall.order.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.gupaoedu.mall.order.model.Order;
+import com.gupaoedu.mall.order.model.OrderRefund;
 import com.gupaoedu.mall.order.pay.WeixinPayParam;
 import com.gupaoedu.mall.order.service.OrderService;
 import com.gupaoedu.mall.util.RespCode;
 import com.gupaoedu.mall.util.RespResult;
+import org.apache.rocketmq.client.producer.SendStatus;
+import org.apache.rocketmq.client.producer.TransactionSendResult;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +35,9 @@ public class OrderController {
 
     @Autowired
     private WeixinPayParam weixinPayParam;
+
+    @Autowired
+    private RocketMQTemplate rocketMQTemplate;
 
     /**
      * 创建订单
@@ -60,4 +69,37 @@ public class OrderController {
 //        }
 //        return RespResult.error(RespCode.SYSTEM_ERROR);
     }
+
+    @PutMapping("/refund/{id}")
+    public RespResult refund(@PathVariable(value = "id") String id, HttpServletRequest request) throws Exception {
+        String userName = "gupao";
+
+        // 查询商品
+        Order order = orderService.getById(id);
+
+        // 已支付，待发货，才允许取消订单
+        if (order.getOrderStatus().intValue() == 1 && order.getPayStatus().intValue() == 1) {
+            // 退款记录
+            OrderRefund orderRefund = new OrderRefund();
+            orderRefund.setId(IdWorker.getIdStr());
+            orderRefund.setOrderNo(order.getId());
+            orderRefund.setRefundType(0);
+            orderRefund.setOrderSkuId(null);
+            orderRefund.setStatus(0);
+            orderRefund.setUsername(userName);
+            orderRefund.setMoney(order.getMoneys());
+            orderRefund.setCreateTime(new Date());
+
+            // 发失事务消息[退款加密信息]
+            Message message = MessageBuilder.withPayload(weixinPayParam.weixinRefundParam(order, orderRefund.getId())).build();
+            TransactionSendResult transactionSendResult = rocketMQTemplate.sendMessageInTransaction("refundtx", "refund", message, orderRefund);
+            if (transactionSendResult.getSendStatus() == SendStatus.SEND_OK) {
+                return RespResult.error("申请退款成功，等待退款！");
+            }
+            return RespResult.error("不符合取消订单条件，无法退货！");
+        }
+
+        return RespResult.error("订单已发货，无法退款");
+    }
+
 }
