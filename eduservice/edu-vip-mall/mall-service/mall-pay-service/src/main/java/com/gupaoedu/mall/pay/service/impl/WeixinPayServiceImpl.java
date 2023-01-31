@@ -93,6 +93,21 @@ public class WeixinPayServiceImpl implements WeixinPayService {
     }
 
     /**
+     * 退款呢
+     *
+     * @param map {@link Map< String, String>} 包含了out_trade_no
+     * @return {@link  Map< String, String>}
+     * @author Kang Yong
+     * @date 2023/1/31
+     */
+    @Override
+    public Map<String, String> refund(Map<String, String> map) throws Exception {
+        // 申请退款
+        Map<String, String> resultMap = wxPay.refund(map);
+        return resultMap;
+    }
+
+    /**
      * 微信支付状态转义（后期可定义为枚举）
      *
      * @param tradeState {@link String} 交易状态codeStr

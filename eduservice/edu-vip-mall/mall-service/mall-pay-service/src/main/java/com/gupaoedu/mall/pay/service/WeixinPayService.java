@@ -32,4 +32,14 @@ public interface WeixinPayService {
      * @date 2022/6/10
      */
     PayLog result(String outno) throws Exception;
+
+    /**
+     * 退款呢
+     *
+     * @param map {@link Map< String, String>} 包含了out_trade_no
+     * @return {@link  Map< String, String>}
+     * @author Kang Yong
+     * @date 2023/1/31
+     */
+    Map<String, String> refund(Map<String, String> map) throws Exception;
 }
