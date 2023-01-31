@@ -35,3 +35,15 @@ CREATE TABLE `pay_log`  (
 -- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- 退款申请记录表
+DROP TABLE IF EXISTS `refund_log`;
+CREATE TABLE `refund_log`
+(
+    `id`            varchar(60) NOT NULL COMMENT 'id',
+    `order_no`      varchar(60) NOT NULL COMMENT '订单号',
+    `out_refund_no` varchar(60) NOT NULL COMMENT '退款订单号（order_refund的id）',
+    `money`         int      DEFAULT NULL COMMENT '退款金额',
+    `create_time`   datetime DEFAULT NULL COMMENT '创建时间',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='退款申请记录表';
