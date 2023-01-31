@@ -43,4 +43,23 @@ public interface OrderService extends IService<Order> {
      */
     int refund(OrderRefund orderRefund);
 
+    /**
+     * 退款申请成功，更新退款状态
+     *
+     * @param outTradeNo  {@link String} 订单号
+     * @param outRefundNo {@link String} 退款记录订单号
+     * @author Kang Yong
+     * @date 2023/1/31
+     */
+    void updateRefundStatus(String outTradeNo, String outRefundNo);
+
+    /**
+     * 退款申请失败，修改退款记录状态
+     *
+     * @param outRefundNo {@link String}
+     * @author Kang Yong
+     * @date 2023/1/31
+     */
+    void updateRefundFailStatus(String outRefundNo);
+
 }

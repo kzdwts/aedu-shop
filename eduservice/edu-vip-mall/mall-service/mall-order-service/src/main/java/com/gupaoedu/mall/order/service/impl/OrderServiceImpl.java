@@ -158,5 +158,44 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return mcount;
     }
 
+    /**
+     * 退款申请成功，更新退款状态
+     *
+     * @param outTradeNo  {@link String} 订单号
+     * @param outRefundNo {@link String} 退款记录订单号
+     * @author Kang Yong
+     * @date 2023/1/31
+     */
+    @Override
+    public void updateRefundStatus(String outTradeNo, String outRefundNo) {
+        // 订单状态更新
+        Order order = new Order();
+        order.setId(outTradeNo);
+        order.setOrderStatus(5); // 退款申请成功
+        this.orderMapper.updateById(order);
+
+        // 修改退款记录状态
+        OrderRefund orderRefund = new OrderRefund();
+        orderRefund.setId(outRefundNo);
+        orderRefund.setStatus(2); // 退款申请成功，等待微信退款
+        orderRefundMapper.updateById(orderRefund);
+    }
+
+    /**
+     * 退款申请失败，修改退款记录状态
+     *
+     * @param outRefundNo {@link String}
+     * @author Kang Yong
+     * @date 2023/1/31
+     */
+    @Override
+    public void updateRefundFailStatus(String outRefundNo) {
+        // 修改退款记录状态
+        OrderRefund orderRefund = new OrderRefund();
+        orderRefund.setId(outRefundNo);
+        orderRefund.setStatus(1); // 退款申请失败（微信自动退款失败）
+        orderRefundMapper.updateById(orderRefund);
+    }
+
 
 }
