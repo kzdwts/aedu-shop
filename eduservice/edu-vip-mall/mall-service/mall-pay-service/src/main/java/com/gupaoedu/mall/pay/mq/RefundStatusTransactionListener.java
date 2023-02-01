@@ -30,6 +30,8 @@ public class RefundStatusTransactionListener implements RocketMQLocalTransaction
 
     @Override
     public RocketMQLocalTransactionState executeLocalTransaction(Message message, Object o) {
+        System.out.println("===RefundStatusTransactionListener#executeLocalTransaction");
+
         try {
             System.out.println("===本地事务操作开始===START===");
 

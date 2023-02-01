@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -134,6 +135,51 @@ public class WeixinPayController {
     public RespResult<PayLog> query(@PathVariable(value = "outno") String outno) throws Exception {
         PayLog payLog = weixinPayService.result(outno);
         return RespResult.ok(payLog);
+    }
+
+    /**
+     * 退款通知结果
+     *
+     * @param request {@link HttpServletRequest}
+     * @return {@link String}
+     * @author Kang Yong
+     * @date 2023/2/1
+     */
+    @RequestMapping("/refund/result")
+    public String refundResult(HttpServletRequest request) throws Exception {
+        System.out.println("===退款通知===");
+
+        // 获取结果
+        ServletInputStream is = request.getInputStream();
+        // 接受存储网络输入流（微信服务器返回的支付状态数据）
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+        // 缓冲区定义
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        // 循环读取输入流，并写入到os中
+        while ((len = is.read(buffer)) != -1) {
+            os.write(buffer, 0, len);
+        }
+
+        // 关闭资源
+        os.close();
+        is.close();
+
+        // 转成xml的字符串
+        String xmlResult = new String(os.toByteArray(), "UTF-8");
+        // 将xmlResult转为Map
+        Map<String, String> responseMap = WXPayUtil.xmlToMap(xmlResult);
+
+        // 发送mq消息，普通消息（非事务消息）
+        Message<String> message = MessageBuilder.withPayload(JSON.toJSONString(responseMap)).build();
+        rocketMQTemplate.send("lastrefundresult", message);
+
+        // 返回结果
+        Map<String, String> resultMap = new HashMap<>();
+        resultMap.put("return_code", "SUCCESS");
+        resultMap.put("return_msg", "OK");
+        return WXPayUtil.mapToXml(resultMap);
     }
 
 }

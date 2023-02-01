@@ -60,6 +60,8 @@ public class RefundResultListener implements RocketMQListener, RocketMQPushConsu
      */
     @Override
     public void prepareStart(DefaultMQPushConsumer consumer) {
+        System.out.println("===RefundResultListener#prepareStart");
+
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> list, ConsumeConcurrentlyContext context) {

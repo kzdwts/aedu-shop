@@ -39,6 +39,8 @@ public class TransactionListener implements RocketMQLocalTransactionListener {
      */
     @Override
     public RocketMQLocalTransactionState executeLocalTransaction(Message msg, Object arg) {
+        System.out.println("===TransactionListener#executeLocalTransaction");
+
         // 消息
         try {
             String result = new String((byte[]) msg.getPayload(), "UTF-8");

@@ -44,6 +44,7 @@ public class OrderResultListener implements RocketMQListener, RocketMQPushConsum
      */
     @Override
     public void prepareStart(DefaultMQPushConsumer consumer) {
+        System.out.println("===OrderResultListener#prepareStart");
 
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
