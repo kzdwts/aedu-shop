@@ -1,4 +1,4 @@
-package generator.domain;
+package com.gupaoedu.vip.mall.seckill.mode;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
