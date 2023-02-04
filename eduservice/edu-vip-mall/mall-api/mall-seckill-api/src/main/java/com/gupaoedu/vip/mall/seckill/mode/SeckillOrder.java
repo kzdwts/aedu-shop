@@ -18,7 +18,7 @@ public class SeckillOrder implements Serializable {
     /**
      * 主键
      */
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.ASSIGN_UUID)
     private String id;
 
     /**

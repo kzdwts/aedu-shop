@@ -18,7 +18,7 @@ public class SeckillGoods implements Serializable {
     /**
      * 
      */
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.ASSIGN_UUID)
     private String id;
 
     /**
