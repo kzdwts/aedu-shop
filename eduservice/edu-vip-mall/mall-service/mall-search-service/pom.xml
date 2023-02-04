@@ -21,6 +21,13 @@
             <artifactId>mall-search-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <!--mall-seckill-api(秒杀)-->
+        <dependency>
+            <groupId>com.gupaoedu</groupId>
+            <artifactId>mall-seckill-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>
