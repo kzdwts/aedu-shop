@@ -6,14 +6,24 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
+import javax.persistence.Table;
 
 /**
  * 
  * @TableName seckill_goods
  */
-@TableName(value ="seckill_goods")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+// MyBatisPlus表隐射注解
+@TableName(value ="seckill_goods")
+@Table
 public class SeckillGoods implements Serializable {
     /**
      * 
@@ -23,12 +33,16 @@ public class SeckillGoods implements Serializable {
 
     /**
      * spu ID
+     *
+     * 这个注解是为了直接映射
      */
+    @Column(name = "spu_id")
     private String supId;
 
     /**
      * sku ID
      */
+    @Column(name = "sku_id")
     private String skuId;
 
     /**
@@ -49,6 +63,7 @@ public class SeckillGoods implements Serializable {
     /**
      * 秒杀价格
      */
+    @Column(name = "seckill_price")
     private Double seckillPrice;
 
     /**
@@ -74,12 +89,19 @@ public class SeckillGoods implements Serializable {
     /**
      * 剩余库存数
      */
+    @Column(name = "store_count")
     private Integer storeCount;
 
     /**
      * 描述
      */
     private String content;
+
+    /**
+     * 秒杀活动id（表seckill_goods id）
+     */
+    @Column(name = "activity_id")
+    private String activityId;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
