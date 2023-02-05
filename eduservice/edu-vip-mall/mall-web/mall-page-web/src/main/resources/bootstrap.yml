@@ -26,4 +26,6 @@ logging:
     root: info
 
 # 页面生成存储路径
-pagepath: E:/pages/items
+pagepath: D:/code/pages/items
+# 秒杀静态页
+itempath: D:/code/pages/seckillitems

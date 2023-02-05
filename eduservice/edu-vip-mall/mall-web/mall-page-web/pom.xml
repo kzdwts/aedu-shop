@@ -18,7 +18,13 @@
             <artifactId>mall-goods-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-    </dependencies>
 
+        <!--搜索api-->
+        <dependency>
+            <groupId>com.gupaoedu</groupId>
+            <artifactId>mall-seckill-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>
