@@ -12,8 +12,8 @@ spring:
         # Nacos的注册地址
         server-addr: 192.168.10.131:8848
   # 允许覆盖重复名字
-#  main:
-#    allow-bean-definition-overriding: true
+  main:
+    allow-bean-definition-overriding: true
 # Canal配置
 canal:
   server: 192.168.10.132:11111

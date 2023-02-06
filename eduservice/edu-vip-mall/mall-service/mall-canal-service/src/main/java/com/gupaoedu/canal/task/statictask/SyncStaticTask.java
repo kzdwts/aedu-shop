@@ -5,6 +5,9 @@ import com.dangdang.ddframe.job.api.simple.SimpleJob;
 import com.dangdang.elasticjob.lite.annotation.ElasticSimpleJob;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * 同步静态任务
  *
@@ -23,7 +26,7 @@ public class SyncStaticTask implements SimpleJob {
 
     @Override
     public void execute(ShardingContext shardingContext) {
-        System.out.println("执行任务。。。");
+        System.out.println(String.format("===%s执行任务。。。", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
     }
 
 }
