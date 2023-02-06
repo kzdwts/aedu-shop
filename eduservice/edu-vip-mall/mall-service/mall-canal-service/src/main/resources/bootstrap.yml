@@ -25,6 +25,11 @@ elaticjob:
     server-lists: 192.168.10.131:2181
     namespace: synctask
 
+# 动态定时任务案例
+mall-canal:
+  dynamiczk: 192.168.10.131:2181
+  dynamicnamespace: dynamictask
+
 # 日志配置
 logging:
 #  pattern:
