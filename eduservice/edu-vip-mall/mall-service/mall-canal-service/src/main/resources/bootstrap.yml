@@ -7,19 +7,23 @@ spring:
     nacos:
       config:
         file-extension: yaml
-        server-addr: 192.168.100.133:8848
+        server-addr: 192.168.10.131:8848
       discovery:
         # Nacos的注册地址
-        server-addr: 192.168.100.133:8848
+        server-addr: 192.168.10.131:8848
   # 允许覆盖重复名字
 #  main:
 #    allow-bean-definition-overriding: true
 # Canal配置
 canal:
-  server: 192.168.100.133:11111
+  server: 192.168.10.132:11111
   destination: example
 
-
+# elastic job 配置
+elaticjob:
+  zookeeper:
+    server-lists: 192.168.10.131:2181
+    namespace: synctask
 
 # 日志配置
 logging:
