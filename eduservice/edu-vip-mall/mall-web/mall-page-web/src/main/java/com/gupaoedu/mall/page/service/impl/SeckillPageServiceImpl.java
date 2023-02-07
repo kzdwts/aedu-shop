@@ -7,12 +7,14 @@ import com.gupaoedu.vip.mall.seckill.mode.SeckillGoods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -71,4 +73,28 @@ public class SeckillPageServiceImpl implements SeckillPageService {
 
         return null;
     }
+
+    @Override
+    public void deleteByAct(String acid) {
+        // 查询活动商品列表
+        RespResult<List<SeckillGoods>> listRespResult = seckillGoodsFeign.actGoods(acid);
+        List<SeckillGoods> seckillGoodsList = listRespResult.getData();
+
+        // 遍历 进行删除
+        if (!CollectionUtils.isEmpty(seckillGoodsList)) {
+            for (SeckillGoods seckillGoods : seckillGoodsList) {
+                this.delete(seckillGoods.getId());
+            }
+        }
+    }
+
+    @Override
+    public void delete(String seckillGoodsId) {
+        // 创建要删除的文件对象
+        File file = new File(itempath, seckillGoodsId + ".html");
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
 }
