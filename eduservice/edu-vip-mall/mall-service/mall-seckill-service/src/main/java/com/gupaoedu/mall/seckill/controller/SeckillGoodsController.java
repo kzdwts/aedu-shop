@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * 秒杀商品
  *
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0.0
  */
 @RestController
-@RequestMapping("/goods")
+@RequestMapping("/seckill/goods")
 public class SeckillGoodsController {
 
     @Autowired
@@ -34,6 +36,19 @@ public class SeckillGoodsController {
     @GetMapping("/{id}")
     public RespResult<SeckillGoods> one(@PathVariable("id") String id) {
         return RespResult.ok(seckillGoodsService.getById(id));
+    }
+
+    /**
+     * 根据活动查询商品集合
+     *
+     * @param acid {@link String}
+     * @return {@link RespResult< List< SeckillGoods>>}
+     * @author Kang Yong
+     * @date 2023/2/7
+     */
+    @GetMapping("/act/{acid}")
+    public RespResult<List<SeckillGoods>> actGoods(@PathVariable("acid") String acid) {
+        return RespResult.ok(seckillGoodsService.actGoods(acid));
     }
 
 }

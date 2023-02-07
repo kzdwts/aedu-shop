@@ -6,6 +6,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
 /**
  * 秒杀商品 feign
  *
@@ -24,7 +26,18 @@ public interface SeckillGoodsFeign {
      * @author Kang Yong
      * @date 2023/2/5
      */
-    @GetMapping("/{id}")
+    @GetMapping("/seckill/goods/{id}")
     RespResult<SeckillGoods> one(@PathVariable("id") String id);
+
+    /**
+     * 根据活动查询商品集合
+     *
+     * @param acid {@link String}
+     * @return {@link RespResult<  List < SeckillGoods>>}
+     * @author Kang Yong
+     * @date 2023/2/7
+     */
+    @GetMapping("/seckill/goods/act/{acid}")
+    RespResult<List<SeckillGoods>> actGoods(@PathVariable("acid") String acid);
 
 }
