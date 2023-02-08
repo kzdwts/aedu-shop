@@ -34,6 +34,8 @@ public class DynamicTaskCreate {
      * @date 2023/2/6
      */
     public void create(String jobName, String cron, int shardingTotalCount, SimpleJob instance, String parameters) {
+        System.out.println("DynamicTaskCreate#create");
+
         // 1、配置作业 → Builder → 构建：LiteJobConfiguration
         LiteJobConfiguration.Builder builder = LiteJobConfiguration.newBuilder(new SimpleJobConfiguration(
                 JobCoreConfiguration.newBuilder(

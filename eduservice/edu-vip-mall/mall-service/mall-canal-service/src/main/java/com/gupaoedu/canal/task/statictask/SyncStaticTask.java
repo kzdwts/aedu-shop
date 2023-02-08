@@ -26,7 +26,7 @@ public class SyncStaticTask implements SimpleJob {
 
     @Override
     public void execute(ShardingContext shardingContext) {
-        System.out.println(String.format("===%s执行任务。。。", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
+        System.out.println(String.format("===SyncStaticTask#execute%s执行任务。。。", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
     }
 
 }

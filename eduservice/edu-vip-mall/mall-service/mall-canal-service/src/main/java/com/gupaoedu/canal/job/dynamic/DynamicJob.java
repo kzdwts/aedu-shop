@@ -26,6 +26,7 @@ public class DynamicJob implements SimpleJob {
      */
     @Override
     public void execute(ShardingContext shardingContext) {
+        System.out.println("DynamicJob#execute");
         // 静态页删除
         delete(shardingContext.getJobParameter());
     }
