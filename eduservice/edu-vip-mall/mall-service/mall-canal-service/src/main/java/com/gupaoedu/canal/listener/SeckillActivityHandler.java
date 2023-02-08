@@ -1,5 +1,6 @@
 package com.gupaoedu.canal.listener;
 
+import com.alibaba.fastjson.JSON;
 import com.gupaoedu.canal.job.dynamic.DynamicJob;
 import com.gupaoedu.canal.job.dynamic.DynamicTaskCreate;
 import com.gupaoedu.vip.mall.seckill.mode.SeckillActivity;
@@ -34,10 +35,12 @@ public class SeckillActivityHandler implements EntryHandler<SeckillActivity> {
     @Override
     public void insert(SeckillActivity seckillActivity) {
         System.out.println("SeckillActivityHandler#insert");
+        System.out.println("JSON.toJSONString(seckillActivity) = " + JSON.toJSONString(seckillActivity));
 
         // 创建调度任务，活动结束的时候执行
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ss mm HH dd MM ? yyyy");
         String cron = simpleDateFormat.format(seckillActivity.getEndTime());
+        System.out.println("cron = " + cron);
         dynamicTaskCreate.create(
                 seckillActivity.getId(),
                 cron,
@@ -50,10 +53,13 @@ public class SeckillActivityHandler implements EntryHandler<SeckillActivity> {
     @Override
     public void update(SeckillActivity before, SeckillActivity after) {
         System.out.println("SeckillActivityHandler#update");
+        System.out.println("JSON.toJSONString(before) = " + JSON.toJSONString(before));
+        System.out.println("JSON.toJSONString(after) = " + JSON.toJSONString(after));
 
         // 创建任务调度，活动结束的时候执行
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ss mm HH dd MM ? yyyy");
         String cron = simpleDateFormat.format(after.getEndTime());
+        System.out.println("cron = " + cron);
         dynamicTaskCreate.create(
                 after.getId(),
                 cron,

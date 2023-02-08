@@ -7,6 +7,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import lombok.ToString;
+
+import javax.persistence.Column;
+import javax.persistence.Table;
 
 /**
  *
@@ -14,6 +18,8 @@ import lombok.Data;
  */
 @TableName(value ="seckill_activity")
 @Data
+@ToString
+@Table
 public class SeckillActivity implements Serializable {
     /**
      *
@@ -24,6 +30,7 @@ public class SeckillActivity implements Serializable {
     /**
      * 活动名称
      */
+    @Column(name = "activity_name")
     private String activityName;
 
     /**
@@ -34,11 +41,13 @@ public class SeckillActivity implements Serializable {
     /**
      * 开始时间
      */
+    @Column(name = "start_time")
     private Date startTime;
 
     /**
      * 结束时间
      */
+    @Column(name = "end_time")
     private Date endTime;
 
     @TableField(exist = false)

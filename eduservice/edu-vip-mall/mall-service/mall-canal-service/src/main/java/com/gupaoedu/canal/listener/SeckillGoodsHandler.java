@@ -40,6 +40,9 @@ public class SeckillGoodsHandler implements EntryHandler<SeckillGoods> {
     @SneakyThrows // 捕获异常
     @Override
     public void insert(SeckillGoods seckillGoods) {
+        System.out.println("SeckillGoodsHandler#insert");
+        System.out.println("JSON.toJSONString(seckillGoods) = " + JSON.toJSONString(seckillGoods));
+
         // 静态页生成
         seckillPageFeign.page(seckillGoods.getId());
 
@@ -58,6 +61,10 @@ public class SeckillGoodsHandler implements EntryHandler<SeckillGoods> {
     @SneakyThrows
     @Override
     public void update(SeckillGoods before, SeckillGoods after) {
+        System.out.println("SeckillGoodsHandler#update");
+        System.out.println("JSON.toJSONString(before) = " + JSON.toJSONString(before));
+        System.out.println("JSON.toJSONString(after) = " + JSON.toJSONString(after));
+
         // 静态页生成
         seckillPageFeign.page(after.getId());
 

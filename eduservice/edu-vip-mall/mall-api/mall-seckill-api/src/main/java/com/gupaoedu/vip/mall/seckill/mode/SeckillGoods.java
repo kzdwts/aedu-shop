@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,25 +16,26 @@ import javax.persistence.Column;
 import javax.persistence.Table;
 
 /**
- * 
+ * 秒杀商品
+ *
  * @TableName seckill_goods
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-// MyBatisPlus表隐射注解
-@TableName(value ="seckill_goods")
+// MyBatisPlus表映射注解
+@TableName(value = "seckill_goods")
 @Table
 public class SeckillGoods implements Serializable {
     /**
-     * 
+     *
      */
     @TableId(type = IdType.ASSIGN_UUID)
     private String id;
 
     /**
      * spu ID
-     *
+     * <p>
      * 这个注解是为了直接映射
      */
     @Column(name = "spu_id")
@@ -69,16 +71,19 @@ public class SeckillGoods implements Serializable {
     /**
      * 添加日期
      */
+    @Column(name = "create_time")
     private Date createTime;
 
     /**
      * 开始时间
      */
+    @Column(name = "start_time")
     private Date startTime;
 
     /**
      * 结束时间
      */
+    @Column(name = "end_time")
     private Date endTime;
 
     /**
