@@ -48,4 +48,18 @@ public class SeckillActivityController {
         seckillActivityService.add(seckillActivity);
         return RespResult.ok();
     }
+
+    /**
+     * 更新活动
+     *
+     * @param seckillActivity {@link SeckillActivity}
+     * @return {@link RespResult}
+     * @author Kang Yong
+     * @date 2023/2/9
+     */
+    @PostMapping("/update")
+    public RespResult update(@RequestBody SeckillActivity seckillActivity) {
+        seckillActivityService.updateById(seckillActivity);
+        return RespResult.ok();
+    }
 }

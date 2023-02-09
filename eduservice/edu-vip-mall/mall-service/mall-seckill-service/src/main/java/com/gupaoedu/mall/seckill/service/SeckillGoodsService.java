@@ -22,4 +22,12 @@ public interface SeckillGoodsService extends IService<SeckillGoods> {
      */
     List<SeckillGoods> actGoods(String acid);
 
+    /**
+     * 新增商品
+     *
+     * @param seckillGoods {@link SeckillGoods}
+     * @author Kang Yong
+     * @date 2023/2/9
+     */
+    void add(SeckillGoods seckillGoods);
 }
