@@ -8,6 +8,7 @@ import com.gupaoedu.vip.mall.seckill.mode.SeckillGoods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,6 +27,12 @@ public class SeckillGoodsServiceImpl extends ServiceImpl<SeckillGoodsMapper, Sec
         return this.list(Wrappers.<SeckillGoods>lambdaQuery()
                 .eq(SeckillGoods::getActivityId, acid)
         );
+    }
+
+    @Override
+    public void add(SeckillGoods seckillGoods) {
+        seckillGoods.setCreateTime(new Date());
+        this.save(seckillGoods);
     }
 }
 

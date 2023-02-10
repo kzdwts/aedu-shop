@@ -4,10 +4,7 @@ import com.gupaoedu.mall.seckill.service.SeckillGoodsService;
 import com.gupaoedu.mall.util.RespResult;
 import com.gupaoedu.vip.mall.seckill.mode.SeckillGoods;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -49,6 +46,34 @@ public class SeckillGoodsController {
     @GetMapping("/act/{acid}")
     public RespResult<List<SeckillGoods>> actGoods(@PathVariable("acid") String acid) {
         return RespResult.ok(seckillGoodsService.actGoods(acid));
+    }
+
+    /**
+     * 新增秒杀商品
+     *
+     * @param seckillGoods {@link SeckillGoods}
+     * @return {@link RespResult}
+     * @author Kang Yong
+     * @date 2023/2/9
+     */
+    @PostMapping("/add")
+    public RespResult add(@RequestBody SeckillGoods seckillGoods) {
+        seckillGoodsService.add(seckillGoods);
+        return RespResult.ok();
+    }
+
+    /**
+     * 更新秒杀商品
+     *
+     * @param seckillGoods {@link SeckillGoods}
+     * @return {@link RespResult}
+     * @author Kang Yong
+     * @date 2023/2/9
+     */
+    @PostMapping("/update")
+    public RespResult update(@RequestBody SeckillGoods seckillGoods) {
+        seckillGoodsService.updateById(seckillGoods);
+        return RespResult.ok();
     }
 
 }
