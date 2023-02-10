@@ -108,7 +108,17 @@
   * [jdk1.8](https://www.oracle.com/java/technologies/javase-jce8-downloads.html)
   * 使用
     * 将两个算法包拷贝到jdk和jre的security目录下
-
+* [ElasticJob](https://shardingsphere.apache.org/elasticjob/current/cn/overview/) 分布式调度解决方案
+    * 功能列表
+      * 弹性调度
+        * 支持任务在分布式场景下的分片和高可用
+        * 能够水平扩展任务的吞吐量和执行效率
+        * 任务处理能力随资源配备性弹缩
+      * 资源分配
+      * 作业治理
+      * 作业依赖
+      * 作业开放生态
+      * 可视化管控端
 
 
 
