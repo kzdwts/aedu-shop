@@ -13,6 +13,7 @@
         <module>mall-order-service</module>
         <module>mall-pay-service</module>
         <module>mall-seckill-service</module>
+        <module>mall-dw-service</module>
     </modules>
     <parent>
         <artifactId>gupaoedu-vip-mall</artifactId>
