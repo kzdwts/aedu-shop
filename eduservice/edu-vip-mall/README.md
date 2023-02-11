@@ -119,6 +119,7 @@
       * 作业依赖
       * 作业开放生态
       * 可视化管控端
+* [Redisson分布式锁](https://github.com/redisson/redisson/) 
 
 
 
