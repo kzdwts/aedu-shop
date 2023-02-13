@@ -72,6 +72,9 @@
     * 独立应用脚本
     * 高性能web应用（天猫、京东都有应用） 
     * 扩展和数据库插件如：MySQL Proxy和MySQLWorkBench
+  * 本系统使用
+    * nginx缓存
+    * log_by_lua  
 * [Canal](https://github.com/alibaba/canal)    
     * 主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费
     * 工作原理
