@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @date 2023/2/5
  * @since 1.0.0
  */
-@FeignClient(value = "mall-web-page")
+@FeignClient(value = "mall-page-web")
 public interface SeckillPageFeign {
 
     /**

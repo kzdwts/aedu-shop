@@ -1,7 +1,7 @@
 package com.gupaoedu.mall.seckill.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.gupaoedu.vip.mall.seckill.mode.SeckillOrder;
+import com.gupaoedu.mall.seckill.mode.SeckillOrder;
 
 /**
  * @author KY

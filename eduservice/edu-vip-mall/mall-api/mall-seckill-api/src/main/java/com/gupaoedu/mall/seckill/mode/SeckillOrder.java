@@ -1,4 +1,4 @@
-package com.gupaoedu.vip.mall.seckill.mode;
+package com.gupaoedu.mall.seckill.mode;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

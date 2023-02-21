@@ -1,7 +1,7 @@
-package com.gupaoedu.vip.mall.seckill.feign;
+package com.gupaoedu.mall.seckill.feign;
 
+import com.gupaoedu.mall.seckill.mode.SeckillGoods;
 import com.gupaoedu.mall.util.RespResult;
-import com.gupaoedu.vip.mall.seckill.mode.SeckillGoods;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -3,7 +3,7 @@ package com.gupaoedu.mall.seckill.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gupaoedu.mall.seckill.mapper.SeckillOrderMapper;
 import com.gupaoedu.mall.seckill.service.SeckillOrderService;
-import com.gupaoedu.vip.mall.seckill.mode.SeckillOrder;
+import com.gupaoedu.mall.seckill.mode.SeckillOrder;
 import org.springframework.stereotype.Service;
 
 /**

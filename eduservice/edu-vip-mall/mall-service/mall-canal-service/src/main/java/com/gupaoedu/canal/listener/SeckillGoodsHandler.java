@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.gupaoedu.mall.page.feign.SeckillPageFeign;
 import com.gupaoedu.mall.search.feign.SeckillGoodsSearchFeign;
 import com.gupaoedu.mall.search.model.SeckillGoodsES;
-import com.gupaoedu.vip.mall.seckill.mode.SeckillGoods;
+import com.gupaoedu.mall.seckill.mode.SeckillGoods;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

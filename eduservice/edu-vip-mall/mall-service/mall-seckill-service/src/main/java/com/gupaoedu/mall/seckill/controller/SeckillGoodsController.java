@@ -2,7 +2,7 @@ package com.gupaoedu.mall.seckill.controller;
 
 import com.gupaoedu.mall.seckill.service.SeckillGoodsService;
 import com.gupaoedu.mall.util.RespResult;
-import com.gupaoedu.vip.mall.seckill.mode.SeckillGoods;
+import com.gupaoedu.mall.seckill.mode.SeckillGoods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

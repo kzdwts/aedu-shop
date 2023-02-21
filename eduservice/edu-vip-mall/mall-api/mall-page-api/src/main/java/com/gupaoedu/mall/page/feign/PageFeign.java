@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @date 2022/4/12
  * @since 1.0.0
  */
-@FeignClient(value = "mall-web-page")
+@FeignClient(value = "mall-page-web")
 public interface PageFeign {
 
     /**

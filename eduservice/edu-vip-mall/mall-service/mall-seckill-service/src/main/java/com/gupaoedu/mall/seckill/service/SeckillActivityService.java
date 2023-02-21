@@ -1,7 +1,7 @@
 package com.gupaoedu.mall.seckill.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.gupaoedu.vip.mall.seckill.mode.SeckillActivity;
+import com.gupaoedu.mall.seckill.mode.SeckillActivity;
 
 import java.util.List;
 

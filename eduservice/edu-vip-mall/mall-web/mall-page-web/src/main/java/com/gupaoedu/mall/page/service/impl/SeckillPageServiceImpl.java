@@ -2,8 +2,8 @@ package com.gupaoedu.mall.page.service.impl;
 
 import com.gupaoedu.mall.page.service.SeckillPageService;
 import com.gupaoedu.mall.util.RespResult;
-import com.gupaoedu.vip.mall.seckill.feign.SeckillGoodsFeign;
-import com.gupaoedu.vip.mall.seckill.mode.SeckillGoods;
+import com.gupaoedu.mall.seckill.feign.SeckillGoodsFeign;
+import com.gupaoedu.mall.seckill.mode.SeckillGoods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

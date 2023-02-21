@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gupaoedu.mall.seckill.mapper.SeckillGoodsMapper;
 import com.gupaoedu.mall.seckill.service.SeckillGoodsService;
-import com.gupaoedu.vip.mall.seckill.mode.SeckillGoods;
+import com.gupaoedu.mall.seckill.mode.SeckillGoods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
