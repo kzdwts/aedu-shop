@@ -1,5 +1,6 @@
 package com.gupaoedu.mall.seckill.mode;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -71,18 +72,21 @@ public class SeckillGoods implements Serializable {
     /**
      * 添加日期
      */
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "create_time")
     private Date createTime;
 
     /**
      * 开始时间
      */
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "start_time")
     private Date startTime;
 
     /**
      * 结束时间
      */
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "end_time")
     private Date endTime;
 

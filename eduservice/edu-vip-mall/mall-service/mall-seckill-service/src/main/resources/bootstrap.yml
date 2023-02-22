@@ -18,7 +18,7 @@ spring:
         server-addr: 192.168.10.131:8848
   jackson:
     time-zone: GMT+8
-    dateFormat: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd HH:mm:ss
 
 mybatis-plus:
   mapper-locations: mapper/*.xml

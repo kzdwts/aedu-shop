@@ -17,11 +17,11 @@ public interface SeckillGoodsSearchMapper extends ElasticsearchCrudRepository<Se
     /**
      * 根据 ActivityId 搜索数据
      *
-     * @param acid {@link String}
+     * @param acid {@link String} 活动id
      * @return {@link List< SeckillGoodsES>}
      * @author Kang Yong
      * @date 2023/2/4
      */
-    List<SeckillGoodsES> searchByActivityId(String acid);
+    List<SeckillGoodsES> findByActivityId(String acid);
 
 }

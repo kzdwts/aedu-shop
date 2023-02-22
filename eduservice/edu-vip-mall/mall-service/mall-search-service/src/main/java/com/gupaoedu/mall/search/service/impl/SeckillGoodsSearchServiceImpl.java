@@ -28,6 +28,6 @@ public class SeckillGoodsSearchServiceImpl implements SeckillGoodsSearchService 
 
     @Override
     public List<SeckillGoodsES> search(String acid) {
-        return this.seckillGoodsSearchMapper.searchByActivityId(acid);
+        return this.seckillGoodsSearchMapper.findByActivityId(acid);
     }
 }

@@ -33,8 +33,8 @@ public class SeckillPageServiceImpl implements SeckillPageService {
     @Autowired
     private TemplateEngine templateEngine;
 
-    @Value("${itempath}")
-    private String itempath;
+    @Value("${seckillpath}")
+    private String seckillpath;
 
     @Override
     public void html(String id) throws Exception {
@@ -46,10 +46,10 @@ public class SeckillPageServiceImpl implements SeckillPageService {
         // 设置页面数据
         context.setVariables(dataMap);
         // 文件名字 id.html
-        File dest = new File(itempath, id + ".html");
+        File dest = new File(seckillpath, id + ".html");
         PrintWriter writer = new PrintWriter(dest, "UTF-8");
         // 生成页面
-        templateEngine.process("item", context, writer);
+        templateEngine.process("seckillitem", context, writer);
     }
 
     /**
@@ -68,6 +68,7 @@ public class SeckillPageServiceImpl implements SeckillPageService {
         if (goodsResp.getData() != null) {
             Map<String, Object> dataMap = new HashMap<>();
             dataMap.put("item", goodsResp.getData());
+            dataMap.put("images", goodsResp.getData().getImages().split(","));
             return dataMap;
         }
 
@@ -91,7 +92,7 @@ public class SeckillPageServiceImpl implements SeckillPageService {
     @Override
     public void delete(String seckillGoodsId) {
         // 创建要删除的文件对象
-        File file = new File(itempath, seckillGoodsId + ".html");
+        File file = new File(seckillpath, seckillGoodsId + ".html");
         if (file.exists()) {
             file.delete();
         }
