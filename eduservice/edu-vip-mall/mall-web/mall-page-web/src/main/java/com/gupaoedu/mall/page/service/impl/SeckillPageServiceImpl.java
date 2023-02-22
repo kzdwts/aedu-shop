@@ -4,6 +4,8 @@ import com.gupaoedu.mall.page.service.SeckillPageService;
 import com.gupaoedu.mall.util.RespResult;
 import com.gupaoedu.mall.seckill.feign.SeckillGoodsFeign;
 import com.gupaoedu.mall.seckill.mode.SeckillGoods;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,7 @@ import java.util.Map;
  * @date 2023/2/5
  * @since 1.0.0
  */
+@Log4j2
 @Service
 public class SeckillPageServiceImpl implements SeckillPageService {
 
@@ -50,6 +53,7 @@ public class SeckillPageServiceImpl implements SeckillPageService {
         PrintWriter writer = new PrintWriter(dest, "UTF-8");
         // 生成页面
         templateEngine.process("seckillitem", context, writer);
+        log.info("===SeckillPageServiceImpl#html生成页面成功");
     }
 
     /**
