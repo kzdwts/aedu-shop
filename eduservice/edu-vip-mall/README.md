@@ -123,7 +123,8 @@
       * 作业开放生态
       * 可视化管控端
 * [Redisson分布式锁](https://github.com/redisson/redisson/) 
-* [Kafka](https://kafka.apache.org/)
+* [Kafka](https://kafka.apache.org/) 消息队列
+* [Apache Druid](http://www.apache-druid.cn/) 海量日志收集
 
 
 
