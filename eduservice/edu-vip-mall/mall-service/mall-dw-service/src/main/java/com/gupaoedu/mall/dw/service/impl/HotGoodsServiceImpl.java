@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gupaoedu.mall.dw.mapper.HotGoodsMapper;
 import com.gupaoedu.mall.dw.model.HotGoods;
 import com.gupaoedu.mall.dw.service.HotGoodsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * hot goods service
@@ -16,4 +19,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class HotGoodsServiceImpl extends ServiceImpl<HotGoodsMapper, HotGoods> implements HotGoodsService {
 
+    @Autowired
+    private HotGoodsMapper hotGoodsMapper;
+
+    @Override
+    public List<HotGoods> topNum(Integer size) {
+        return hotGoodsMapper.topNum(size);
+    }
 }
