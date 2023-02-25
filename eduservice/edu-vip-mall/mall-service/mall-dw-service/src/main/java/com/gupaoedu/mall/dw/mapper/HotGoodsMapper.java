@@ -2,6 +2,7 @@ package com.gupaoedu.mall.dw.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gupaoedu.mall.dw.model.HotGoods;
+import com.gupaoedu.mall.dw.util.DruidPage;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -25,5 +26,16 @@ public interface HotGoodsMapper extends BaseMapper<HotGoods> {
      */
     @Select("SELECT uri, __time AS accesstime, ip FROM mslogs LIMIT #{size}")
     List<HotGoods> topNum(Integer size);
+
+    /**
+     * 分页查询
+     *
+     * @param druidPage {@link DruidPage}
+     * @return {@link List< HotGoods>}
+     * @author Kang Yong
+     * @date 2023/2/25
+     */
+    @Select("SELECT uri, __time AS accesstime, ip FROM msglogs LIMIT #{size} offset #{offset}")
+    List<HotGoods> pageList(DruidPage druidPage);
 
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gupaoedu.mall.dw.mapper.HotGoodsMapper;
 import com.gupaoedu.mall.dw.model.HotGoods;
 import com.gupaoedu.mall.dw.service.HotGoodsService;
+import com.gupaoedu.mall.dw.util.DruidPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,18 @@ public class HotGoodsServiceImpl extends ServiceImpl<HotGoodsMapper, HotGoods> i
     @Override
     public List<HotGoods> topNum(Integer size) {
         return hotGoodsMapper.topNum(size);
+    }
+
+    @Override
+    public DruidPage<List<HotGoods>> pageList(Integer page, Integer size) {
+        // 创建分页
+        DruidPage<List<HotGoods>> pageInfo = new DruidPage<>(page, size);
+
+        // 总记录数查询
+        Integer total = hotGoodsMapper.selectCount(null);
+
+        // 聚合查询
+        List<HotGoods> hotGoods = hotGoodsMapper.pageList(pageInfo);
+        return pageInfo.pages(total, hotGoods);
     }
 }
