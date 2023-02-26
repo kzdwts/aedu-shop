@@ -40,4 +40,17 @@ public class HotGoodsServiceImpl extends ServiceImpl<HotGoodsMapper, HotGoods> i
         List<HotGoods> hotGoods = hotGoodsMapper.pageList(pageInfo);
         return pageInfo.pages(total, hotGoods);
     }
+
+    @Override
+    public DruidPage<List<HotGoods>> pageListSort(Integer page, Integer size, String sort, String sortType) {
+        // 创建分页
+        DruidPage<List<HotGoods>> pageInfo = new DruidPage<List<HotGoods>>(page, size, sort, sortType);
+
+        // 总记录数查询
+        Integer total = hotGoodsMapper.selectCount(null);
+
+        // 集合查询
+        List<HotGoods> hotGoods = hotGoodsMapper.pageListSort(pageInfo);
+        return pageInfo.pages(total, hotGoods);
+    }
 }

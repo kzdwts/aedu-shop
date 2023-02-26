@@ -69,4 +69,21 @@ public class HotGoodsController {
         return RespResult.ok(hotGoodsService.pageList(page, size));
     }
 
+    /**
+     * 分页查询
+     *
+     * @param page {@link Integer} 第几页
+     * @param size {@link Integer} 每页数量
+     * @return {@link RespResult< DruidPage< List< HotGoods>>>}
+     * @author Kang Yong
+     * @date 2023/2/25
+     */
+    @GetMapping("/{page}/{size}/{sort}/{type}")
+    public RespResult<DruidPage<List<HotGoods>>> page(@PathVariable(value = "page") Integer page,
+                                                      @PathVariable(value = "size") Integer size,
+                                                      @PathVariable(value = "sort") String sort,
+                                                      @PathVariable(value = "type") String sortType) {
+        return RespResult.ok(hotGoodsService.pageListSort(page, size, sort, sortType));
+    }
+
 }

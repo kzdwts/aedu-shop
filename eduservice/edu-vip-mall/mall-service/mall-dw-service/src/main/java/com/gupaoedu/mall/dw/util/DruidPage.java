@@ -56,7 +56,7 @@ public class DruidPage<T> {
     /**
      * 排序类型
      */
-    private Integer sortType;
+    private String sortType;
 
     /**
      * 功能: 初始化并计算偏移量
@@ -64,12 +64,12 @@ public class DruidPage<T> {
      * @param page     {@link Integer} 当前页
      * @param size     {@link Integer}每页显示条数
      * @param sort     {@link String} 排序字段
-     * @param sortType {@link Integer} 排序类型
+     * @param sortType {@link String} 排序类型
      * @return {@link null}
      * @author Kang Yong
      * @date 2023/2/25
      */
-    public DruidPage(Integer page, Integer size, String sort, Integer sortType) {
+    public DruidPage(Integer page, Integer size, String sort, String sortType) {
         this.size = size;
         this.page = page;
         this.sort = sort;

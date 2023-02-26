@@ -36,4 +36,17 @@ public interface HotGoodsService extends IService<HotGoods> {
      */
     DruidPage<List<HotGoods>> pageList(Integer page, Integer size);
 
+    /**
+     * 排序 + 分页
+     *
+     * @param page     {@link Integer} 第几页
+     * @param size     {@link Integer} 每页数量
+     * @param sort     {@link String} 排序字段
+     * @param sortType {@link String} 排序类型：desc | asc
+     * @return {@link DruidPage< List< HotGoods>>}
+     * @author Kang Yong
+     * @date 2023/2/26
+     */
+    DruidPage<List<HotGoods>> pageListSort(Integer page, Integer size, String sort, String sortType);
+
 }

@@ -38,4 +38,15 @@ public interface HotGoodsMapper extends BaseMapper<HotGoods> {
     @Select("SELECT uri, __time AS accesstime, ip FROM msglogs LIMIT #{size} offset #{offset}")
     List<HotGoods> pageList(DruidPage druidPage);
 
+    /**
+     * 排序+分页
+     *
+     * @param pageInfo {@link DruidPage< List< HotGoods>>}
+     * @return {@link List< HotGoods>}
+     * @author Kang Yong
+     * @date 2023/2/26
+     */
+    @Select("SELECT uri, __time AS accesstime, ip FROM mslogs order by ${sort} ${sortType} LIMIT #{size} offset #{offset}")
+    List<HotGoods> pageListSort(DruidPage<List<HotGoods>> pageInfo);
+
 }
