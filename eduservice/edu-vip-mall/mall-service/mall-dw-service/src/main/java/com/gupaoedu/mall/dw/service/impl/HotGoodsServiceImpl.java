@@ -53,4 +53,9 @@ public class HotGoodsServiceImpl extends ServiceImpl<HotGoodsMapper, HotGoods> i
         List<HotGoods> hotGoods = hotGoodsMapper.pageListSort(pageInfo);
         return pageInfo.pages(total, hotGoods);
     }
+
+    @Override
+    public List<HotGoods> search(Integer size, Integer hour) {
+//        return hotGoodsMapper.search(size, );
+    }
 }
