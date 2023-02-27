@@ -49,4 +49,15 @@ public interface HotGoodsService extends IService<HotGoods> {
      */
     DruidPage<List<HotGoods>> pageListSort(Integer page, Integer size, String sort, String sortType);
 
+    /**
+     * 查询历史数据
+     *
+     * @param size {@link Integer}
+     * @param hour {@link Integer}
+     * @return {@link List< HotGoods>}
+     * @author Kang Yong
+     * @date 2023/2/27
+     */
+    List<HotGoods> search(Integer size, Integer hour);
+
 }

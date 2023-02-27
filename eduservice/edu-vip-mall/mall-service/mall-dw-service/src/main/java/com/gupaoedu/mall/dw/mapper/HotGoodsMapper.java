@@ -3,6 +3,7 @@ package com.gupaoedu.mall.dw.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gupaoedu.mall.dw.model.HotGoods;
 import com.gupaoedu.mall.dw.util.DruidPage;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -48,5 +49,8 @@ public interface HotGoodsMapper extends BaseMapper<HotGoods> {
      */
     @Select("SELECT uri, __time AS accesstime, ip FROM mslogs order by ${sort} ${sortType} LIMIT #{size} offset #{offset}")
     List<HotGoods> pageListSort(DruidPage<List<HotGoods>> pageInfo);
+
+    @Select("SELECT uri, __time AS accesstime, ip FROM msglogs WHERE __time >= TIMESTAMP '${time}' LIMIT #{size}")
+    List<HotGoods> search(@Param("size") Integer size, @Param("time") String time);
 
 }
