@@ -12,12 +12,12 @@ import java.util.Date;
  */
 public class TimeUtil {
 
-    private static final String format1 = "yyyy-MM-dd HH:mm:ss";
-    private static final String format2 = "yyyy-MM-dd";
-    private static final String format3 = "yyyy年MM月dd日 HH时mm分ss秒";
-    private static final String format4 = "yyyy年MM月dd日";
-    private static final String unit_hour = "hour";
-    private static final String unit_day = "day";
+    public static final String format1 = "yyyy-MM-dd HH:mm:ss";
+    public static final String format2 = "yyyy-MM-dd";
+    public static final String format3 = "yyyy年MM月dd日 HH时mm分ss秒";
+    public static final String format4 = "yyyy年MM月dd日";
+    public static final String unit_hour = "hour";
+    public static final String unit_day = "day";
 
     /**
      * 功能: 当前时间增加n unit
