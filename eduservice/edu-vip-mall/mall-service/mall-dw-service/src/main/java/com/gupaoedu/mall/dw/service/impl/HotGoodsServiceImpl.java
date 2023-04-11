@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * hot goods service
@@ -65,6 +66,12 @@ public class HotGoodsServiceImpl extends ServiceImpl<HotGoodsMapper, HotGoods> i
     public List<HotGoods> search(Integer size, Integer hour, String[] ids) {
         String urlsJoin = StringUtils.join(ids, "','");
         return hotGoodsMapper.searchExclude(size, TimeUtil.beforeTime(TimeUtil.unit_hour, hour), urlsJoin);
+    }
+
+    @Override
+    public List<Map<String, String>> searchHootGoods(Integer size, Integer hour, String[] urls, Integer max) {
+        String urlsJoin = StringUtils.join(urls, "','");
+        return hotGoodsMapper.searchHotGoods(size, TimeUtil.beforeTime(TimeUtil.unit_hour, hour), urlsJoin, max);
     }
 
 }

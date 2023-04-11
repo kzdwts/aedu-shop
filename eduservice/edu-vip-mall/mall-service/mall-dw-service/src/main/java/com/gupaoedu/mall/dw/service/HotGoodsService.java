@@ -5,6 +5,7 @@ import com.gupaoedu.mall.dw.model.HotGoods;
 import com.gupaoedu.mall.dw.util.DruidPage;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * hot goods service
@@ -71,5 +72,18 @@ public interface HotGoodsService extends IService<HotGoods> {
      * @date 2023/4/11
      */
     List<HotGoods> search(Integer size, Integer hour, String[] ids);
+
+    /**
+     * 热门商品查询 分组、聚合判断、TopN、时间判断、排序
+     *
+     * @param size {@link Integer} 数量TopN
+     * @param hour {@link Integer} N小时前数据统计
+     * @param urls {@link String} 排除之前判断的热点商品
+     * @param max  {@link Integer} 访问频率超过max作为统计条件
+     * @return {@link List< Map< String, String>>}
+     * @author Kang Yong
+     * @date 2023/4/11
+     */
+    List<Map<String, String>> searchHootGoods(Integer size, Integer hour, String[] urls, Integer max);
 
 }

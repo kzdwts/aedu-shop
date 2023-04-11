@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Hot Goods dao
@@ -74,5 +75,22 @@ public interface HotGoodsMapper extends BaseMapper<HotGoods> {
      */
     @Select("SELECT uri, __time AS accesstime, ip FROM msglogs WHERE __time >= TIMESTAMP '${time}' AND uri NOT IN('${urls}') LIMIT #{size}")
     List<HotGoods> searchExclude(@Param("size") Integer size, @Param("time") String time, @Param("urls") String urls);
+
+    /**
+     * 热门商品查询 分组、聚合判断、TopN、时间判断、排序
+     *
+     * @param size {@link Integer} 数量
+     * @param time {@link String} 时间
+     * @param urls {@link String} 排除某些url数据
+     * @param max  {@link Integer} 访问次数（例如>10000才是热门商品）
+     * @return {@link List< Map< String, String>>}
+     * @author Kang Yong
+     * @date 2023/4/11
+     */
+    @Select("SELECT uri, count(*) AS viewCount FROM mslogs WHERE __time>=TIMESTAMP '${time}' AND uri NOT IN ('${urls}') GROUP BY uri HAVING viewCount > ${max} ORDER BY viewCount DESC LIMIT ${size}")
+    List<Map<String, String>> searchHotGoods(@Param("size") Integer size,
+                                             @Param("time") String time,
+                                             @Param("urls") String urls,
+                                             @Param("max") Integer max);
 
 }

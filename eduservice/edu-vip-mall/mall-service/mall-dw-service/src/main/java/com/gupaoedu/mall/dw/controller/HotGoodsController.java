@@ -115,5 +115,24 @@ public class HotGoodsController {
         return RespResult.ok(hotGoodsService.search(size, hour, ids));
     }
 
+    /**
+     * 热门商品查询 分组、聚合判断、TopN、时间判断、排序
+     *
+     * @param size {@link Integer} 数量TopN
+     * @param hour {@link Integer} N小时前数据统计
+     * @param max  {@link Integer} 访问频率超过max作为统计条件
+     * @param ids  {@link String[]} 排除之前判断的热点商品
+     * @return {@link RespResult< List< HotGoods>>}
+     * @author Kang Yong
+     * @date 2023/4/11
+     */
+    @PostMapping("/search/{size}/{hour}/{max}")
+    public RespResult<List<HotGoods>> searchHot(@PathVariable(value = "size") Integer size,
+                                                @PathVariable(value = "hour") Integer hour,
+                                                @PathVariable(value = "max") Integer max,
+                                                @RequestBody(required = false) String[] ids) {
+        return RespResult.ok(hotGoodsService.searchHootGoods(size, hour, ids, max));
+    }
+
 
 }
