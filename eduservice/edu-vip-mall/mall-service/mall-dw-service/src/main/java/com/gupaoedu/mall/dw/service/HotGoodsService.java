@@ -50,14 +50,26 @@ public interface HotGoodsService extends IService<HotGoods> {
     DruidPage<List<HotGoods>> pageListSort(Integer page, Integer size, String sort, String sortType);
 
     /**
-     * 查询历史数据
+     * 查询历史数据(指定时间)
      *
-     * @param size {@link Integer}
-     * @param hour {@link Integer}
+     * @param size {@link Integer} 数量
+     * @param hour {@link Integer} 时间
      * @return {@link List< HotGoods>}
      * @author Kang Yong
      * @date 2023/2/27
      */
     List<HotGoods> search(Integer size, Integer hour);
+
+    /**
+     * 查询历史数据(排除指定uri数据)
+     *
+     * @param size {@link Integer} 数量
+     * @param hour {@link Integer} 时间
+     * @param ids  {@link String[]} 需要排除的数据
+     * @return {@link List< HotGoods>}
+     * @author Kang Yong
+     * @date 2023/4/11
+     */
+    List<HotGoods> search(Integer size, Integer hour, String[] ids);
 
 }

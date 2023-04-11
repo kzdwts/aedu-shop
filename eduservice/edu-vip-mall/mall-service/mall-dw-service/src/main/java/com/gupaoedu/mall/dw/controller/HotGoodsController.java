@@ -6,10 +6,7 @@ import com.gupaoedu.mall.dw.service.HotGoodsService;
 import com.gupaoedu.mall.dw.util.DruidPage;
 import com.gupaoedu.mall.util.RespResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -85,5 +82,38 @@ public class HotGoodsController {
                                                       @PathVariable(value = "type") String sortType) {
         return RespResult.ok(hotGoodsService.pageListSort(page, size, sort, sortType));
     }
+
+    /**
+     * 指定时间的历史数据查询
+     *
+     * @param size {@link Integer} 数量
+     * @param hour {@link Integer} 时间
+     * @return {@link RespResult< List< HotGoods>>}
+     * @author Kang Yong
+     * @date 2023/4/11
+     */
+    @GetMapping("/search/{size}/{hour}")
+    public RespResult<List<HotGoods>> history(@PathVariable(value = "size") Integer size,
+                                              @PathVariable(value = "hour") Integer hour) {
+        return RespResult.ok(hotGoodsService.search(size, hour));
+    }
+
+    /**
+     * 指定时间的历史数据查询(排除指定数据)
+     *
+     * @param size {@link Integer} 数量
+     * @param hour {@link Integer} 时间
+     * @param ids  {@link String[]} 排除指定数据
+     * @return {@link RespResult< List< HotGoods>>}
+     * @author Kang Yong
+     * @date 2023/4/11
+     */
+    @PostMapping("/search/{size}/{hour}")
+    public RespResult<List<HotGoods>> history(@PathVariable(value = "size") Integer size,
+                                              @PathVariable(value = "hour") Integer hour,
+                                              @RequestBody String[] ids) {
+        return RespResult.ok(hotGoodsService.search(size, hour, ids));
+    }
+
 
 }

@@ -50,7 +50,29 @@ public interface HotGoodsMapper extends BaseMapper<HotGoods> {
     @Select("SELECT uri, __time AS accesstime, ip FROM mslogs order by ${sort} ${sortType} LIMIT #{size} offset #{offset}")
     List<HotGoods> pageListSort(DruidPage<List<HotGoods>> pageInfo);
 
+    /**
+     * 数据搜索（时间范围内）
+     *
+     * @param size {@link Integer}
+     * @param time {@link Integer}
+     * @return {@link List< HotGoods>}
+     * @author Kang Yong
+     * @date 2023/4/11
+     */
     @Select("SELECT uri, __time AS accesstime, ip FROM msglogs WHERE __time >= TIMESTAMP '${time}' LIMIT #{size}")
     List<HotGoods> search(@Param("size") Integer size, @Param("time") String time);
+
+    /**
+     * 数据搜索（排除某些数据）
+     *
+     * @param size {@link Integer} 数量
+     * @param time {@link Integer} 时间
+     * @param urls {@link String} 排除某些数据
+     * @return {@link List< HotGoods>}
+     * @author Kang Yong
+     * @date 2023/4/11
+     */
+    @Select("SELECT uri, __time AS accesstime, ip FROM msglogs WHERE __time >= TIMESTAMP '${time}' AND uri NOT IN('${urls}') LIMIT #{size}")
+    List<HotGoods> searchExclude(@Param("size") Integer size, @Param("time") String time, @Param("urls") String urls);
 
 }

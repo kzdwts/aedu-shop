@@ -6,6 +6,7 @@ import com.gupaoedu.mall.dw.model.HotGoods;
 import com.gupaoedu.mall.dw.service.HotGoodsService;
 import com.gupaoedu.mall.dw.util.DruidPage;
 import com.gupaoedu.mall.dw.util.TimeUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +59,12 @@ public class HotGoodsServiceImpl extends ServiceImpl<HotGoodsMapper, HotGoods> i
     @Override
     public List<HotGoods> search(Integer size, Integer hour) {
         return hotGoodsMapper.search(size, TimeUtil.beforeTime(TimeUtil.unit_hour, hour));
+    }
+
+    @Override
+    public List<HotGoods> search(Integer size, Integer hour, String[] ids) {
+        String urlsJoin = StringUtils.join(ids, "','");
+        return hotGoodsMapper.searchExclude(size, TimeUtil.beforeTime(TimeUtil.unit_hour, hour), urlsJoin);
     }
 
 }
