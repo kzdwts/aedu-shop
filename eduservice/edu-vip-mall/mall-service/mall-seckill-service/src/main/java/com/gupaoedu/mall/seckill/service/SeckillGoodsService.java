@@ -30,4 +30,13 @@ public interface SeckillGoodsService extends IService<SeckillGoods> {
      * @date 2023/2/9
      */
     void add(SeckillGoods seckillGoods);
+
+    /**
+     * 秒杀商品隔离（将秒杀商品信息放入redis中）
+     *
+     * @param uri {@link String}
+     * @author Kang Yong
+     * @date 2023/4/20
+     */
+    void isolation(String uri);
 }

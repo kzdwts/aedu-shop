@@ -112,6 +112,12 @@ public class SeckillGoods implements Serializable {
     @Column(name = "activity_id")
     private String activityId;
 
+    /**
+     * 锁定标识 1-锁定
+     */
+    private Integer islock;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
 }
