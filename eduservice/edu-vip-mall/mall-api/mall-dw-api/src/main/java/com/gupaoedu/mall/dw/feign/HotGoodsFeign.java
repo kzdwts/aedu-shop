@@ -1,6 +1,5 @@
 package com.gupaoedu.mall.dw.feign;
 
-import com.gupaoedu.mall.dw.model.HotGoods;
 import com.gupaoedu.mall.util.RespResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 热门商品 feign
@@ -31,8 +31,8 @@ public interface HotGoodsFeign {
      * @date 2023/4/11
      */
     @PostMapping("/hot/goods/search/{size}/{hour}/{max}")
-    RespResult<List<HotGoods>> searchHot(@PathVariable(value = "size") Integer size,
-                                         @PathVariable(value = "hour") Integer hour,
-                                         @PathVariable(value = "max") Integer max,
-                                         @RequestBody(required = false) String[] ids);
+    RespResult<List<Map<String, String>>> searchHot(@PathVariable(value = "size") Integer size,
+                                                    @PathVariable(value = "hour") Integer hour,
+                                                    @PathVariable(value = "max") Integer max,
+                                                    @RequestBody(required = false) String[] ids);
 }

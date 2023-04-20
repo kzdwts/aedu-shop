@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 热门商品
@@ -122,15 +123,15 @@ public class HotGoodsController {
      * @param hour {@link Integer} N小时前数据统计
      * @param max  {@link Integer} 访问频率超过max作为统计条件
      * @param ids  {@link String[]} 排除之前判断的热点商品
-     * @return {@link RespResult< List< HotGoods>>}
+     * @return {@link RespResult<List<Map<String, String>>>}
      * @author Kang Yong
      * @date 2023/4/11
      */
     @PostMapping("/search/{size}/{hour}/{max}")
-    public RespResult<List<HotGoods>> searchHot(@PathVariable(value = "size") Integer size,
-                                                @PathVariable(value = "hour") Integer hour,
-                                                @PathVariable(value = "max") Integer max,
-                                                @RequestBody(required = false) String[] ids) {
+    public RespResult<List<Map<String, String>>> searchHot(@PathVariable(value = "size") Integer size,
+                                                           @PathVariable(value = "hour") Integer hour,
+                                                           @PathVariable(value = "max") Integer max,
+                                                           @RequestBody(required = false) String[] ids) {
         return RespResult.ok(hotGoodsService.searchHootGoods(size, hour, ids, max));
     }
 

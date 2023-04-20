@@ -19,6 +19,21 @@ spring:
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
+  redis:
+    host: 192.168.10.131
+    port: 6379
+
+# elasticjob配置
+elasticjob:
+  zookeeper:
+    server-lists: 192.168.10.131:2181
+    namespace: hotsync
+
+# 热门搜索参数配置
+hot:
+  size: 100 # 查询条数
+  hour: 1 # N小时的数据
+  max: 1 # 每小时查询超过max次
 
 mybatis-plus:
   mapper-locations: mapper/*.xml
