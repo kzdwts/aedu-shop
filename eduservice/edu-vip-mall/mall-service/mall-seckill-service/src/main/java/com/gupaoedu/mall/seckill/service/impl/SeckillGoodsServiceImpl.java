@@ -2,6 +2,7 @@ package com.gupaoedu.mall.seckill.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.gupaoedu.mall.seckill.domain.constant.RedisKeyConstant;
 import com.gupaoedu.mall.seckill.mapper.SeckillGoodsMapper;
 import com.gupaoedu.mall.seckill.mode.SeckillGoods;
 import com.gupaoedu.mall.seckill.service.SeckillGoodsService;
@@ -55,7 +56,7 @@ public class SeckillGoodsServiceImpl extends ServiceImpl<SeckillGoodsMapper, Sec
             seckillGoods = this.seckillGoodsMapper.selectById(uri);
 
             // 库存放入缓存
-            redisTemplate.boundHashOps("HotSeckillGoods").increment(uri, seckillGoods.getStoreCount());
+            redisTemplate.boundHashOps(RedisKeyConstant.HOT_SECKILL_GOODS).increment(uri, seckillGoods.getStoreCount());
         }
     }
 }
