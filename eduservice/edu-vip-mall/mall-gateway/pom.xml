@@ -15,4 +15,8 @@
     <artifactId>mall-gateway</artifactId>
     <description>管理所有微服务网关</description>
 
+    <modules>
+        <module>mall-api-gateway</module>
+    </modules>
+
 </project>

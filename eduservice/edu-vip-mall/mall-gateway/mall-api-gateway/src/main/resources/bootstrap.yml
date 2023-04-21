@@ -1,0 +1,27 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: mall-gateway
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml
+        server-addr: 192.168.10.131:8848
+      discovery:
+        # Nacos的注册地址
+        server-addr: 192.168.10.131:8848
+    gateway:
+      routes:
+        - id: seckill_route
+          uri: lb://mall-seckill
+          predicates:
+            - Path=/mall/**
+          filters:
+            - StripPrefix=1
+
+#日志配置
+#logging:
+#  pattern:
+#    console: "%msg%n"
+
