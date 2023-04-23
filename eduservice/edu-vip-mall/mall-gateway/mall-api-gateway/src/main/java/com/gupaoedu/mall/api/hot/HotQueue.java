@@ -5,7 +5,6 @@ import com.gupaoedu.mall.domain.constant.OrderConstant;
 import com.gupaoedu.mall.domain.constant.RedisKeyConstant;
 import com.gupaoedu.mall.domain.customEnum.HotGoodsQCodeEnum;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.Message;
@@ -50,7 +49,7 @@ public class HotQueue {
         }
 
         // 避免重复排队
-        Long increment = redisTemplate.boundValueOps(OrderConstant.ORDER_QUEUE + username).increment(1);
+        Long increment = redisTemplate.boundValueOps(RedisKeyConstant.ORDER_QUEUE + username).increment(1);
         if (increment > 1) {
             // 请勿重新排队
             return HotGoodsQCodeEnum.HAS_QUEUE.getCode();

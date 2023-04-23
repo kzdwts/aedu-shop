@@ -13,4 +13,9 @@ public class RedisKeyConstant {
      * 热门商品id
      */
     public static final String HOT_SECKILL_GOODS = "HotSeckillGoods";
+
+    /**
+     * 订单队列
+     */
+    public static final String ORDER_QUEUE = "OrderQueue";
 }

@@ -12,11 +12,6 @@ public class OrderConstant {
     /**
      * 订单队列
      */
-    public static final String ORDER_QUEUE = "OrderQueue";
-
-    /**
-     * 订单队列
-     */
     public static final String order_queue = "order-queue";
 
 
