@@ -2,7 +2,7 @@ package com.gupaoedu.mall.seckill.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.gupaoedu.mall.seckill.domain.constant.RedisKeyConstant;
+import com.gupaoedu.mall.domain.constant.RedisKeyConstant;
 import com.gupaoedu.mall.seckill.mapper.SeckillGoodsMapper;
 import com.gupaoedu.mall.seckill.mode.SeckillGoods;
 import com.gupaoedu.mall.seckill.service.SeckillGoodsService;

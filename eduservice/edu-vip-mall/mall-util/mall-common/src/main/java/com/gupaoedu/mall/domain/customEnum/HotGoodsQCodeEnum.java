@@ -1,4 +1,4 @@
-package com.gupaoedu.mall.customEnum;
+package com.gupaoedu.mall.domain.customEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,11 +10,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * 订单状态枚举
- * 订单状态,
- * 0:未完成,
- * 1:已完成，
- * 2:已退货
+ * 热门商品 入队列状态code 枚举
+ * <p>
+ * 0:商品非热门
+ * 204:已经在排队中
+ * 200:排队成功
  *
  * @author Kang Yong
  * @date 2023/1/31
@@ -22,22 +22,20 @@ import java.util.stream.Collectors;
  */
 @Getter
 @AllArgsConstructor
-public enum OrderStatusCodeEnum {
+public enum HotGoodsQCodeEnum {
 
     /**
-     * 未完成
+     * 商品非热门
      */
-    UNFINISHED(0, "未完成"),
-
+    NOT_HOT(0, "商品非热门"),
     /**
-     * 已完成
+     * 已经在排队中
      */
-    FINISHED(1, "已完成"),
-
+    HAS_QUEUE(204, "已经在排队中"),
     /**
-     * 已退货
+     * 排队成功
      */
-    RETURNED(2, "已退货"),
+    QUEUE_ING(200, "排队成功"),
 
     ;
 
@@ -49,19 +47,19 @@ public enum OrderStatusCodeEnum {
      * 枚举转成map
      * <p>
      * k: code
-     * v: OrderStatusCodeEnum
+     * v: HotGoodsQCodeEnum
      */
-    private static final Map<Integer, OrderStatusCodeEnum> map = Arrays.stream(values()).collect(Collectors.toMap(OrderStatusCodeEnum::getCode, Function.identity()));
+    private static final Map<Integer, HotGoodsQCodeEnum> map = Arrays.stream(values()).collect(Collectors.toMap(HotGoodsQCodeEnum::getCode, Function.identity()));
 
     /**
      * 功能: 根据code获取枚举对象
      *
      * @param code {@link Integer}
-     * @return {@link OrderStatusCodeEnum}
+     * @return {@link HotGoodsQCodeEnum}
      * @author Kang Yong
      * @date 2023/1/30
      */
-    public static OrderStatusCodeEnum getEnumByCode(Integer code) {
+    public static HotGoodsQCodeEnum getEnumByCode(Integer code) {
         return Optional.ofNullable(map.get(code)).orElse(null);
     }
 

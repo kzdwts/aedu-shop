@@ -47,6 +47,13 @@
             <artifactId>rocketmq-spring-boot-starter</artifactId>
             <version>2.0.2</version>
         </dependency>
+
+        <!--mall-common-->
+        <dependency>
+            <groupId>com.gupaoedu</groupId>
+            <artifactId>mall-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

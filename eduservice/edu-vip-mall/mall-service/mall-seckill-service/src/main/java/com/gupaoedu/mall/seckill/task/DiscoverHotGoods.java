@@ -5,7 +5,7 @@ import com.dangdang.ddframe.job.api.simple.SimpleJob;
 import com.dangdang.elasticjob.lite.annotation.ElasticSimpleJob;
 import com.gupaoedu.mall.dw.feign.HotGoodsFeign;
 import com.gupaoedu.mall.seckill.config.properties.HotProperties;
-import com.gupaoedu.mall.seckill.domain.constant.RedisKeyConstant;
+import com.gupaoedu.mall.domain.constant.RedisKeyConstant;
 import com.gupaoedu.mall.seckill.service.SeckillGoodsService;
 import com.gupaoedu.mall.util.RespResult;
 import org.springframework.beans.factory.annotation.Autowired;

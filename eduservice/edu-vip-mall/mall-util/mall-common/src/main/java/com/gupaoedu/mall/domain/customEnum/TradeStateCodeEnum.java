@@ -1,4 +1,4 @@
-package com.gupaoedu.mall.customEnum;
+package com.gupaoedu.mall.domain.customEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

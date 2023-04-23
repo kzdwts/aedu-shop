@@ -1,4 +1,4 @@
-package com.gupaoedu.mall.seckill.domain.constant;
+package com.gupaoedu.mall.domain.constant;
 
 /**
  * redis key 前缀 常量
