@@ -29,6 +29,9 @@ elasticjob:
     server-lists: 192.168.10.131:2181
     namespace: hotsync
 
+# mq
+rocketmq:
+  name-server: 192.168.10.131:9876
 # 热门搜索参数配置
 hot:
   size: 100 # 查询条数
