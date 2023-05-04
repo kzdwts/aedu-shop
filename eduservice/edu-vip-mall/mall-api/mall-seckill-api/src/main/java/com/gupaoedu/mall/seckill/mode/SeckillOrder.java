@@ -35,9 +35,14 @@ public class SeckillOrder implements Serializable {
     private String seckillGoodsId;
 
     /**
+     * 商品数量
+     */
+    private Integer num;
+
+    /**
      * 支付金额
      */
-    private Integer money;
+    private Double money;
 
     /**
      * 用户
