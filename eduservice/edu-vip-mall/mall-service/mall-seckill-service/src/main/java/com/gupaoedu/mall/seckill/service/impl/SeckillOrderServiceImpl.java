@@ -9,6 +9,8 @@ import com.gupaoedu.mall.seckill.mode.SeckillGoods;
 import com.gupaoedu.mall.seckill.service.SeckillOrderService;
 import com.gupaoedu.mall.seckill.mode.SeckillOrder;
 import org.omg.CORBA.PUBLIC_MEMBER;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -34,10 +36,13 @@ public class SeckillOrderServiceImpl extends ServiceImpl<SeckillOrderMapper, Sec
     private SeckillOrderMapper seckillOrderMapper;
 
     @Autowired
+    private SeckillGoodsMapper seckillGoodsMapper;
+
+    @Autowired
     private RedisTemplate redisTemplate;
 
     @Autowired
-    private SeckillGoodsMapper seckillGoodsMapper;
+    private RedissonClient redissonClient;
 
     @Override
     public int add(Map<String, Object> dataMap) {
@@ -46,43 +51,53 @@ public class SeckillOrderServiceImpl extends ServiceImpl<SeckillOrderMapper, Sec
         String id = dataMap.get("id").toString();
         Integer num = Integer.valueOf(dataMap.get("num").toString());
 
-        // 库存
-        Object storeCount = redisTemplate.boundHashOps(RedisKeyConstant.HOT_SECKILL_GOODS).get(id);
-        if (Objects.isNull(storeCount) || Integer.valueOf(storeCount.toString()) < num) {
+        // 获取锁
+        RLock lock = redissonClient.getLock(id);
+        lock.lock();
+        try {
+
+            // 库存
+            Object storeCount = redisTemplate.boundHashOps(RedisKeyConstant.HOT_SECKILL_GOODS).get(id);
+            if (Objects.isNull(storeCount) || Integer.valueOf(storeCount.toString()) < num) {
+                // 移除排队标识
+                redisTemplate.delete(RedisKeyConstant.ORDER_QUEUE + username);
+                // 库存不足
+                return STORE_NOT_FULL;
+            }
+
+            // 查询商品信息
+            SeckillGoods seckillGoods = seckillGoodsMapper.selectById(id);
+
+            // 添加订单
+            SeckillOrder seckillOrder = new SeckillOrder();
+            seckillOrder.setUsername(username);
+            seckillOrder.setSeckillGoodsId(id);
+            seckillOrder.setMoney(seckillGoods.getSeckillPrice() * num);
+            seckillOrder.setCreateTime(new Date());
+            seckillOrder.setNum(num);
+            seckillOrder.setStatus(OrderStatusCodeEnum.UNFINISHED.getCode());
+            seckillOrderMapper.insert(seckillOrder);
+
+            // 库存递减
+            Long lastStoreCount = redisTemplate.boundHashOps(RedisKeyConstant.HOT_SECKILL_GOODS).increment(id, -num);
+            if (lastStoreCount == 0) {
+                // 将数据同步到数据库
+                seckillGoods = new SeckillGoods();
+                seckillGoods.setId(id);
+                seckillGoods.setStoreCount(0);
+                // TODO 将当前商品添加到Redis布隆过滤器，用户下次抢购该商品，去布隆过滤器中判断该商品是否在布隆过滤器中，如果在，则表名售罄
+                seckillGoodsMapper.updateById(seckillGoods);
+                // 删除redis缓存
+                redisTemplate.boundHashOps(RedisKeyConstant.HOT_SECKILL_GOODS).delete(id);
+            }
+
             // 移除排队标识
             redisTemplate.delete(RedisKeyConstant.ORDER_QUEUE + username);
-            // 库存不足
-            return STORE_NOT_FULL;
+
+            lock.unlock();
+        } catch (NumberFormatException e) {
+            lock.unlock();
         }
-
-        // 查询商品信息
-        SeckillGoods seckillGoods = seckillGoodsMapper.selectById(id);
-
-        // 添加订单
-        SeckillOrder seckillOrder = new SeckillOrder();
-        seckillOrder.setUsername(username);
-        seckillOrder.setSeckillGoodsId(id);
-        seckillOrder.setMoney(seckillGoods.getSeckillPrice() * num);
-        seckillOrder.setCreateTime(new Date());
-        seckillOrder.setNum(num);
-        seckillOrder.setStatus(OrderStatusCodeEnum.UNFINISHED.getCode());
-        seckillOrderMapper.insert(seckillOrder);
-
-        // 库存递减
-        Long lastStoreCount = redisTemplate.boundHashOps(RedisKeyConstant.HOT_SECKILL_GOODS).increment(id, -num);
-        if (lastStoreCount == 0) {
-            // 将数据同步到数据库
-            seckillGoods = new SeckillGoods();
-            seckillGoods.setId(id);
-            seckillGoods.setStoreCount(0);
-            // TODO 将当前商品添加到Redis布隆过滤器，用户下次抢购该商品，去布隆过滤器中判断该商品是否在布隆过滤器中，如果在，则表名售罄
-            seckillGoodsMapper.updateById(seckillGoods);
-            // 删除redis缓存
-            redisTemplate.boundHashOps(RedisKeyConstant.HOT_SECKILL_GOODS).delete(id);
-        }
-
-        // 移除排队标识
-        redisTemplate.delete(RedisKeyConstant.ORDER_QUEUE + username);
 
         return STORE_FULL_ORDER_SUCCESS;
     }
